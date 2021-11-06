@@ -15,5 +15,3 @@ class BaseDeclarative(models.Model):
     payment_history = fields.One2many('payment.history','payment_root_id',readonly=True)
     customer_complaints = fields.One2many('customer.complaints','complaints_root_id',readonly=True)
 
-# Command to use When inheriting and adding new field to res.partners
-# python odoo-bin -r Eko@plexada -w 10111011qwe --conf odoo.conf -u ibedc_contacts
