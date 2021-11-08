@@ -1,0 +1,68 @@
+<!-- This xml file hides all unwanted fields in the contact form -->
+<odoo>
+
+    <record id="res_partner_meter_no" model="ir.ui.view">
+
+            <field name="name">res.partner.view.meter_no</field>
+
+            <field name="model">res.partner</field>
+
+            <field name="inherit_id" ref="base.view_partner_form" /> 
+
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='website']" position="after">
+
+                   <field name="account_no"/>
+
+                </xpath>
+
+                <xpath expr="//field[@name='account_no']" position="after">
+
+                   <field name="last_vending"/>
+
+                </xpath>
+
+                <xpath expr="//field[@name='last_vending']" position="after">
+
+                   <field name="last_vend_amount"/>
+
+                </xpath>
+
+                <xpath expr="//field[@name='last_vend_amount']" position="after">
+
+                   <field name="account_type"/>
+
+                </xpath>
+                
+
+                <!-- Hide Tax ID  -->
+                <xpath expr="//field[@name='vat']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <!-- Website link  -->
+                <xpath expr="//field[@name='website']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <!-- Hide Tags  -->
+                <xpath expr="//field[@name='category_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <!-- Hide contact & addresses -->
+                <xpath expr="//notebook/page[1]" position="attributes">
+                    <attribute name="invisible">True</attribute>
+			    </xpath>
+                <!-- Hide sales and purchase -->
+                <xpath expr="//notebook/page[2]" position="attributes">
+                    <attribute name="invisible">True</attribute>
+			    </xpath>
+                <!-- Invoicing -->
+                <xpath expr="//notebook/page[3]" position="attributes">
+                    <attribute name="invisible">True</attribute>
+			    </xpath>
+
+            </field>
+
+        </record>
+
+</odoo>
