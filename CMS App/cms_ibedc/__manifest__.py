@@ -11,7 +11,6 @@ You can track your vendors, customers and other contacts.
 """,
     'depends': ['base', 'mail'],
     'data': [
-        'views/zcontact_views.xml',
         'views/billing_history.xml',
         'views/complaints_history.xml',
         'views/payment_history.xml',
