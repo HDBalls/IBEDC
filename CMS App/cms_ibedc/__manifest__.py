@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name': 'Ibedc Contacts',
+    'name': 'IBEDC Contacts',
     'category': 'Sales/CRM',
     'sequence': -100,
     'summary': 'Centralize your address book',
