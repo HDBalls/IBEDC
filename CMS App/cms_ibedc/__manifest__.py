@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name': 'Ibedc Contacts',
+    'name': 'IBEDC Contacts',
     'category': 'Sales/CRM',
     'sequence': -100,
     'summary': 'Centralize your address book',
@@ -11,7 +11,6 @@ You can track your vendors, customers and other contacts.
 """,
     'depends': ['base', 'mail'],
     'data': [
-        'views/zcontact_views.xml',
         'views/billing_history.xml',
         'views/complaints_history.xml',
         'views/payment_history.xml',
