@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_billing_history,access.billing.history,model_billing_history,,1,1,1,1
+access_customer_complaints,access.customer.complaints,model_customer_complaints,,1,1,1,1
+access_payment_history,access.payment.history,model_payment_history,,1,1,1,1

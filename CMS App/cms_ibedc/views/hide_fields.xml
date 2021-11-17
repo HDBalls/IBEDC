@@ -57,9 +57,12 @@
                     <attribute name="invisible">True</attribute>
 			    </xpath>
                 <!-- Invoicing -->
-                <xpath expr="//notebook/page[3]" position="attributes">
+                <!-- <xpath expr="//notebook/page[3]" position="attributes">
                     <attribute name="invisible">True</attribute>
-			    </xpath>
+			    </xpath> -->
+                <xpath expr="//notebook/page[7]" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
 
             </field>
 
