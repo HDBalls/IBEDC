@@ -11,6 +11,8 @@
 
             <field name="arch" type="xml">
 
+              
+
                 <xpath expr="//field[@name='website']" position="after">
 
                    <field name="account_no"/>
@@ -18,6 +20,12 @@
                 </xpath>
 
                 <xpath expr="//field[@name='account_no']" position="after">
+
+                   <field name="meter_number"/>
+
+                </xpath>
+
+                <xpath expr="//field[@name='meter_number']" position="after">
 
                    <field name="last_vending"/>
 
@@ -60,9 +68,14 @@
                 <xpath expr="//notebook/page[3]" position="attributes">
                     <attribute name="invisible">True</attribute>
 			    </xpath>
+               
+
+                
 
             </field>
 
-        </record>
+           
 
+        </record>
+        
 </odoo>
