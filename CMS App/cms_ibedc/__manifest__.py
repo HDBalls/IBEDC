@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name': 'UContacts',
+    'name': 'IBEDC Contacts',
     'category': 'Sales/CRM',
     'sequence': -100,
     'summary': 'Centralize your address book',
@@ -10,11 +10,7 @@ This module gives you a quick view of your contacts directory, accessible from y
 You can track your vendors, customers and other contacts.
 """,
     'depends': ['base', 'mail','web'],
-    "qweb":['static/src/xml/hidemenu.xml',
-            'static/src/xml/loginpage.xml'
-            ],
     'data': [
-        
         'data/add_states.xml',
         'views/contact_views.xml',
         'views/billing_history.xml',
@@ -24,6 +20,9 @@ You can track your vendors, customers and other contacts.
         'security/security.xml'
         
     ],
+    "qweb":['static/src/xml/hidemenu.xml',
+            'static/src/xml/loginpage.xml'
+            ],
     
     
     'application': True,
