@@ -11,6 +11,33 @@
 
             <field name="arch" type="xml">
 
+
+    
+               <!-- <xpath expr="//field[@name='street']" position="before">
+               
+                
+                   <field name="firstname" placeholder="First name"/>
+                
+               
+                </xpath>
+
+                <xpath expr="//field[@name='firstname']" position="after">
+                   
+                    
+                   <field name="lastname" placeholder="Last name"/>
+                    
+                   
+                </xpath>
+
+                <xpath expr="//field[@name='lastname']" position="after">
+               
+                   
+                   <field name="other_name" placeholder="Other name"/>
+                    
+                   
+                </xpath> -->
+         
+
                 <xpath expr="//field[@name='website']" position="after">
 
                    <field name="account_no"/>
@@ -18,6 +45,12 @@
                 </xpath>
 
                 <xpath expr="//field[@name='account_no']" position="after">
+
+                   <field name="meter_number"/>
+
+                </xpath>
+
+                <xpath expr="//field[@name='meter_number']" position="after">
 
                    <field name="last_vending"/>
 
@@ -57,14 +90,17 @@
                     <attribute name="invisible">True</attribute>
 			    </xpath>
                 <!-- Invoicing -->
-                
-		
-		<xpath expr="//notebook/page[7]" position="attributes">
+                <xpath expr="//notebook/page[3]" position="attributes">
                     <attribute name="invisible">True</attribute>
 			    </xpath>
+               
+
+                
 
             </field>
 
-        </record>
+           
 
+        </record>
+        
 </odoo>

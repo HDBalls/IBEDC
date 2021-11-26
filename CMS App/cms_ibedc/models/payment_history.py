@@ -10,6 +10,6 @@ class PaymentHistory(models.Model):
     initiation_date = fields.Date(string='Initiation date',required=True)
     confirmation_date = fields.Date(string='Confirmation date',required=True)
     transaction_id = fields.Integer(string='Transaction ID',required=True)
-    transaction_refr = fields.Integer(string='Transaction ref',required=True)#Char
+    transaction_refr = fields.Char(string='Transaction ref',required=True)#Char
     amount = fields.Integer(string='Amount',required=True)
     units_consumed = fields.Integer(string='Units consumed',required=True)
