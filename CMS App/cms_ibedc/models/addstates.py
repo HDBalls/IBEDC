@@ -27,7 +27,7 @@ class product(models.Model):
    			# print("Reading data from res.country.state.csv ==>\n ",data)
 			self._cr.execute("""select id from res_country where code='NG';""")
 			countryid = self._cr.fetchall()
-			query = """select * from res_country_state where country_id=%d;"""%(countryid[0])
+			query = """select * from res_country_state where country_id=%d;"""%(countryid[0][0])
 			self._cr.execute(query)
 			result=self._cr.fetchall()
    
@@ -35,13 +35,13 @@ class product(models.Model):
 				print("States are complete")
 			else:
 				print("Incomplete or no Nigerian state found ",len(result), result)
-				query = """delete from res_country_state where country_id=%d;"""%(countryid[0])
+				#query = """delete from res_country_state where country_id=%d;"""%(countryid[0])
 
-				self._cr.execute(query)
+				#self._cr.execute(query)
 				for i in range(0,len(data)):
 					timestamp = datetime.datetime.now()
 	 				
-					self._cr.execute("""INSERT INTO res_country_state (country_id,name, code,create_uid,create_date,write_uid,write_date) VALUES ('%d','%s','%s','%d','%s','%d','%s')"""%(163,data[i][2],data[i][3],1,timestamp,1,timestamp))
+					self._cr.execute("""INSERT INTO res_country_state (country_id,name, code,create_uid,create_date,write_uid,write_date) VALUES ('%d','%s','%s','%d','%s','%d','%s')"""%(countryid[0][0],data[i][2],data[i][3],1,timestamp,1,timestamp))
 				print("Nigerian states were added")
 		except Exception as e:
 			print("AN ERROR OCCURED WHILE ADDING STATES TO RES.COUNTRY.STATES ",e)
@@ -95,46 +95,13 @@ class RestrictDropdown(models.Model):
 			view_id=view_id, view_type=view_type,
 			toolbar=toolbar, submenu=submenu)
 		if view_type != 'search' and self.env.uid != 1:
-			# Check if user is in group that allow creation
+			# Check if user is in group that allow creation of contacts
 			has_my_group = self.env.user.has_group('contacts.developers_group')
-			print("=====================================================================================================================================================================", view_type, self.env.uid,has_my_group)
+			print("======> ", view_type, self.env.uid,has_my_group)
 
 			if has_my_group==False:
-				print("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000")
+				
 				root = etree.fromstring(res['arch'])
 				root.set('create', 'false')
 				res['arch'] = etree.tostring(root)
 		return res
-
-
-	# from lxml import etree
-
-	# def fields_view_get(self, cr, uid, view_id=None, view_type='tree',
-
-	#     context=None, toolbar=False, submenu=False):
-
-	#     if context is None:context = {}
-
-	#     res = super(class_name, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type,
-
-	#                 context=context, toolbar=toolbar, submenu=False)
-
-	#     group_id = self.pool.get('res.users').has_group(cr, uid, 'modulename.group_xml_id')
-
-	#     doc = etree.XML(res['arch'])
-
-	#     if group_id:
-
-	#         if view_type == 'tree':
-
-	#             nodes = doc.xpath("//tree[@string='Test Tree']")
-
-	#             for node in nodes:
-
-	#                 node.set('create', '0')
-
-	#             res['arch'] = etree.tostring(doc)
-
-	#     return res
-
-

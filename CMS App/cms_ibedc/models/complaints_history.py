@@ -14,4 +14,3 @@ class Complaints(models.Model):
     address = fields.Char(string='Address',required=True)
     status = fields.Char(string='Status',required=True)
     date_created = fields.Date(string='Date Created',required=True)
-    

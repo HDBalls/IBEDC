@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!-- This xml file hides all unwanted fields in the contact form -->
 <odoo>
 
@@ -67,6 +68,7 @@
                    <field name="account_type"/>
 
                 </xpath>
+
                 
 
                 <!-- Hide Tax ID  -->
@@ -91,7 +93,7 @@
 			    </xpath>
                 <!-- Invoicing -->
                 <xpath expr="//notebook/page[3]" position="attributes">
-                    <attribute name="invisible">True</attribute>
+                    <attribute name="invisible">False</attribute>
 			    </xpath>
                
 
