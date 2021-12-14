@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="customer_assets_form" model="ir.ui.view">
+            <field name="name">customer.assetss</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type = "xml">
+                 <notebook position="inside">
+
+                        <page name = "customer_profile" string="Assets">
+                            <group>
+                                    <field name = "dummy_asset"/>
+                            </group>
+                        </page>
+                  </notebook>
+            </field>   
+    </record>
+</odoo>

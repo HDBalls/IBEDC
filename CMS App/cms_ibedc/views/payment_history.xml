@@ -1,4 +1,4 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     
     <record id="payment_history_tree" model="ir.ui.view">
@@ -14,11 +14,14 @@
                         <tree editable="bottom">
                             
                             <field name = "initiation_date"/>
+                            <field name = "timestamp"/>
                             <field name = "confirmation_date"/>
-                            <field name = "amount"/>
                             <field name = "units_consumed"/>
                             <field name = "transaction_id"/>
                             <field name = "transaction_refr"/>
+                            <field name = "tx_message"/>
+                            <field name = "gross_amount"/>
+                            <field name = "net_amount"/>
                         </tree>
                         </field>
                     </page>
