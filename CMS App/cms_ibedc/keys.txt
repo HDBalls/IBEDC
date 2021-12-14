@@ -1,0 +1,66 @@
+python odoo-bin -r Eko@plexada -w 10111011qwe --conf odoo.conf -u cms_ibedc_nerc
+
+odoo sign up: https://stackoverflow.com/questions/66085627/odoo-14-how-i-can-add-additional-fields-in-signup-like-address-etc
+
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="customer_profile_form" model="ir.ui.view">
+            <field name="name">customer.profile.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type = "xml">
+                 <xpath expr="//notebook/page[3]" position="before">
+
+                     <page name = "customer_profile" string="Customer Profile">
+
+                        <!-- <field name="res_partner"> -->
+                        <sheet>
+                            <form>
+                                <group string="Property Type">
+                                    <field name="property_type" widget='radio' options="{'horizontal': true}"/>
+                                    <!-- <br></br> -->
+                                    <field name = "lname" attrs="{'invisible': [('property_type','=', 'tenant')]}"/>
+                                    <field name = "lphone" attrs="{'invisible': [('property_type','=', 'tenant')]}"/>
+                                    <field name = "tname" attrs="{'invisible': [('property_type','=', 'landlord')]}"/>       
+                                    <field name = "tphone" attrs="{'invisible': [('property_type','=', 'landlord')]}"/> 
+                                    
+                                </group>
+
+                                <div class="o_row">
+
+                                    <group name="meter" string="Meter">
+                                        <field name="meter_type"/>
+                                        <field name="meter_oem"/>
+                                        <field name="meter_model"/>
+                                        <!-- <field name="meter_number"/> -->
+                                    </group>
+
+                                    <group name="tariff" string="Tariff">
+                                        <field name="tarrif_category"/>
+                                        <field name="tarrif_class"/>
+                                        <field name="tarrif_rate"/>
+                                    </group>
+
+                                </div>
+
+                                <div class="o_row">
+                            
+                                    <group name="balances" string="Balances">
+                                        <field name="bal_energy"/>
+                                        <field name="bal_cash"/> 
+                                    </group>
+
+                                    <group name="others" string="Other Details">
+                                        <field name="CIN"/>
+                                        <field name="is_metered"/>
+                                        <field name="is_prepaid"/>  
+                                    </group>
+                                </div>
+                                
+                            </form>
+                        </sheet>
+                     </page>
+                </xpath>
+            </field>   
+    </record>
+</odoo>

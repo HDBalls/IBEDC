@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="billing_history_tree" model="ir.ui.view">
+            <field name="name">billing.history.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type = "xml">
+                 <xpath expr="//notebook/page[@name='internal_notes']" position="before">
+                 <!-- <xpath expr="//notebook/page[@string='Billing History']/timesheet_ids/tree/field[@name='internal_notes']" position="after"> -->
+                    <page string="Billing History">
+
+                        <field name="billing_history">
+                            <tree editable="bottom">
+                                
+                                <field name = "bill_id"/>
+                                <field name = "tarrif_name"/>
+                                <field name = "period"/>       
+                                <field name = "total_amount"/>
+                                <field name = "total_usage"/>
+                                <field name = "billing_purpose"/>
+                            </tree>
+                        </field>      
+                    </page>
+                  </xpath>
+            </field>   
+    </record>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template id="login"  name="Custom Login" >
+    <t t-extend="web.login">
+        <t t-jquery='button[@id="login"]' t-operation='after'>
+            <div class="form-group field-contact-no"> 
+                <label for="contact_no">Contact No</label> 
+                <input type="text" placeholder="Contact No" name="contact_no" t-att-value="contact_no" id="contact_no" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off"/> 
+            </div> 
+        </t>
+    </t>
+</template>
+

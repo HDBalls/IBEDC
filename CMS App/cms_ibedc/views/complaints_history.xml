@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="customer_complaints_tree" model="ir.ui.view">
+            <field name="name">customer.complaints.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type = "xml">
+            
+                 <xpath expr="//notebook/page[@name='internal_notes']" position="before">
+                 <!-- <xpath expr="//notebook/page[@string='payment History']/timesheet_ids/tree/field[@name='internal_notes']" position="after"> -->
+                    <page string="Customer Complaints">
+                    <field name="customer_complaints">
+                        <tree editable="bottom">
+                            <field name = "ticket_id"/>
+                            <field name = "category"/>
+                            <field name = "sub_category"/>
+                            <field name = "summary"/>
+                            <field name = "description"/>
+                            <field name = "address"/>
+                            <field name = "status"/>
+                            <field name = "date_created"/>
+                        </tree>
+                        </field>
+                    </page>
+                    
+                </xpath>
+               
+            </field>
+
+    </record>
+
+</odoo>
