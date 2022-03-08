@@ -6,10 +6,9 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type = "xml">
                  <notebook position="inside">
-
                         <page name = "customer_profile" string="Assets">
                             <group>
-                                    <field name = "dummy_asset"/>
+                                <field name = "dummy_asset"/>
                             </group>
                         </page>
                   </notebook>

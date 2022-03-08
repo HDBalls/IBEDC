@@ -13,27 +13,19 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='website']" position="after">
-
                    <field name="account_no"/>
-
                 </xpath>
 
                 <xpath expr="//field[@name='account_no']" position="after">
-
                    <field name="last_vending"/>
-
                 </xpath>
 
                 <xpath expr="//field[@name='last_vending']" position="after">
-
                    <field name="last_vend_amount"/>
-
                 </xpath>
 
                 <xpath expr="//field[@name='last_vend_amount']" position="after">
-
                    <field name="account_type"/>
-
                 </xpath>
                 
 
@@ -57,15 +49,11 @@
                 <xpath expr="//notebook/page[2]" position="attributes">
                     <attribute name="invisible">True</attribute>
 			    </xpath>
-                <!-- Invoicing -->
-                
-		
-		<xpath expr="//notebook/page[7]" position="attributes">
+                <!-- Invoicing -->	
+		        <xpath expr="//notebook/page[7]" position="attributes">
                     <attribute name="invisible">True</attribute>
 			    </xpath>
 
             </field>
-
         </record>
-
 </odoo>
