@@ -112,9 +112,9 @@ class RenamePartnerAssignment(models.Model):
 			doc = etree.XML(result['arch'])
 			# PartnerAssignment = doc.xpath("//page[@string='Billing History']") #geo_location Test tab name replacement
 			PartnerAssignment = doc.xpath("//page[@string='Partner Assignment']") #geo_location Partner Assignment
-			print("\n\n\n\nSwapping ", PartnerAssignment[0].text)
+			print("Swapping ", PartnerAssignment[0].text)
 			if PartnerAssignment:
-				print("\n\n\n\nSwapping ", True)
+				print("Swapping ", True)
 				PartnerAssignment[0].set("string", "Geolocation")
 				# PartnerAssignment[0].addnext(etree.Element('label', {'string': 'Billing History'}))
 				result['arch'] = etree.tostring(doc, encoding='unicode')
