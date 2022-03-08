@@ -6,12 +6,9 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type = "xml">
                  <xpath expr="//notebook/page[@name='internal_notes']" position="before">
-                 <!-- <xpath expr="//notebook/page[@string='Billing History']/timesheet_ids/tree/field[@name='internal_notes']" position="after"> -->
-                    <page string="Billing History">
-
+                    <page name='bill_hist' string="Billing History" >
                         <field name="billing_history">
                             <tree editable="bottom">
-                                
                                 <field name = "bill_id"/>
                                 <field name = "tarrif_name"/>
                                 <field name = "period"/>       

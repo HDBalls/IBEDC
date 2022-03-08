@@ -1,7 +1,7 @@
 import json,os
 my_path = os.path.abspath(os.path.dirname(__file__))
 my_path = my_path.replace("\\", "/")
-# print("Path to config file =============> ",my_path)
+
 try:
     def configload(args):
         with open(my_path+'/config.json') as json_file:
@@ -13,4 +13,4 @@ try:
             return results
         
 except Exception as e:
-    print("Error occured ",e)
+    print("\n===> Error occured while loading config.json ",e)

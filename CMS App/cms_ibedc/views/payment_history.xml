@@ -2,17 +2,14 @@
 <odoo>
     
     <record id="payment_history_tree" model="ir.ui.view">
-            <field name="name">payment.history.tree</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name="arch" type = "xml">
-            
-                 <xpath expr="//notebook/page[@name='internal_notes']" position="before">
-                 <!-- <xpath expr="//notebook/page[@string='payment History']/timesheet_ids/tree/field[@name='internal_notes']" position="after"> -->
-                    <page string="Payment History">
+        <field name="name">payment.history.tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type = "xml">
+                <xpath expr="//notebook/page[@name='internal_notes']" position="before">
+                <page string="Payment History">
                     <field name="payment_history">
                         <tree editable="bottom">
-                            
                             <field name = "initiation_date"/>
                             <field name = "timestamp"/>
                             <field name = "confirmation_date"/>
@@ -23,13 +20,9 @@
                             <field name = "gross_amount"/>
                             <field name = "net_amount"/>
                         </tree>
-                        </field>
-                    </page>
-                      
-                </xpath>
-               
-            </field>
-        
+                    </field>
+                </page>
+            </xpath>
+        </field>
     </record>
-
 </odoo>

@@ -1,3 +1,7 @@
+python odoo-bin -r Eko@plexada -w 10111011qwe --conf odoo.conf -u cms_ibedc_nerc
+
+odoo sign up: https://stackoverflow.com/questions/66085627/odoo-14-how-i-can-add-additional-fields-in-signup-like-address-etc
+
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="customer_profile_form" model="ir.ui.view">
@@ -6,7 +10,10 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type = "xml">
                  <xpath expr="//notebook/page[3]" position="before">
+
                      <page name = "customer_profile" string="Customer Profile">
+
+                        <!-- <field name="res_partner"> -->
                         <sheet>
                             <form>
                                 <group string="Property Type">
@@ -37,6 +44,7 @@
                                 </div>
 
                                 <div class="o_row">
+                            
                                     <group name="balances" string="Balances">
                                         <field name="bal_energy"/>
                                         <field name="bal_cash"/> 

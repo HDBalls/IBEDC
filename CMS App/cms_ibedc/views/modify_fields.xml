@@ -125,23 +125,6 @@
                    <field name="account_type"/>
 
                 </xpath>
-                <!-- <xpath expr="//field[@name='account_type']" position="after">
-
-                   <field name="CIN"/>
-               
-                </xpath> 
-
-                <xpath expr="//field[@name='CIN']" position="after">
-
-                   <field name="is_metered"/>
-               
-                </xpath>
-
-                <xpath expr="//field[@name='is_metered']" position="after">
-
-                   <field name="is_prepaid"/>
-               
-                </xpath> -->
 
                 <xpath expr="//field[@widget='phone']/.." position="after">
 
@@ -154,12 +137,6 @@
                    <field name="accountID"/>
                                        
                 </xpath> 
-
-                <!-- <xpath expr="//field[@name='phone']" position="before">
-                  <field name="discoName" />
-               </xpath> -->
-
-                
 
                 <!-- Hide Tax ID  -->
                 <xpath expr="//field[@name='vat']" position="attributes">
@@ -185,13 +162,8 @@
                 <xpath expr="//notebook/page[3]" position="attributes">
                     <attribute name="invisible">False</attribute>
 			    </xpath>
-               
-
-                
-
+            
             </field>
-
-           
 
         </record>
         

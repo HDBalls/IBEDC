@@ -27,7 +27,7 @@ class product(models.Model):
 			self._cr.execute("""select id from res_country where code='NG';""")
 			countryid = self._cr.fetchall()
 			query = """select * from res_country_state where country_id=%d;"""%(countryid[0][0])
-			print("===================================================================================================> ",countryid[0][0])
+			print("=====> ",countryid[0][0])
 			self._cr.execute(query)
 			result=self._cr.fetchall()
 			if (len(result) == len(data)):
@@ -99,3 +99,30 @@ class RestrictDropdown(models.Model):
 				root.set('create', 'false')
 				res['arch'] = etree.tostring(root)
 		return res
+
+
+class RenamePartnerAssignment(models.Model):
+	
+	_inherit = 'res.partner'
+ 
+	@api.model
+	def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
+		result = super(RenamePartnerAssignment, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
+		if view_type == 'form':
+			doc = etree.XML(result['arch'])
+			# PartnerAssignment = doc.xpath("//page[@string='Billing History']") #geo_location Test tab name replacement
+			PartnerAssignment = doc.xpath("//page[@string='Partner Assignment']") #geo_location Partner Assignment
+			print("Swapping ", PartnerAssignment[0].text)
+			if PartnerAssignment:
+				print("Swapping ", True)
+				PartnerAssignment[0].set("string", "Geolocation")
+				# PartnerAssignment[0].addnext(etree.Element('label', {'string': 'Billing History'}))
+				result['arch'] = etree.tostring(doc, encoding='unicode')
+				# Swapping  ['__bool__', '__class__', '__contains__', '__copy__', '__deepcopy__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', 
+				# '__getattribute__', '__getitem__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__ne__', '__new__', '__reduce__', 
+				# '__reduce_ex__', '__repr__', '__reversed__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', '_init', 'addnext', 'addprevious', 'append', 
+				# 'attrib', 'base', 'clear', 'cssselect', 'extend', 'find', 'findall', 'findtext', 'get', 'getchildren', 'getiterator', 'getnext', 'getparent', 'getprevious', 'getroottree',
+				# 'index', 'insert', 'items', 'iter', 'iterancestors', 'iterchildren', 'iterdescendants', 
+				# 'iterfind', 'itersiblings', 'itertext', 'keys', 'makeelement', 'nsmap', 'prefix', 'remove', 'replace', 'set', 'sourceline', 'tag', 'tail', 'text', 'values', 'xpath']
+
+		return result
