@@ -1,6 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This xml file hides all unwanted fields in the contact form -->
 <odoo>
+    
+
+   <record id="res_partner_tree_meter_no" model="ir.ui.view">
+
+            <field name="name">res.partner.treeview.meter_no</field>
+
+            <field name="model">res.partner</field>
+
+            <field name="inherit_id" ref="base.view_partner_tree" /> 
+
+            <field name="arch" type="xml">  
+               <xpath
+                     expr="//field[@name='country_id']" position="after">
+                     <field name="property_type" optional="hide"/>
+               </xpath>
+
+               <xpath
+                     expr="//field[@name='property_type']" position="after">
+                     <field name="lname" optional="hide"/>
+               </xpath>
+
+               <xpath
+                     expr="//field[@name='lname']" position="after">
+                     <field name="lphone" optional="hide"/>
+               </xpath>
+
+               <xpath
+                     expr="//field[@name='lphone']" position="after">
+                     <field name="tname" optional="hide"/>
+               </xpath>
+
+               <xpath
+                     expr="//field[@name='tname']" position="after">
+                     <field name="meter_type" optional="hide"/>
+               </xpath>
+
+               <xpath
+                     expr="//field[@name='meter_type']" position="after">
+                     <field name="meter_oem" optional="hide"/>
+               </xpath>
+
+               <xpath
+                     expr="//field[@name='meter_oem']" position="after">
+                     <field name="meter_model" optional="hide"/>
+               </xpath>
+
+               <xpath
+                     expr="//field[@name='meter_model']" position="after">
+                     <field name="meter_number" optional="hide"/>
+               </xpath>
+
+                     <!-- <field name="l_phone" optional="hide"/>
+                     <field name="t_name" optional="hide"/>
+                     <field name="t_phone" optional="hide"/> -->
+               
+            </field>
+
+
+   </record>
 
     <record id="res_partner_meter_no" model="ir.ui.view">
 
@@ -9,7 +68,7 @@
             <field name="model">res.partner</field>
 
             <field name="inherit_id" ref="base.view_partner_form" /> 
-
+               
             <field name="arch" type="xml">       
                   
 <!-- 
