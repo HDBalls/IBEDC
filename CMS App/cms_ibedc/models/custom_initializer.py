@@ -118,11 +118,19 @@ class RenamePartnerAssignment(models.Model):
 				PartnerAssignment[0].set("string", "Geolocation")
 				# PartnerAssignment[0].addnext(etree.Element('label', {'string': 'Billing History'}))
 				result['arch'] = etree.tostring(doc, encoding='unicode')
-				# Swapping  ['__bool__', '__class__', '__contains__', '__copy__', '__deepcopy__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', 
-				# '__getattribute__', '__getitem__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__ne__', '__new__', '__reduce__', 
-				# '__reduce_ex__', '__repr__', '__reversed__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', '_init', 'addnext', 'addprevious', 'append', 
-				# 'attrib', 'base', 'clear', 'cssselect', 'extend', 'find', 'findall', 'findtext', 'get', 'getchildren', 'getiterator', 'getnext', 'getparent', 'getprevious', 'getroottree',
-				# 'index', 'insert', 'items', 'iter', 'iterancestors', 'iterchildren', 'iterdescendants', 
-				# 'iterfind', 'itersiblings', 'itertext', 'keys', 'makeelement', 'nsmap', 'prefix', 'remove', 'replace', 'set', 'sourceline', 'tag', 'tail', 'text', 'values', 'xpath']
-
+				
+		if view_type == 'tree':
+			doc = etree.XML(result['arch'])
+			Customerheader = doc.xpath("//tree[@string='Contacts']") #geo_location Test tab name replacement
+			# PartnerAssignment = doc.xpath("//page[@string='Partner Assignment']") #geo_location Partner Assignment
+			print("Swapping contacts header ", (type(Customerheader[0])))
+			if Customerheader:
+				print("Swapping contacts header ", True)
+    
+				Customerheader[0].set("string", "Customers")
+				# PartnerAssignment[0].addnext(etree.Element('label', {'string': 'Billing History'}))
+				result['arch'] = etree.tostring(doc, encoding='unicode')
 		return result
+
+		
+    
