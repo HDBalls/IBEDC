@@ -12,6 +12,8 @@
             <field name="inherit_id" ref="base.view_partner_tree" /> 
 
             <field name="arch" type="xml">  
+
+               
                <xpath
                      expr="//field[@name='country_id']" position="after">
                      <field name="property_type" optional="hide"/>
@@ -52,13 +54,62 @@
                      <field name="meter_number" optional="hide"/>
                </xpath>
 
-                     <!-- <field name="l_phone" optional="hide"/>
-                     <field name="t_name" optional="hide"/>
-                     <field name="t_phone" optional="hide"/> -->
-               
+               <xpath
+                     expr="//field[@name='meter_number']" position="after">
+                     <field name="tarrif_category" optional="hide"/>
+               </xpath>
+
+               <xpath
+                     expr="//field[@name='tarrif_category']" position="after">
+                     <field name="tarrif_class" optional="hide"/>
+               </xpath>
+
+               <xpath
+                     expr="//field[@name='tarrif_class']" position="after">
+                     <field name="tarrif_rate" optional="hide"/>
+               </xpath>
+
+               <xpath
+                     expr="//field[@name='tarrif_rate']" position="after">
+                     <field name="CIN" optional="hide"/>
+               </xpath>
+
+               <xpath
+                     expr="//field[@name='CIN']" position="after">
+                     <field name="bal_energy" optional="hide"/>
+               </xpath>
+
+               <xpath
+                     expr="//field[@name='bal_energy']" position="after">
+                     <field name="bal_cash" optional="hide"/>
+               </xpath>
+
+               <xpath
+                     expr="//field[@name='bal_cash']" position="after">
+                     <field name="is_metered" optional="hide"/>
+               </xpath>
+
+               <xpath
+                     expr="//field[@name='is_metered']" position="after">
+                     <field name="is_prepaid" optional="hide"/>
+               </xpath>
+       
             </field>
 
 
+   </record>
+   
+   <record model="ir.ui.menu" id="menu_contacts">
+       <field name="name">Customers</field>
+       
+   </record>
+   
+   <record model="ir.ui.menu" id="res_partner_menu_contacts">
+       <field name="name">Customers</field>
+   </record>
+
+   <record id="action_contacts" model="ir.actions.act_window">
+        <field name="name">Customers</field>
    </record>
 
     <record id="res_partner_meter_no" model="ir.ui.view">
@@ -70,90 +121,6 @@
             <field name="inherit_id" ref="base.view_partner_form" /> 
                
             <field name="arch" type="xml">       
-                  
-<!-- 
-                  <xpath expr="//group[2]" position="after">
-               
-                         <group name="landlord" string="Landlord">
-                            <field name="lname"/>
-                            <field name="lphone"/>
-                        </group>
-
-                  </xpath>
-
-                  <xpath expr="//group[@name='landlord']" position="after">
-               
-                         <group name="tenant" string="Tenant">
-                            <field name="tname"/>
-                            <field name="tphone"/>
-                        </group>
-
-                  </xpath>
-
-                  <xpath expr="//group[@name='tenant']" position="after">
-               
-                         <group name="meter" string="Meter">
-                            <field name="meter_type"/>
-                            <field name="meter_oem"/>
-                            <field name="meter_model"/>
-                            <field name="meter_number"/>
-                             
-                        </group>
-
-                  </xpath>
-    
-                  <xpath expr="//group[@name='meter']" position="after">
-               
-                         <group name="tariff" string="Tariff">
-                            <field name="tarrif_category"/>
-                            <field name="tarrif_class"/>
-                            <field name="tarrif_rate"/>
-                        </group>
-
-                  </xpath>
-
-                  <xpath expr="//group[@name='tariff']" position="after">
-               
-                         <group name="balances" string="Balances">
-                            <field name="bal_energy"/>
-                            <field name="bal_cash"/>
-                            
-                        </group>
-
-                  </xpath> -->
- 
-                  <!-- <xpath expr="//group[@name='first']" position="after">
-                        <group name="first" string="Category Test">
-                		
-            	 -->
-
-
-    
-               <!-- <xpath expr="//field[@name='street']" position="before">
-               
-                
-                   <field name="firstname" placeholder="First name"/>
-                
-               
-                </xpath>
-
-                <xpath expr="//field[@name='firstname']" position="after">
-                   
-                    
-                   <field name="lastname" attrs="{'invisible': [('is_company', '=', True)]}/>
-                    
-                   
-                </xpath>
-
-                <xpath expr="//field[@name='lastname']" position="after">
-               
-                   
-                   <field name="other_name" placeholder="Other name"/>
-                    
-                   
-                </xpath> -->
-
-          
               
                 <xpath expr="//field[@name='website']" position="after">
 

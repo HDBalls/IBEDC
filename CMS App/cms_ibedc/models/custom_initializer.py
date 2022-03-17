@@ -110,25 +110,22 @@ class RenamePartnerAssignment(models.Model):
 		result = super(RenamePartnerAssignment, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
 		if view_type == 'form':
 			doc = etree.XML(result['arch'])
-			# PartnerAssignment = doc.xpath("//page[@string='Billing History']") #geo_location Test tab name replacement
+			# PartnerAssignment = doc.xpath("//page[@string='Billing History']") #geo_location Test tab name replacement (development only)
 			PartnerAssignment = doc.xpath("//page[@string='Partner Assignment']") #geo_location Partner Assignment
 			print("Swapping ", PartnerAssignment[0].text)
 			if PartnerAssignment:
 				print("Swapping ", True)
 				PartnerAssignment[0].set("string", "Geolocation")
-				# PartnerAssignment[0].addnext(etree.Element('label', {'string': 'Billing History'}))
 				result['arch'] = etree.tostring(doc, encoding='unicode')
 				
 		if view_type == 'tree':
 			doc = etree.XML(result['arch'])
 			Customerheader = doc.xpath("//tree[@string='Contacts']") #geo_location Test tab name replacement
-			# PartnerAssignment = doc.xpath("//page[@string='Partner Assignment']") #geo_location Partner Assignment
-			print("Swapping contacts header ", (type(Customerheader[0])))
+			
 			if Customerheader:
-				print("Swapping contacts header ", True)
+				print("Swapping contacts header ", Customerheader[0].text)
     
 				Customerheader[0].set("string", "Customers")
-				# PartnerAssignment[0].addnext(etree.Element('label', {'string': 'Billing History'}))
 				result['arch'] = etree.tostring(doc, encoding='unicode')
 		return result
 
