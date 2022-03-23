@@ -6,7 +6,7 @@
     </record>
 
     <record id="baseusers_group" model="res.groups">
-        <field name = "name">Baseusers</field>
+        <field name = "name">Base Users</field>
     </record>
 
     <record id="ibedcadminusers_group" model="res.groups">
