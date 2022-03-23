@@ -111,13 +111,14 @@ class RenamePartnerAssignment(models.Model):
                 result = super(RenamePartnerAssignment, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
                 if view_type == 'form':
                         doc = etree.XML(result['arch'])
-                        # PartnerAssignment = doc.xpath("//page[@string='Billing History']") #geo_location Test tab name replacement (development only)
-                        PartnerAssignment = doc.xpath("//page[@string='Partner Assignment']") #geo_location Partner Assignment (Live only)
+                        PartnerAssignment = doc.xpath("//page[@string='Sales & Purchase']") #geo_location Test tab name replacement (development only)
+                        # PartnerAssignment = doc.xpath("//page[@string='Partner Assignment']") #geo_location Partner Assignment (Live only)
                         print("Swapping ", PartnerAssignment[0].text)
                         if PartnerAssignment:
                                 PartnerAssignment[0].set("string", "Geolocation")
                                 result['arch'] = etree.tostring(doc, encoding='unicode')
                                 
+
                 if view_type == 'tree':
                         doc = etree.XML(result['arch'])
                         Customerheader = doc.xpath("//tree[@string='Contacts']") 
