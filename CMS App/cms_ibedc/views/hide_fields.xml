@@ -46,9 +46,11 @@
                     <attribute name="invisible">True</attribute>
 			    </xpath>
                 <!-- Hide sales and purchase -->
-                <xpath expr="//notebook/page[2]" position="attributes">
+                
+                <!-- <xpath expr="//notebook/page[2]" position="attributes">
                     <attribute name="invisible">True</attribute>
-			    </xpath>
+			    </xpath> -->
+
                 <!-- Invoicing -->	
 		        <xpath expr="//notebook/page[7]" position="attributes">
                     <attribute name="invisible">True</attribute>
