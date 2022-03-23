@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <record id="developers_group" model="res.groups">
         <field name = "name">Developers</field>
     </record>
+
+    <record id="baseusers_group" model="res.groups">
+        <field name = "name">Baseusers</field>
+    </record>
+
+    <record id="ibedcadminusers_group" model="res.groups">
+        <field name = "name">Ibedc Admin</field>
+    </record>
+
 </odoo>
