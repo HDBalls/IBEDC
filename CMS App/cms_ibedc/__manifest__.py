@@ -16,7 +16,7 @@
             'static/src/xml/loginpage.xml'
             ],
     'data': [
-            'security/ir.model.access.csv',
+        #     'security/ir.model.access.csv',
             'data/add_states.xml',
             'views/contact_views.xml',
             'views/billing_history.xml',
