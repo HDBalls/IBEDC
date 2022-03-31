@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="geo_coords" model="ir.ui.view">
+            <field name="name">geocoords</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type = "xml">
+                 <xpath expr="//notebook/page[@name='internal_notes']" position="before">
+                    <page name='geo_coordinates' string="Geolocation" >
+                        <sheet>
+                            <form>
+                                <group string="Geolocation Coordinates">
+                                    <field name = "geo_coordinates"/> 
+                                </group>
+                            </form>
+                        </sheet>
+                    </page>
+                  </xpath>
+            </field>   
+    </record>
+</odoo>

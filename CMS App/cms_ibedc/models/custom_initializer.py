@@ -109,14 +109,14 @@ class RenamePartnerAssignment(models.Model):
         @api.model
         def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
                 result = super(RenamePartnerAssignment, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
-                if view_type == 'form':
-                        doc = etree.XML(result['arch'])
-                        PartnerAssignment = doc.xpath("//page[@string='Sales & Purchase']") #geo_location Test tab name replacement (development only)
-                        # PartnerAssignment = doc.xpath("//page[@string='Partner Assignment']") #geo_location Partner Assignment (Live only)
-                        print("Swapping ", PartnerAssignment[0].text)
-                        if PartnerAssignment:
-                                PartnerAssignment[0].set("string", "Geolocation")
-                                result['arch'] = etree.tostring(doc, encoding='unicode')
+                # if view_type == 'form':
+                #         doc = etree.XML(result['arch'])
+                #         PartnerAssignment = doc.xpath("//page[@string='Sales & Purchase']") #geo_location Test tab name replacement (development only)
+                #         # PartnerAssignment = doc.xpath("//page[@string='Partner Assignment']") #geo_location Partner Assignment (Live only)
+                #         print("Swapping ", PartnerAssignment[0].text)
+                #         if PartnerAssignment:
+                #                 PartnerAssignment[0].set("string", "Geolocation")
+                #                 result['arch'] = etree.tostring(doc, encoding='unicode')
                                 
 
                 if view_type == 'tree':
@@ -139,7 +139,7 @@ class NonAdminHideSettings(models.Model):
         
         @api.model
         def _hider(self):
-            print("\n\n\n\n\n\n\The choices ",NonAdminHideSettings.choices)
+            print("The choices ",NonAdminHideSettings.choices)
             return NonAdminHideSettings.choices
 
         @api.model
@@ -153,7 +153,7 @@ class NonAdminHideSettings(models.Model):
                         doc = etree.XML(result['arch'])
                         hide = doc.xpath("//tree[@string='Contacts']") 
                         NonAdminHideSettings.choices+=[("settings","Settings")]
-                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n=====================> Hider function ",hide)
+                        print("=====================> Hider function ",hide)
                         if view_type == 'form':
                                 NonAdminHideSettings.hideflag = False
                         result['arch'] = etree.tostring(doc, encoding='unicode')
