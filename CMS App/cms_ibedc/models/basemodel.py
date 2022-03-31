@@ -34,4 +34,5 @@ class BaseDeclarative(models.Model):
     payment_history = fields.One2many('payment.history','payment_root_id')
     customer_complaints = fields.One2many('customer.complaints','complaints_root_id')
     property_type = fields.Selection([('landlord', 'Landlord'), ('tenant', 'Tenant')], default='landlord')
+    geo_coordinates = fields.Char(string='Geolocation Coordinates')
     dummy_asset = fields.Char(string='Dummy Asset')
