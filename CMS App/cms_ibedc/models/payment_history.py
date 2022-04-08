@@ -6,13 +6,15 @@ from odoo import api, models, modules,fields, models
     
 class PaymentHistory(models.Model):
     _name = 'payment.history'
-    payment_root_id = fields.Many2one('res.partner')
-    timestamp = fields.Date(string='Timestamp',required=True)
-    initiation_date = fields.Date(string='Initiation Date',required=True)
-    confirmation_date = fields.Date(string='Confirmation Date',required=True)
-    transaction_id = fields.Char(string='Transaction ID',required=True)
-    transaction_refr = fields.Char(string='Transaction Ref',required=True)
-    tx_message = fields.Text(string='Status Message',required=True)#Char
-    gross_amount = fields.Integer(string='Gross Amount',required=True)
-    net_amount = fields.Integer(string='Net Amount',required=True)
-    units_consumed = fields.Integer(string='Units Consumed',required=True)
+    payment_root_id = fields.Many2one('res.partner',ondelete='cascade')
+    payment_id = fields.Char(string='Payment ID')
+    transaction_id = fields.Char(string='Transaction ID')
+    timestamp = fields.Char(string='Timestamp')
+    initiation_date = fields.Char(string='Initiation Date')
+    confirmation_date = fields.Char(string='Confirmation Date') #Should be Date field too, dirty data caused the change
+    transaction_refr = fields.Char(string='Transaction Ref')
+    tx_message = fields.Text(string='Status Message')#Char
+    gross_amount = fields.Float(string='Gross Amount')
+    net_amount = fields.Float(string='Net Amount')
+    units_consumed = fields.Float(string='Units Consumed')
+    _sql_constraints = [('transaction_id_unique','unique(transaction_id)','Transaction ID already exists')]
