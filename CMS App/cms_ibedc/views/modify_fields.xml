@@ -30,6 +30,7 @@
             <field name="arch" type="xml">  
 
                
+
                <xpath
                      expr="//field[@name='country_id']" position="after">
                      <field name="property_type" optional="hide"/>
@@ -109,6 +110,16 @@
                      expr="//field[@name='is_metered']" position="after">
                      <field name="is_prepaid" optional="hide"/>
                </xpath>
+
+               <xpath
+                     expr="//field[@name='is_prepaid']" position="after">
+                     <field name="discoName" optional="hide"/>
+               </xpath>
+
+               <xpath
+                     expr="//field[@name='discoName']" position="after">
+                     <field name="mobile" optional="hide"/>
+               </xpath>
        
             </field>
 
@@ -137,7 +148,6 @@
             <field name="inherit_id" ref="base.view_partner_form" /> 
                
             <field name="arch" type="xml">       
-              
                 <xpath expr="//field[@name='website']" position="after">
 
                    <field name="account_no"/>
@@ -168,17 +178,21 @@
 
                 </xpath>
 
-                <xpath expr="//field[@widget='phone']/.." position="after">
+                <!-- <xpath expr="//field[@widget='phone']/.." position="after">
 
                      <field name="discoName"/>
   
-                </xpath>
+                </xpath> -->
 
-                <xpath expr="//field[@name='discoName']" position="after">
+                <xpath expr="//field[@name='phone']" position="after">
                    
                    <field name="accountID"/>
                                        
                 </xpath> 
+
+                <xpath expr="//field[@name='phone']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
                 
 
                 <!-- Hide Tax ID  -->
@@ -207,6 +221,22 @@
                 <xpath expr="//notebook/page[3]" position="attributes">
                     <attribute name="invisible">False</attribute>
 		    </xpath>
+
+                
+                <xpath expr="//field[@name='accountID']" position="after">
+                <form  id="test_form">
+                    <sheet>
+                        <group>
+                               <button type = "object" name= "importdata" string = "Import billing history" class = "oe_highlight"/>
+                        </group>
+                        <group>
+                               <button type = "object" name= "importpaymenthistory" string = "Import payment history" class = "oe_highlight"/>
+                        </group>
+                    </sheet>
+                </form>
+		    </xpath>
+
+                
             
             </field>
 

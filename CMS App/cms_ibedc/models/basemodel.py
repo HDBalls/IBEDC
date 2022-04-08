@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 # This model Inherits from the Users Model
 
+from email.policy import default
 from odoo import api, models, modules,fields, models
 
 class BaseDeclarative(models.Model):
     _inherit = 'res.partner'
-
+    _rec_name = 'account_no'
+    
     account_no = fields.Char(string='Account Number')
     last_vending = fields.Date(string='Last Vend Date')
     last_vend_amount = fields.Char(string='Last Vend Amount')
     account_type = fields.Char(string='Account Type')
-    discoName = fields.Char(string='Disco')
+    discoName = fields.Char(string='Disco',default='IBEDC')
     accountID = fields.Char(string='Account ID')
     creation_date = fields.Char(string='Creation Date')
     has_tenant = fields.Char(string='Has Tenant')

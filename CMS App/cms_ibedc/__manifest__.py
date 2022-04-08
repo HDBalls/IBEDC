@@ -17,7 +17,7 @@
             ],
     'data': [
         #     'security/ir.model.access.csv',
-            'data/add_states.xml',
+            # 'data/add_states.xml',
             'views/contact_views.xml',
             'views/billing_history.xml',
             'views/complaints_history.xml',

@@ -6,8 +6,9 @@ from lxml import etree
 my_path = os.path.abspath(os.path.dirname(__file__))
 my_path = my_path.replace("\\", "/")
 my_path = my_path.rsplit('/', 1)[0]
-config = list()
-
+print("path",my_path)
+config = list()          
+                
 try:
         config = loadconfig.configload(["states_csv_path","local"])
 except Exception as e:
@@ -15,6 +16,50 @@ except Exception as e:
         
 path = my_path + config[0]
 country = config[1]
+
+class DataImporter(models.Model):
+      _inherit = 'res.partner'
+      
+      def importdata(self):
+        with open(my_path+'/demo-cms-record-billing.csv') as f:
+                reader = csv.DictReader(f, delimiter=',')
+                for row in reader:
+                        print(row['Bill_id/id'])  # Access by column header instead of column number
+                        print(row['AcctTye'])
+                        print(row['AccountNo'])
+                        print(row['TariffCode'])
+                        print(row['ConsumptionKWH'])
+                        print(row['DueDate'])
+                        print(row['NetArrears'])
+                        query = """select id from res_partner where account_no='%s';"""%(row['AccountNo'])
+                        self._cr.execute(query)
+                        result=self._cr.fetchall()
+                        timestamp = datetime.datetime.now()
+                        print(f"\n\n\n\n\n\nThe customer primary key id with account number {row['AccountNo']}",result[0][0])
+                        self._cr.execute("""INSERT INTO billing_history (bill_root_id,bill_id,tarrif_name,period,total_usage,total_amount,create_uid,create_date,write_uid,write_date)\n
+                                         VALUES ('%d','%s','%s','%s','%s','%s','%d','%s','%d','%s')"""%(int(result[0][0]),row['Bill_id/id'],row['TariffCode'],row['DueDate'],row['ConsumptionKWH'],row['NetArrears'],1,timestamp,1,timestamp))
+
+        
+      def importpaymenthistory(self):
+        with open(my_path+'/demo-cms-record-payments.csv') as f:
+                reader = csv.DictReader(f, delimiter=',')
+                for row in reader:
+                        print(row['PaymentID'])# transacton ref # Access by column header instead of column number
+                        print(row['PayDate'])
+                        print(row['AccountNo'])
+                        print(row['ProcessedDate'])
+                        print(row['PaymentTransactionId'])
+                        print(row['receiptnumber'])
+                        print(row['Payments'])
+                        query = """select id from res_partner where account_no='%s';"""%(row['AccountNo'])
+                        self._cr.execute(query)
+                        result=self._cr.fetchall()
+                        timestamp = datetime.datetime.now()
+                        print(f"\n\n\n\n\n\nThe customer primary key id with account number {row['AccountNo']}",result[0][0])
+                        print("payment_root_id,payment_id,transaction_id,timestamp,initiation_date,confirmation_date,transaction_refr,tx_message,gross_amount,net_amount,units_consumed,create_uid,create_date,write_uid,write_date")
+                        print((int(result[0][0]),row['PaymentID'],row['PaymentTransactionId'],str(timestamp),str(row['PayDate']),str(row['ProcessedDate']),str(row['receiptnumber']),"No message description",row['Payments'],0.00,0.00,1,timestamp,1,timestamp))
+                        self._cr.execute("""INSERT INTO payment_history (payment_root_id,payment_id,transaction_id,timestamp,initiation_date,confirmation_date,transaction_refr,tx_message,gross_amount,net_amount,units_consumed,create_uid,create_date,write_uid,write_date)\n
+                                        VALUES ('%d','%s','%s','%s','%s','%s','%s','%s','%d' ,'%d','%d','%d','%s','%d','%s')"""%(int(result[0][0]),row['PaymentID'],row['PaymentTransactionId'],str(timestamp),str(row['PayDate']),str(row['ProcessedDate']),str(row['receiptnumber']),"No message description",float(row['Payments']),0.00,0.00,1,timestamp,1,timestamp))
 
 
 class product(models.Model):
@@ -69,8 +114,9 @@ class RestrictDropdown(models.Model):
                 country_list=[]
                 country_model = self.env['res.partner'].search([('country_id','=',''+country)])
                 
-                for each in country_model:
-                        country_list.append(each.country_id.id)
+                # for each in country_model:
+                country_model = country_model[0]
+                country_list.append(country_model.country_id.id)
                 if country_list:
                         domain =[('id', 'in',country_list)]
                         return domain
@@ -92,9 +138,10 @@ class RestrictDropdown(models.Model):
                 if view_type != 'search' and self.env.uid != 1:
                         # Check if user is in group that allow creation of contacts
                         has_my_group = self.env.user.has_group('cms_ibedc.developers_group')
-                        print("======> ", view_type, self.env.uid,has_my_group,self.env.user)
+                        has_my_groupibedc = self.env.user.has_group('cms_ibedc.ibedcadminusers_group')
+                        print("======> ", view_type, self.env.uid,has_my_group,self.env.user) 
 
-                        if has_my_group==False: # Hide contacts creation button for users not in developers group
+                        if has_my_group==False and has_my_groupibedc==False: # Hide contacts creation button for users not in developers group
                                 
                                 root = etree.fromstring(res['arch'])
                                 root.set('create', 'false')
@@ -109,16 +156,15 @@ class RenamePartnerAssignment(models.Model):
         @api.model
         def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
                 result = super(RenamePartnerAssignment, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu)
-                # if view_type == 'form':
-                #         doc = etree.XML(result['arch'])
-                #         PartnerAssignment = doc.xpath("//page[@string='Sales & Purchase']") #geo_location Test tab name replacement (development only)
-                #         # PartnerAssignment = doc.xpath("//page[@string='Partner Assignment']") #geo_location Partner Assignment (Live only)
-                #         print("Swapping ", PartnerAssignment[0].text)
-                #         if PartnerAssignment:
-                #                 PartnerAssignment[0].set("string", "Geolocation")
-                #                 result['arch'] = etree.tostring(doc, encoding='unicode')
+                if view_type == 'form':
+                        doc = etree.XML(result['arch'])
+                        PartnerAssignment = doc.xpath("//page[@string='Sales & Purchase']") #geo_location Test tab name replacement (development only)
+                        # PartnerAssignment = doc.xpath("//page[@string='Partner Assignment']") #geo_location Partner Assignment (Live only)
+                        print("Swapping ", PartnerAssignment[0].text)
+                        if PartnerAssignment:
+                                PartnerAssignment[0].set("string", "Geolocation")
+                                result['arch'] = etree.tostring(doc, encoding='unicode')
                                 
-
                 if view_type == 'tree':
                         doc = etree.XML(result['arch'])
                         Customerheader = doc.xpath("//tree[@string='Contacts']") 
@@ -128,7 +174,6 @@ class RenamePartnerAssignment(models.Model):
                                 Customerheader[0].set("string", "Customers")
                                 result['arch'] = etree.tostring(doc, encoding='unicode')
                 return result
-
 
 
 class NonAdminHideSettings(models.Model):
