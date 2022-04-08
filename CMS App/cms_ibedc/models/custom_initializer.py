@@ -35,7 +35,7 @@ class DataImporter(models.Model):
                         self._cr.execute(query)
                         result=self._cr.fetchall()
                         timestamp = datetime.datetime.now()
-                        print(f"\n\n\n\n\n\nThe customer primary key id with account number {row['AccountNo']}",result[0][0])
+                        print(f"The customer primary key id with account number {row['AccountNo']}",result[0][0])
                         self._cr.execute("""INSERT INTO billing_history (bill_root_id,bill_id,tarrif_name,period,total_usage,total_amount,create_uid,create_date,write_uid,write_date)\n
                                          VALUES ('%d','%s','%s','%s','%s','%s','%d','%s','%d','%s')"""%(int(result[0][0]),row['Bill_id/id'],row['TariffCode'],row['DueDate'],row['ConsumptionKWH'],row['NetArrears'],1,timestamp,1,timestamp))
 
@@ -55,7 +55,7 @@ class DataImporter(models.Model):
                         self._cr.execute(query)
                         result=self._cr.fetchall()
                         timestamp = datetime.datetime.now()
-                        print(f"\n\n\n\n\n\nThe customer primary key id with account number {row['AccountNo']}",result[0][0])
+                        print(f"The customer primary key id with account number {row['AccountNo']}",result[0][0])
                         print("payment_root_id,payment_id,transaction_id,timestamp,initiation_date,confirmation_date,transaction_refr,tx_message,gross_amount,net_amount,units_consumed,create_uid,create_date,write_uid,write_date")
                         print((int(result[0][0]),row['PaymentID'],row['PaymentTransactionId'],str(timestamp),str(row['PayDate']),str(row['ProcessedDate']),str(row['receiptnumber']),"No message description",row['Payments'],0.00,0.00,1,timestamp,1,timestamp))
                         self._cr.execute("""INSERT INTO payment_history (payment_root_id,payment_id,transaction_id,timestamp,initiation_date,confirmation_date,transaction_refr,tx_message,gross_amount,net_amount,units_consumed,create_uid,create_date,write_uid,write_date)\n
