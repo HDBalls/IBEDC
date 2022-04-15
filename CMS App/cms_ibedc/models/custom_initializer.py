@@ -31,14 +31,16 @@ class DataImporter(models.Model):
                         print(row['ConsumptionKWH'])
                         print(row['DueDate'])
                         print(row['NetArrears'])
-                        query = """select id from res_partner where account_no='%s';"""%(row['AccountNo'])
-                        self._cr.execute(query)
-                        result=self._cr.fetchall()
-                        timestamp = datetime.datetime.now()
-                        print(f"The customer primary key id with account number {row['AccountNo']}",result[0][0])
-                        self._cr.execute("""INSERT INTO billing_history (bill_root_id,bill_id,tarrif_name,period,total_usage,total_amount,create_uid,create_date,write_uid,write_date)\n
-                                         VALUES ('%d','%s','%s','%s','%s','%s','%d','%s','%d','%s')"""%(int(result[0][0]),row['Bill_id/id'],row['TariffCode'],row['DueDate'],row['ConsumptionKWH'],row['NetArrears'],1,timestamp,1,timestamp))
-
+                        try:
+                                query = """select id from res_partner where account_no='%s';"""%(row['AccountNo'])
+                                self._cr.execute(query)
+                                result=self._cr.fetchall()
+                                timestamp = datetime.datetime.now()
+                                print(f"\n\n\n\n\n\nThe customer primary key id with account number {row['AccountNo']}",result[0][0])
+                                self._cr.execute("""INSERT INTO billing_history (bill_root_id,bill_id,tarrif_name,period,total_usage,total_amount,create_uid,create_date,write_uid,write_date)\n
+                                                VALUES ('%d','%s','%s','%s','%s','%s','%d','%s','%d','%s')"""%(int(result[0][0]),row['Bill_id/id'],row['TariffCode'],row['DueDate'].split(" ")[0],row['ConsumptionKWH'],row['NetArrears'],1,timestamp,1,timestamp))
+                        except Exception as e:
+                                print(e)
         
       def importpaymenthistory(self):
         with open(my_path+'/demo-cms-record-payments.csv') as f:
@@ -51,16 +53,18 @@ class DataImporter(models.Model):
                         print(row['PaymentTransactionId'])
                         print(row['receiptnumber'])
                         print(row['Payments'])
-                        query = """select id from res_partner where account_no='%s';"""%(row['AccountNo'])
-                        self._cr.execute(query)
-                        result=self._cr.fetchall()
-                        timestamp = datetime.datetime.now()
-                        print(f"The customer primary key id with account number {row['AccountNo']}",result[0][0])
-                        print("payment_root_id,payment_id,transaction_id,timestamp,initiation_date,confirmation_date,transaction_refr,tx_message,gross_amount,net_amount,units_consumed,create_uid,create_date,write_uid,write_date")
-                        print((int(result[0][0]),row['PaymentID'],row['PaymentTransactionId'],str(timestamp),str(row['PayDate']),str(row['ProcessedDate']),str(row['receiptnumber']),"No message description",row['Payments'],0.00,0.00,1,timestamp,1,timestamp))
-                        self._cr.execute("""INSERT INTO payment_history (payment_root_id,payment_id,transaction_id,timestamp,initiation_date,confirmation_date,transaction_refr,tx_message,gross_amount,net_amount,units_consumed,create_uid,create_date,write_uid,write_date)\n
-                                        VALUES ('%d','%s','%s','%s','%s','%s','%s','%s','%d' ,'%d','%d','%d','%s','%d','%s')"""%(int(result[0][0]),row['PaymentID'],row['PaymentTransactionId'],str(timestamp),str(row['PayDate']),str(row['ProcessedDate']),str(row['receiptnumber']),"No message description",float(row['Payments']),0.00,0.00,1,timestamp,1,timestamp))
-
+                        try:
+                                query = """select id from res_partner where account_no='%s';"""%(row['AccountNo'])
+                                self._cr.execute(query)
+                                result=self._cr.fetchall()
+                                timestamp = datetime.datetime.now()
+                                print(f"\n\n\n\n\n\nThe customer primary key id with account number {row['AccountNo']}",result[0][0])
+                                print("payment_root_id,payment_id,transaction_id,timestamp,initiation_date,confirmation_date,transaction_refr,tx_message,gross_amount,net_amount,units_consumed,create_uid,create_date,write_uid,write_date")
+                                print((int(result[0][0]),row['PaymentID'],row['PaymentTransactionId'],str(timestamp),str(row['PayDate']),str(row['ProcessedDate']),str(row['receiptnumber']),"No message description",row['Payments'],0.00,0.00,1,timestamp,1,timestamp))
+                                self._cr.execute("""INSERT INTO payment_history (payment_root_id,payment_id,transaction_id,timestamp,initiation_date,confirmation_date,transaction_refr,tx_message,gross_amount,net_amount,units_consumed,create_uid,create_date,write_uid,write_date)\n
+                                                 VALUES ('%d','%s','%s','%s','%s','%s','%s','%s','%d' ,'%d','%d','%d','%s','%d','%s')"""%(int(result[0][0]),row['PaymentID'],row['PaymentTransactionId'],str(''),str(row['PayDate'].split(" ")[0]),str(row['ProcessedDate']),str(row['receiptnumber']),"",float(row['Payments']), 0.00, 0.00,1,timestamp,1,timestamp))
+                        except Exception as e:
+                                print(e)
 
 class product(models.Model):
         _inherit = "res.country.state"
@@ -114,7 +118,6 @@ class RestrictDropdown(models.Model):
                 country_list=[]
                 country_model = self.env['res.partner'].search([('country_id','=',''+country)])
                 
-                # for each in country_model:
                 country_model = country_model[0]
                 country_list.append(country_model.country_id.id)
                 if country_list:
@@ -198,7 +201,6 @@ class NonAdminHideSettings(models.Model):
                         doc = etree.XML(result['arch'])
                         hide = doc.xpath("//tree[@string='Contacts']") 
                         NonAdminHideSettings.choices+=[("settings","Settings")]
-                        print("=====================> Hider function ",hide)
                         if view_type == 'form':
                                 NonAdminHideSettings.hideflag = False
                         result['arch'] = etree.tostring(doc, encoding='unicode')
@@ -208,7 +210,6 @@ class NonAdminHideSettings(models.Model):
         sel_groups_2_3 = fields.Selection(string="Administrations", selection=_hider,default="access_rights")
         
         def serve(integer):
-                print("\n\nBoolean ",NonAdminHideSettings.hide_flag,integer)
                 return NonAdminHideSettings.hide_flag
         
         

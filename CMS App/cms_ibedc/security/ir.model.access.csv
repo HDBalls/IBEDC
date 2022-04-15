@@ -1,13 +1,11 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_billing_history,access.billing.history,model_billing_history,cms_ibedc.developers_group,1,1,1,1
-access_payment_history,access.payment.history,model_payment_history,cms_ibedc.developers_group,1,1,1,1
-access_customer_complaints,access.customer.complaints,model_customer_complaints,cms_ibedc.developers_group,1,1,1,1
-
-access_billing_history,access.billing.history,model_billing_history,cms_ibedc.baseusers_group,1,0,0,0
-access_payment_history,access.payment.history,model_payment_history,cms_ibedc.baseusers_group,1,0,0,0
-access_customer_complaints,access.customer.complaints,model_customer_complaints,cms_ibedc.baseusers_group,1,0,0,0
-
 access_billing_history,access.billing.history,model_billing_history,cms_ibedc.ibedcadminusers_group,1,1,1,0
 access_payment_history,access.payment.history,model_payment_history,cms_ibedc.ibedcadminusers_group,1,1,1,0
 access_customer_complaints,access.customer.complaints,model_customer_complaints,cms_ibedc.ibedcadminusers_group,1,1,1,0
+access_billing_history,access.billing.history,model_billing_history,cms_ibedc.developers_group,1,1,1,1
+access_payment_history,access.payment.history,model_payment_history,cms_ibedc.developers_group,1,1,1,1
+access_customer_complaints,access.customer.complaints,model_customer_complaints,cms_ibedc.developers_group,1,1,1,1
+access_billing_history,access.billing.history,model_billing_history,cms_ibedc.baseusers_group,1,0,0,0
+access_payment_history,access.payment.history,model_payment_history,cms_ibedc.baseusers_group,1,0,0,0
+access_customer_complaints,access.customer.complaints,model_customer_complaints,cms_ibedc.baseusers_group,1,0,0,0
 

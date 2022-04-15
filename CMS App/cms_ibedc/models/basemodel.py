@@ -31,7 +31,7 @@ class BaseDeclarative(models.Model):
     meter_model = fields.Char(string='Meter Model')
     meter_number = fields.Char(string='Meter Number')
     bal_energy = fields.Float(string='Energy Balance')
-    bal_cash = fields.Float(string='Cash Balance')
+    bal_cash = fields.Float(string='Outstanding Amount')
     billing_history = fields.One2many('billing.history','bill_root_id')
     payment_history = fields.One2many('payment.history','payment_root_id')
     customer_complaints = fields.One2many('customer.complaints','complaints_root_id')

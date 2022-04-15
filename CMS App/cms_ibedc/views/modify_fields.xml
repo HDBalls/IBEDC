@@ -223,7 +223,7 @@
 		    </xpath>
 
                 
-                <xpath expr="//field[@name='accountID']" position="after">
+               <xpath expr="//field[@name='accountID']" position="after">
                 <form  id="test_form">
                     <sheet>
                         <group>
