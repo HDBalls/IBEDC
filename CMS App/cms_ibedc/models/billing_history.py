@@ -12,7 +12,7 @@ class BillingHistory(models.Model):
     bill_root_id = fields.Many2one('res.partner',ondelete='cascade')
     bill_id = fields.Char(string='Bill ID')
     tarrif_name = fields.Char(string='Tarrif Name')
-    period = fields.Char(string='Period')
+    period = fields.Char(string='Billing date')
     total_usage = fields.Char(string='Total Usage')
     total_amount = fields.Char(string='Total Amount')
     billing_purpose = fields.Text(string='Billing Purpose')
