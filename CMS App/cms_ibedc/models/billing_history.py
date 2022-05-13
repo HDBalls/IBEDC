@@ -5,7 +5,6 @@ my_path = os.path.abspath(os.path.dirname(__file__))
 my_path = my_path.replace("\\", "/")
 my_path = my_path.rsplit('/', 1)[0]
 
-
 class BillingHistory(models.Model):
     _name = 'billing.history'
     

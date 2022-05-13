@@ -61,11 +61,81 @@ class DataImporter(models.Model):
                                 print(f"\n\n\n\n\n\nThe customer primary key id with account number {row['AccountNo']}",result[0][0])
                                 print("payment_root_id,payment_id,transaction_id,timestamp,initiation_date,confirmation_date,transaction_refr,tx_message,gross_amount,net_amount,units_consumed,create_uid,create_date,write_uid,write_date")
                                 print((int(result[0][0]),row['PaymentID'],row['PaymentTransactionId'],str(timestamp),str(row['PayDate']),str(row['ProcessedDate']),str(row['receiptnumber']),"No message description",row['Payments'],0.00,0.00,1,timestamp,1,timestamp))
-                                self._cr.execute("""INSERT INTO payment_history (payment_root_id,payment_id,transaction_id,timestamp,initiation_date,confirmation_date,transaction_refr,tx_message,gross_amount,net_amount,units_consumed,create_uid,create_date,write_uid,write_date)\n
-                                                 VALUES ('%d','%s','%s','%s','%s','%s','%s','%s','%d' ,'%d','%d','%d','%s','%d','%s')"""%(int(result[0][0]),row['PaymentID'],row['PaymentTransactionId'],str(''),str(row['PayDate'].split(" ")[0]),str(row['ProcessedDate']),str(row['receiptnumber']),"",float(row['Payments']), 0.00, 0.00,1,timestamp,1,timestamp))
+                                self._cr.execute("""INSERT INTO payment_history (payment_root_id,account_no,payment_id,transaction_id,timestamp,initiation_date,confirmation_date,transaction_refr,gross_amount,net_amount,units_consumed,create_uid,create_date,write_uid,write_date)\n
+                                                 VALUES ('%d','%s','%s','%s','%s','%s','%s','%s','%d' ,'%d','%d','%d','%s','%d','%s')"""%(int(result[0][0]),row['AccountNo'],row['PaymentID'],row['PaymentTransactionId'],str(''),str(row['PayDate'].split(" ")[0]),str(row['ProcessedDate']),str(row['receiptnumber']),float(row['Payments']), 0.00, 0.00,1,timestamp,1,timestamp))
                         except Exception as e:
                                 print(e)
 
+      def importpaymenttranshistory(self):
+        with open(my_path+'/demo-cms-record-payments_trans.csv') as f:
+                reader = csv.DictReader(f, delimiter=',')
+                for row in reader:
+                        print(row['transid'])# transacton ref # Access by column header instead of column number
+                        print(row['transref'])
+                        print(row['enteredby'])
+                        print(row['transdate'])
+                        print(row['transamount'])
+                        print(row['transstatus'])
+                        print(row['accountno'])
+                        print(row['transactionresponsemessage'])
+                        print(row['paymenttype'])
+                        print(row['TransactionBusinessUnit'])
+                        print(row['rowguid'])
+                        try:
+                                # query = """select id from payment_history where account_no='%s';"""%(row['accountno'])
+                                # self._cr.execute(query)
+                                # result=self._cr.fetchall()
+                                timestamp = datetime.datetime.now()
+                                # print(f"\n\n\n\n\n\nThe payment history primary key id with account number {row['accountno']}",result[0][0])
+                                self._cr.execute("""INSERT INTO emspayment_trans (account_no,transaction_id,transaction_refr,enteredby,trans_date,trans_amount,trans_status,trans_response,payment_type,trans_business_unit,rowguid,create_uid,create_date,write_uid,write_date)\n
+                                                 VALUES ('%s','%s','%s','%s','%s','%s','%s','%s' ,'%s','%s','%s','%d','%s','%d','%s')"""%(row['accountno'],row['transid'],str(row['transref']),str(row['enteredby']),str(row['transdate']),str(row['transamount']),str(row['transstatus']),str(row['transactionresponsemessage']) ,str(row['paymenttype']) ,str(row['TransactionBusinessUnit']),str(row['rowguid']),1,timestamp,1,timestamp))
+                        except Exception as e:
+                                print(e)
+                                
+      def importmeter_info(self):
+        with open(my_path+'/meter_model.csv') as f:
+                reader = csv.DictReader(f, delimiter=',')
+                for row in reader:
+                        print(row['meter_number'])
+                        try:
+                                query = """select id from res_partner where meter_number='%s';"""%(row['meter_number'])
+                                self._cr.execute(query)
+                                print(query)
+                                result=self._cr.fetchall()
+                                print(result)
+                                timestamp = datetime.datetime.now()
+                                print(f"\n\n\n\n\n\nThe customer primary key id with account number {row['meter_number']}",result[0][0])
+                                self._cr.execute("""
+                                                 INSERT INTO meter_model (
+                                                                        meter_root_id,req_type,batchid,oldbatchid,meter_number,meter_model,meter_manufacturer,
+                                                                        manufacture_year,meter_type,meter_rating,v_rating,meter_classification,kct,supplier,
+                                                                        meter_category,meter_type_id,ecmi_exported,deployed,addedby,supplierstoreid,supplierstoretype,
+                                                                        currentstorelevel,storeowner,owner_type,audit_validated_by,audit_validated_date,billing_validated_by,
+                                                                        billing_validated_date,rev_validated_by,rev_validated_date,
+                                                                        create_uid,create_date,write_uid,write_date)
+                                                                        VALUES ('%d','%s','%s','%s','%s',
+                                                                                '%s','%s','%s','%s','%s',
+                                                                                '%s','%s','%s','%s','%s',
+                                                                                '%s','%s','%s','%s','%s',
+                                                                                '%s','%s','%s','%s','%s',
+                                                                                '%s','%s','%s','%s','%s',
+                                                                                '%d','%s','%d','%s'
+                                                                                )
+                                                """%(int(result[0][0]), 
+                                                     
+                                                     str(row['req_type']),str(row['batchid']),str(row['oldbatchid']),str(row['meter_number']),str(row['meter_model']),
+                                                     str(row['meter_manufacturer']),str(row['manufacture_year']),str(row['meter_type']),str(row['meter_rating']),str(row['v_rating']),
+                                                     str(row['meter_classification']),str(row['kct']),str(row['supplier']),str(row['meter_category']),str(row['meter_type_id']),
+                                                     str(row['ecmi_exported']),str(row['deployed']),str(row['addedby']),str(row['supplierstoreid']),str(row['supplierstoretype']),
+                                                     str(row['currentstorelevel']),str(row['storeowner']),str(row['owner_type']),str(row['audit_validated_by']),str(row['audit_validated_date']),
+                                                     str(row['billing_validated_by']),str(row['billing_validated_date']),str(row['rev_validated_by']),str(row['rev_validated_date']),
+                                                
+                                                     1,timestamp,1,timestamp
+                                                     
+                                                     )
+                                                )
+                        except Exception as e:
+                                print("\n\n\n\nError loading meter mdel table",e)
 class product(models.Model):
         _inherit = "res.country.state"
 

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>  
+  <template id = "customers" >
+        <t name="Customers" t-name="website.customers">
+            <t t-call="website.layout">
+                <t t-set="pageName" t-value="'customers'"/>
+                    <body style="position:absolute;top:0px,left:0;" onload="loadCustomerTemplate('customers_template','bodyload')">
+                        <section class="top-navbar-container navigation">
+                            <div class="nav-container">
+                                <div class="brand">
+                                    <div>
+                                        <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://192.168.0.117:8080/ibedc_logo.png"/></div>
+                                    </div>
+                                </div>
+                                <nav>
+                                <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
+                                <ul class="nav-list">
+                                    <li>
+                                    <a href="#!">Home</a>
+                                    </li>
+                                    <li>
+                                    <a href="#!">About</a>
+                                    </li>
+                                    <li>
+                                    <a href="#!">Services</a>
+                                    <ul class="navbar-dropdown">
+                                        <li>
+                                        <a href="#!">Sass</a>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Less</a>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Stylus</a>
+                                        </li>
+                                    </ul>
+                                    </li>
+                                    <li>
+                                    <a href="#!">Portfolio</a>
+                                    </li>
+                                    <li>
+                                    <a href="#!">Category</a>
+                                    <ul class="navbar-dropdown">
+                                        <li>
+                                        <a href="#!">Sass</a>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Less</a>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Stylus</a>
+                                        </li>
+                                    </ul>
+                                    </li>
+                                    <li>
+                                    <a href="#!">Contact</a>
+                                    </li>
+                                </ul>
+                                </nav>
+                            </div>
+                            </section>
+                        <div class="parent-container">
+                            <div class="navbar-container-main">
+                                <div>
+                                    <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://192.168.0.117:8080/ibedc_logo.png"/></div>
+                                </div>
+                                <div class="navbar-container">
+                                    <a onclick="document.location.replace('/cms/dashboard/')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">dashboard</i><div>Dashboard</div></a>
+                                    <a onclick="document.location.replace('/cms/customers/')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">group</i><div>Customers</div></a>
+                                    <a onclick="document.location.replace('/cms/billing_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">credit_card</i><div>Bills</div></a>
+                                    <a onclick="document.location.replace('/cms/payment_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">payments</i><div>Payments</div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">devices</i><div class="flex-grow" style="width:120px;">Assets</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">space_dashboard</i><div style="width:120px;">MSMS</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">developer_mode</i><div style="width:120px;">Ops Manager</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">feedback</i><div>Customer complaints</div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">electric_meter</i><div style="width:117px;">Advanced Metering</div><i class="material-icons">chevron_right</i></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">logout</i><div>Sign Out</div></a>
+                                </div>
+                            </div>
+                            <div class="flex-col">
+                                <div class="flex-row top-bar ">
+                                    <div class="flex-rownowrap search-div">
+                                        <div style="background: transparent;" class="search-icon-div margin-left-30"><i class="material-icons bk-mg">search</i></div>
+                                        <input id="search_customer_input" onkeyup="searchCustomer()" class="search" type="text" placeholder="Search a customer"></input>
+                                    </div>
+                                    <div class="flex-row flex-row-end margin-right-30" style="width:20%">
+                                        <div class="user-logo"><img src=""/></div>
+                                        <select class="shadow">
+                                            <option><span><b>Fortune Odesanya</b></span></option>
+                                            <option>Log out</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div style="width:100%;" id="template_parent" class="flex-row-gap-30 margin-left-30 margin-right-30"></div>
+                                <div  id="vcr" class="flex-row-gap-30 margin-left-30 margin-right-30">
+                                    
+                                </div>
+
+                                <!-- Customer's list view template -->
+                                <template id="customers_list_view">
+                                    <div style="width:100%; height:100%;">
+                                        <div class="top-header">
+                                            <div class="header-start">
+                                                <h1>Customers</h1>
+                                                <p>You have total 2,595,009 customers</p>
+                                            </div>
+                                            <div class="header-end">
+                                                <button onclick="exportTableToExcel('customers_table','excel_cms_customers')" class="exportbtn zoom shadow flex-row">
+                                                    <i class="material-icons">cloud_download</i>
+                                                    &amp;nbsp
+                                                    <div>Export</div>
+                                                </button>
+                                                <button class="export-addbtn">
+                                                    <i style="color:white; padding-top:5px;" class="material-icons">add</i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="table-card shadow" style="width:100%;" >
+                                            <div style="margin:20px;">
+                                                <div class="top-panel">
+                                                    <div class="panel-start flex-row">
+                                                        <select>
+                                                            <option>Bulk Action</option>
+                                                        </select>
+                        
+                                                        <div class="panel-btn">
+                                                            Apply
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-end flex-row">
+                                                        <!-- <input value="search" type="text" hidden/> -->
+                                                        <span>
+                                                            <i class="material-icons">search</i>
+                                                        </span>
+                                                        <span class="displaymodes" onclick="listmode()">
+                                                            <i class="material-icons">view_list</i>
+                                                        </span>
+                                                        <span class="displaymodes" onclick="gridmode()">
+                                                            <i class="material-icons">view_comfy</i>
+                                                        </span>
+                                                        <span>
+                                                            <i class="material-icons">filter_list</i>
+                                                        </span>
+                                                        <span>
+                                                            <i class="material-icons">settings</i>
+                                                        </span>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div id="list-card">
+                                                    <div style="width:100%;max-height: 600px; overflow-y: auto;">
+                                                        <table id="customers_table" class="table">
+                                                            <thead style="position:sticky;top:0;" class="thead-dark">
+                                                                <!-- <th><input class="checkbox" type="checkbox"/></th> -->
+                                                                <th>Name</th>
+                                                                <th>Account Type</th>
+                                                                <th>Phone Number</th>
+                                                                <th>Email</th>
+                                                                <th>Account No</th>
+                                                                <th>Region</th>
+                                                                <!-- <th>State</th> -->
+                                                                <th>Business hub</th>
+                                                                <th>Reg Date</th>
+                                                                <th>status</th>
+                                                                <th><button class="tool-btn">+</button></th>
+                        
+                                                            </thead>
+                                                            <tbody>
+                                                                <t t-foreach="customers" t-as="customer">
+                                                                    <tr class="displaymodes"  t-att-value="[{'name':customer.name,'mobile':customer.mobile,'email':customer.email,'city':customer.city,'account_no':customer.account_no,'account_type':account_type,'meter_no':customer.meter_number,'outstanding_amnt':customer.bal_cash}]" onclick="navigateToCustomerDetailsTemplate(this)">
+                                                                        <!-- <td><input class="checkbox" type="checkbox"/></td> -->
+                                                                        <td>
+                                                                            <div class="flex-row">
+                                                                                <div class="contact-abrv">
+                                                                                    <span style=" font-size:12px;color:white;" t-esc="customer.abbreviateName(customer.name)"/>
+                                                                                </div>
+                                                                                &amp;nbsp&amp;nbsp
+                                                                                <div> <span t-esc="customer.name"/></div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td><span t-esc="customer.account_type"/></td>
+                                                                        <td>+234-<span t-esc="customer.mobile"/></td>
+                                                                        <td>patricknewman@ibedc.com</td>
+                                                                        <td><span t-esc="customer.account_no"/></td>
+                                                                        <td><span t-esc="customer.city"/></td>
+                                                                        <!-- <td><span t-esc="customer.state_id"/></td> -->
+                                                                        <td>Apata hub</td>
+                                                                        <td>10 Feb 2020</td>
+                                                                        <td class="status-suspend">Suspend</td>
+                                                                        <td>&#x2022;&#x2022;&#x2022;</td>
+                                                                    </tr>
+                                                                </t>  
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                                <!-- Customer's Kanban view template -->
+                                <template id="tmpl">
+                                    <div class="gridbg" style="width:100%;max-height: 700px; overflow-y: auto;">
+                                        <div id="customers_grid" style="width:100%;" class="flex-row-wrap">
+                                            <t t-foreach="customers" t-as="customer">
+                                                <div class="contact-card zoom shadow">
+                                                    <div style="width:100%" class="flex-col ">
+                                                        <div style="width:100%">
+                                                            <div style="margin:20px;">
+                                                                <div class="flex-col-justify-center">
+                                                                    <div class="card-text-center">
+                                                                        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center; color:white;" class="contact-abrv-grid">
+                                                                            <span style=" font-size:17px;color:white;" t-esc="customer.abbreviateName(customer.name)"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="card-text-center">
+                                                                        <div><span t-esc="customer.name"/></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div style="width:100%">
+                                                            <div style="padding-left:20px; padding-right:20px;">
+                                                                <div class="flex-col-gap-20">
+                                                                    <div class="flex-row-space">
+                                                                        <div class="panel-start" >Reg date</div>
+                                                                        <div class="panel-end">24 Jun 2015</div>
+                                                                    </div>
+                                                                    <div class="flex-row-space">
+                                                                        <div class="panel-start" >Account No</div>
+                                                                        <div class="panel-end"><span t-esc="customer.account_no"/></div>
+                                                                    </div>
+                                                                    <div class="flex-row-space">
+                                                                        <div class="panel-start" >Account type</div>
+                                                                        <div class="panel-end"><span t-esc="customer.account_type"/></div>
+                                                                    </div>
+                                                                    <button t-att-value="[{'name':customer.name,'mobile':customer.mobile,'email':customer.email,'city':customer.city,'account_no':customer.account_no,'account_type':account_type,'meter_no':customer.meter_number,'outstanding_amnt':customer.bal_cash}]" onclick="navigateToCustomerDetailsTemplate(this)" class="btn btn-primary">
+                                                                        View details
+                                                                    </button>
+                                                                </div> 
+                                                            </div> 
+                                                        </div> 
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                        <div class="table-paginator">
+                                            <button class="btn">Prev</button>
+                                            <button class="btn">1</button>
+                                            <button class="btn">2</button>
+                                            <button class="btn">...</button>
+                                            <button class="btn">6</button>
+                                            <button class="btn">7</button>
+                                            <button class="btn">Next</button>
+                                        </div>
+                                    </div>
+                                </template>  
+                                <footer style="width:100%;">
+                               
+
+                                        
+
+                                    
+                                </footer>
+                            </div>
+                        </div>
+                        <script src="https://www.amcharts.com/lib/4/core.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+                        <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+                        <script src="http://192.168.0.117:8080/chart_collections_statistics.js"></script>
+                        <script src="http://192.168.0.117:8080/chart_meter_statistics.js"></script>
+                    </body>
+                </t>
+            </t>
+    </template>
+</odoo> 

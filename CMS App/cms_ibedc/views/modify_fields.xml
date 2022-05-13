@@ -232,6 +232,13 @@
                         <group>
                                <button type = "object" name= "importpaymenthistory" string = "Import payment history" class = "oe_highlight"/>
                         </group>
+                        <group>
+                               <button type = "object" name= "importmeter_info" string = "Import meter table" class = "oe_highlight"/>
+                        </group>
+                        <group>
+                               <button type = "object" name= "importpaymenttranshistory" string = "Import Payment trans table" class = "oe_highlight"/>
+                        </group>
+                         
                     </sheet>
                 </form>
 		    </xpath>

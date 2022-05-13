@@ -10,14 +10,14 @@
                     This module gives you a quick view of your contacts directory, accessible from your home page.
                     You can track your vendors, customers and other contacts.
                     """,
-    'depends': ['base', 'mail','web'],
+    'depends': ['base', 'mail','web','website'],
     "qweb":[
             'static/src/xml/hidemenu.xml',
             'static/src/xml/loginpage.xml'
             ],
     'data': [
         #     'security/ir.model.access.csv',
-            # 'data/add_states.xml',
+            'data/add_states.xml',
             'views/contact_views.xml',
             'views/billing_history.xml',
             'views/complaints_history.xml',
@@ -27,7 +27,12 @@
             'views/customer_assets.xml',
             'views/geolocation.xml',
             'security/security.xml',
-            # 'views/js_loader.xml',
+            'views/js_css_loader.xml',
+            'views/dashboard_ui.xml',
+            'views/customers_ui.xml',
+            'views/customer_details_ui.xml',
+            'views/billing_history_ui.xml',
+            'views/payment_history_ui.xml'
             ],
     'application': True,
 }
