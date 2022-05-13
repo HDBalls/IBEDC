@@ -4,8 +4,7 @@ async function clearVcrContainer(){
         for (let garbage of garbages){
             var e = $(`${garbage}`);
             $(e).remove();
-        }
-        
+        }   
     }
     catch(err){
         console.log(err)
@@ -25,7 +24,7 @@ function templateRenderer(data,mode){
         if (data.status==false){
             var notfound_table = document.getElementById("norecord_found");
             var template = document.querySelector('#notfoundh1');
-            // var clone = template.content.cloneNode(true);
+            // var clone = template.content.cloneNode(true);`                                                                                                                                                                                                                                                                                           -*
             var h1 = document.getElementById("h1");
             console.log("H1 ",h1)
             h1.style.display = 'flex';
