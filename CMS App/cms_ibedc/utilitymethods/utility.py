@@ -1,7 +1,7 @@
 
 import time
 import os, uuid,base64, json
-from cryptography.fernet import Fernet
+from ..backendcryptography.fernet import Fernet
 from odoo import http
 from odoo.http import request
 key = "5CWvxbkxPI2e0W2KRc1l4ZXMXRn7WJzdGP9NZhbbVgA="

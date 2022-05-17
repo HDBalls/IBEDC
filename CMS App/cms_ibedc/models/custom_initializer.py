@@ -1,5 +1,5 @@
 from odoo import api, fields, models,tools
-import collections, csv,os
+import  csv,os
 from .. import loadconfig
 import datetime
 from lxml import etree

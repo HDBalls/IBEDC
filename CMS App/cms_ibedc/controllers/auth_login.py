@@ -1,4 +1,3 @@
-from rsa import encrypt
 import werkzeug
 import werkzeug.exceptions
 import werkzeug.utils
