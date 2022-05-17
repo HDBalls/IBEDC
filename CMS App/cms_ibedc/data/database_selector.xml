@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="new_login_layout" inherit_id="web.login_layout" name="Login Layout Inherit">
+            <xpath expr="//div[@class='col-md-6 col-md-offset-3 o_database_list']" position="before">
+                <t t-set="disable_database_manager" t-value="1"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

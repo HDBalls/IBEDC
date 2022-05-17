@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <template id="header_sample" inherit_id="website.layout" name="Header Sample">
+            <xpath expr="//header//ul[@id='top_menu']" position="before">
+                <p> This is custom header</p>
+            </xpath>
+        </template>
+
+        <template id="footer_sample" inherit_id="website.footer_custom" name="footer Sample">
+            <xpath expr="//header//ul[@id='footer']" position="replace">
+                <div id="footer">
+                    <p> This is custom header</p>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

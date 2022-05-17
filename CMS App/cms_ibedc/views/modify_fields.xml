@@ -236,7 +236,10 @@
                                <button type = "object" name= "importmeter_info" string = "Import meter table" class = "oe_highlight"/>
                         </group>
                         <group>
-                               <button type = "object" name= "importpaymenttranshistory" string = "Import Payment trans table" class = "oe_highlight"/>
+                               <button type = "object" name= "importpaymenttranshistory" string = "Import Payment trans table" class = "oe_highlight"/> 
+                        </group>
+                        <group>
+                               <button type = "object" name= "importGis_distribution_substation_all" string = "Import Gis_distribution_substation_all table" class = "oe_highlight"/>
                         </group>
                          
                     </sheet>

@@ -30,32 +30,184 @@ class BaseDeclarative(models.Model):
     CIN = fields.Char(string='Nerc Customer Id')
     is_metered = fields.Char(string='Reading Method')
     is_prepaid = fields.Char(string='Billing Method')
-    # state= fields.Char(compute='_compute_total',store=True)
-    
-    # meter_db_model = fields.Many2one('meter.model', string='Meter info')
-    # meter_type = fields.Char('Meter Type')
-    # meter_oem = fields.Char('Meter OEM')
-    # meter_model = fields.Char('Meter Model')
-    # meter_number = fields.Char('Meter Number')
-                             
-    # meter_db_model = fields.Many2one('meter.model', string='Meter info')
-    meter_db_model = fields.One2many('meter.model','meter_root_id')
-    meter_type = fields.Char('Meter Type', related='meter_db_model.meter_type')
-    meter_oem = fields.Char('Meter OEM')
-    # meter_oem = fields.Char('Meter OEM', related='meter_db_model.meter_oem')
-    meter_model = fields.Char('Meter Model', related='meter_db_model.meter_model')
-    meter_number = fields.Char('Meter Number', related='meter_db_model.meter_number')
-    
     bal_energy = fields.Float(string='Energy Balance')
     bal_cash = fields.Float(string='Outstanding Amount')
     billing_history = fields.One2many('billing.history','bill_root_id')
     payment_history = fields.One2many('payment.history','payment_root_id')
     customer_complaints = fields.One2many('customer.complaints','complaints_root_id')
-    
     property_type = fields.Selection([('landlord', 'Landlord'), ('tenant', 'Tenant')], default='landlord')
     geo_coordinates = fields.Char(string='Geolocation Coordinates')
     rowguid = fields.Char(string='Row Guid')
     dummy_asset = fields.Char(string='Dummy Asset')
+    booknumber = fields.Char(string='Book Number')
+    oldaccountnumber = fields.Char(string='Old Account Number')
+    title = fields.Char(string='Title(s)')
+    surname = fields.Char(string='Surname')
+    firstname = fields.Char(string='Firstname')
+    othernames = fields.Char(string='Othernames')
+    address1 = fields.Char(string='Address 1')
+    address2 = fields.Char(string='Address 2')
+    serviceaddress1 = fields.Char(string='Service Address 1')
+    serviceaddress2 = fields.Char(string='Service Address 2')
+    serviceaddresscity = fields.Char(string='Service Address city')
+    serviceaddressstate_formated = fields.Char(string='Service Address State formatted')
+    serviceaddressstate = fields.Char(string='Service Address State')
+    tariffidarrearsbalance = fields.Char(string='Tariffid Arrears Balance')
+    methodofidentification = fields.Char(string='methodofidentification')
+    accttypedesc = fields.Char(string='Account Type Description')
+    schedulebillno = fields.Char(string='Schedule Bill No')
+    vat = fields.Char(string='Vat')
+    applicationdate = fields.Char(string='Application Date')
+    placeofwork = fields.Char(string='Place Of Work')
+    addressoforganisation = fields.Char(string='Address Of Organisation')
+    giscoordinate = fields.Char(string='Dummy Asset')
+    guarantorname = fields.Char(string='Guarantor name')
+    guarantoraddress  = fields.Char(string='Guarantor Address')
+    organisationcode = fields.Char(string='Organisation Code')
+    institutioncode = fields.Char(string='Institution Code')
+    setupdate = fields.Char(string='Setup Date')
+    connectdate = fields.Char(string='')
+    distributionstation = fields.Char(string='Distribution Station')
+    injectionstation = fields.Char(string='Injection Station')
+    
+    upriserno = fields.Char(string='Upriser NO')
+    utid = fields.Char(string='Utid')
+    buid = fields.Char(string='Buid')
+    transid = fields.Char(string='Transformer ID')
+    operatorname = fields.Char(string='Operator Name')
+    password = fields.Char(string='Password')
+    statuscode = fields.Char(string='Status Code')
+    adc = fields.Char(string='ADC')
+    storedaverage = fields.Char(string='Stored Average')
+    connectiontype = fields.Char(string='Connection Type')
+    useadc = fields.Char(string='')
+    isbulk = fields.Char(string='')
+    distributionid = fields.Char(string='Distribution Id')
+    newsetupdate = fields.Char(string='')
+    iscapmi = fields.Char(string='')
+    operatoredits = fields.Char(string='')
+    operatoredit = fields.Char(string='')
+    cat = fields.Char(string='')
+    isconfirmed = fields.Char(string='')
+    confirmby = fields.Char(string='')
+    dateconfirm = fields.Char(string='')
+    nac = fields.Char(string='')
+    backbalance = fields.Char(string='Back Balance')
+    gis = fields.Char(string='GIS')
+    customerid = fields.Char(string='Customer Id')
+    atmaccountno = fields.Char(string='Atm Account No')
+    newtariffcode = fields.Char(string='Tarrif Code')
+    dss_id = fields.Char(string='Dss ID')
+    servicecenter = fields.Char(string='Service Center')
+    
+    oldaccountno = fields.Char(string='Old Account No')
+    opendate = fields.Char(string='Open Date')
+    website = fields.Char(string='')
+    arrearsbalance = fields.Char(string='Arrears Balance')
+    operatorname = fields.Char(string='Operator name')
+    fingerprintrawdata2 = fields.Char(string='')
+    activated = fields.Char(string='')
+    status = fields.Char(string='')
+    status1 = fields.Char(string='')
+    operatormodified = fields.Char(string='')
+    lastmodifieddate = fields.Char(string='')
+    modifiedcount = fields.Char(string='')
+    
+    #MSMS
+    meter_model = fields.Char('Meter Model',compute="function_name", store=True)
+    meter_type = fields.Char('Meter Type')
+    meter_oem = fields.Char('Meter OEM')
+    meter_number = fields.Char('Meter Number')
+    meter_manufacturer	= fields.Char(string='Meter Manufacturer')
+    manufacture_year = fields.Char(string='Manufacture year')
+    meter_rating= fields.Char(string='Meter rating')
+    v_rating = fields.Char(string='Voltage rating')
+    meter_classification = fields.Char(string='Classification')
+    kct	= fields.Char(string='KCT')
+    supplier = fields.Char(string='SUpplier')
+    meter_category	= fields.Char(string='Meter category')
+    meter_type_id	= fields.Char(string='Meter type id')
+    audit_validated_by	= fields.Char(string='Audit validated  by')
+    audit_validated_date	= fields.Char(string='Audit validated date')
+    billing_validated_by	= fields.Char(string='Billing validated by')
+    billing_validated_date	= fields.Char(string='Billing validated date')
+    rev_validated_by = fields.Char(string='Rev validated by')	
+    rev_validated_date = fields.Char(string='Rev validated date')
+    
+    def function_name(self):
+        cr = self._cr
+        try:
+            print("\n\n\n\n\n\n\nAccount no ",self.account_no,self._rec_name)
+            if self.meter_number != False:
+                query = f"select * from meter_model where meter_number='{self.meter_number}';"
+                print(query)
+                cr.execute(query)
+                temp = cr.dictfetchone()
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nmeter val: ", temp)
+                meter_model = temp['meter_model']
+                meter_type = temp['meter_type']
+                meter_manufacturer = temp['meter_manufacturer']
+                manufacture_year = temp['manufacture_year']
+                meter_rating= temp['meter_rating']
+                v_rating = temp['v_rating']
+                meter_classification = temp['meter_classification']
+                kct	= temp['kct']
+                supplier = temp['supplier']
+                meter_category	= temp['meter_category']
+                meter_type_id	= temp['meter_type_id']
+                audit_validated_by	= temp['audit_validated_by']
+                audit_validated_date	= temp['audit_validated_date']
+                billing_validated_by	= temp['billing_validated_by']
+                billing_validated_date	= temp['billing_validated_date']
+                rev_validated_by = temp['rev_validated_by']
+                rev_validated_date = temp['merev_validated_dateter_type']
+                
+                for rec in self:
+                    rec.meter_model = meter_model or ''
+                    self.meter_type = meter_type or ''
+                    self.meter_manufacturer = meter_manufacturer or ''
+                    self.manufacture_year = manufacture_year or ''
+                    self.meter_rating= meter_rating or ''
+                    self.v_rating = v_rating or ''
+                    self.meter_classification = meter_classification or ''
+                    self.kct	= kct or ''
+                    self.supplier = supplier or ''
+                    self.meter_category	= meter_category or ''
+                    self.meter_type_id	= meter_type_id or ''
+                    self.audit_validated_by	= audit_validated_by or ''
+                    self.audit_validated_date = audit_validated_date or ''
+                    self.billing_validated_by = billing_validated_by or ''
+                    self.billing_validated_date	= billing_validated_date or ''
+                    self.rev_validated_by = rev_validated_by or ''
+                    self.rev_validated_date = rev_validated_date or ''
+                    
+                return
+            
+            else:
+                for rec in self:
+                    rec.meter_model = ''
+                    rec.meter_type =  ''
+                    self.manufacture_year = ''
+                    self.meter_rating= ''
+                    self.v_rating = ''
+                    self.meter_classification = ''
+                    self.kct	= ''
+                    self.supplier = ''
+                    self.meter_category	= ''
+                    self.meter_type_id	= ''
+                    self.audit_validated_by	= ''
+                    self.audit_validated_date	= ''
+                    self.billing_validated_by	= ''
+                    self.billing_validated_date	= ''
+                    self.rev_validated_by = ''
+                    self.rev_validated_date = ''
+                return
+        except:
+            pass
+    
+    
+    
+    # ECMI
     
     def abbreviateName(self,fullname):
         abbr = []
@@ -95,88 +247,15 @@ class BaseDeclarative(models.Model):
         self.state = result[0][0]
 
     def getCustomers(self):
-        print("\n\n\nQuerying database for all customers")
+        # print("\n\n\nQuerying database for all customers")
         data = self.env['res.partner'].search([])
-        print('Transient Model data',data)
         for i in self:
             print(i.name,i.state,i.country,i.account_no)
-    # accountno = fields.Char(string='Dummy Asset')
-    # booknumber = fields.Char(string='Dummy Asset')
-    # oldaccountnumber = fields.Char(string='Dummy Asset')
-    # meterno = fields.Char(string='Dummy Asset')
-    # title = fields.Char(string='Dummy Asset')
-    # surname = fields.Char(string='Dummy Asset')
-    # firstname = fields.Char(string='Dummy Asset')
-    # othernames = fields.Char(string='Dummy Asset')
-    # name = fields.Char(string='Dummy Asset')
-    # address1 = fields.Char(string='Dummy Asset')
-    # address2 = fields.Char(string='Dummy Asset')
-    # city = fields.Char(string='Dummy Asset')
-    # state = fields.Char(string='Dummy Asset')
-    # email = fields.Char(string='Dummy Asset')
-    # serviceaddress1 = fields.Char(string='Dummy Asset')
-    # serviceaddress2 = fields.Char(string='Dummy Asset')
-    # serviceaddresscity = fields.Char(string='Dummy Asset')
-    # serviceaddressstate_formated = fields.Char(string='Dummy Asset')
-    # serviceaddressstate = fields.Char(string='Dummy Asset')
-    # tariffidarrearsbalance = fields.Char(string='Dummy Asset')
-    # mobile = fields.Char(string='Dummy Asset')
-    # methodofidentification = fields.Char(string='Dummy Asset')
-    # accttypedesc = fields.Char(string='Dummy Asset')
-    # schedulebillno = fields.Char(string='Dummy Asset')
-    # vat = fields.Char(string='Dummy Asset')
-    # applicationdate = fields.Char(string='Dummy Asset')
-    # placeofwork = fields.Char(string='Dummy Asset')
-    # addressoforganisation = fields.Char(string='Dummy Asset')
-    # giscoordinate = fields.Char(string='Dummy Asset')
-    # guarantorname
-    # guarantoraddress
-    # organisationcode
-    # institutioncode
-    # setupdate
-    # connectdate
-    # distributionstation
-    # injectionstation
-    # upriserno
-    # utid
-    # buid
-    # transid
-    # operatorname
-    # password
-    # statuscode
-    # adc
-    # storedaverage
-    # connectiontype
-    # useadc
-    # isbulk
-    # distributionid
-    # newsetupdate
-    # rowguid
-    # iscapmi
-    # operatoredits
-    # operatoredit
-    # cat
-    # isconfirmed
-    # confirmby
-    # dateconfirm
-    # nac
-    # backbalance
-    # gis
-    # customerid
-    
-    # ecmi = field.status
 
-    # atmaccountno
-    # tariffid
-    # oldaccountno
-    # opendate
-    # website
-    # arrearsbalance
-    # operatorname
-    # fingerprintrawdata2
-    # activated
-    # status
-    # status1
-    # operatormodified
-    # lastmodifieddate
-    # modifiedcount
+
+    def ParseFloat(self,value):
+        try:
+            return int(float(value))
+        except Exception as e:
+            return value
+    

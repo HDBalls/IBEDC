@@ -65,10 +65,10 @@
                                     <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://192.168.0.117:8080/ibedc_logo.png"/></div>
                                 </div>
                                 <div class="navbar-container">
-                                    <a onclick="document.location.replace('/cms/dashboard/')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">dashboard</i><div>Dashboard</div></a>
-                                    <a onclick="document.location.replace('/cms/customers/')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">group</i><div>Customers</div></a>
-                                    <a onclick="document.location.replace('/cms/billing_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">credit_card</i><div>Bills</div></a>
-                                    <a onclick="document.location.replace('/cms/payment_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">payments</i><div>Payments</div></a>
+                                    <a onclick="redirect('dashboard')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">dashboard</i><div>Dashboard</div></a>
+                                    <a onclick="redirect('customers')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">group</i><div>Customers</div></a>
+                                    <a onclick="redirect('billing_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">credit_card</i><div>Bills</div></a>
+                                    <a onclick="redirect('payment_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">payments</i><div>Payments</div></a>
                                     <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">devices</i><div class="flex-grow" style="width:120px;">Assets</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
                                     <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">space_dashboard</i><div style="width:120px;">MSMS</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
                                     <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">developer_mode</i><div style="width:120px;">Ops Manager</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
@@ -91,8 +91,8 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div style="width:100%;" id="template_parent" class="flex-row-gap-30 margin-left-30 margin-right-30"></div>
-                                <div  id="vcr" class="flex-row-gap-30 margin-left-30 margin-right-30">
+                                <div style="width:97%;" id="template_parent" class="flex-row-gap-30 margin-left-30 margin-right-30"></div>
+                                <div style="width:100%;"  id="vcr" class="flex-row-gap-30 margin-left-30 margin-right-30">
                                     
                                 </div>
 
@@ -148,7 +148,7 @@
                                                     
                                                 </div>
                                                 <div id="list-card">
-                                                    <div style="width:100%;max-height: 600px; overflow-y: auto;">
+                                                    <div style="width:100%;max-height: 750px; overflow-y: auto;">
                                                         <table id="customers_table" class="table">
                                                             <thead style="position:sticky;top:0;" class="thead-dark">
                                                                 <!-- <th><input class="checkbox" type="checkbox"/></th> -->
@@ -163,30 +163,79 @@
                                                                 <th>Reg Date</th>
                                                                 <th>status</th>
                                                                 <th><button class="tool-btn">+</button></th>
-                        
                                                             </thead>
                                                             <tbody>
                                                                 <t t-foreach="customers" t-as="customer">
-                                                                    <tr class="displaymodes"  t-att-value="[{'name':customer.name,'mobile':customer.mobile,'email':customer.email,'city':customer.city,'account_no':customer.account_no,'account_type':account_type,'meter_no':customer.meter_number,'outstanding_amnt':customer.bal_cash}]" onclick="navigateToCustomerDetailsTemplate(this)">
+                                                                    <tr class="displaymodes"  t-att-value="[customer['query_url'],component['url']]" onclick="navigateToCustomerDetailsTemplate(this)">
                                                                         <!-- <td><input class="checkbox" type="checkbox"/></td> -->
                                                                         <td>
                                                                             <div class="flex-row">
                                                                                 <div class="contact-abrv">
-                                                                                    <span style=" font-size:12px;color:white;" t-esc="customer.abbreviateName(customer.name)"/>
+                                                                                    <span style=" font-size:12px;color:white;" t-esc="self.abbreviateName(customer['name'])"/>
                                                                                 </div>
                                                                                 &amp;nbsp&amp;nbsp
-                                                                                <div> <span t-esc="customer.name"/></div>
+                                                                                <div> <span t-esc="customer['name']"/></div>
                                                                             </div>
                                                                         </td>
-                                                                        <td><span t-esc="customer.account_type"/></td>
-                                                                        <td>+234-<span t-esc="customer.mobile"/></td>
-                                                                        <td>patricknewman@ibedc.com</td>
-                                                                        <td><span t-esc="customer.account_no"/></td>
-                                                                        <td><span t-esc="customer.city"/></td>
-                                                                        <!-- <td><span t-esc="customer.state_id"/></td> -->
-                                                                        <td>Apata hub</td>
-                                                                        <td>10 Feb 2020</td>
-                                                                        <td class="status-suspend">Suspend</td>
+                                                                        <t t-if="customer['account_type'] != '' and customer['account_type'] != None ">
+                                                                            <td t-esc="customer['account_type']"></td>
+                                                                        </t>
+                                                                        <t t-else="">
+                                                                            <td>&#x2022;&#x2022;&#x2022;</td>
+                                                                        </t>
+
+                                                                        <t t-if="customer['mobile'] != '' and customer['mobile'] != None ">
+                                                                            <td t-esc="'+234-'+customer['mobile']"></td>
+                                                                        </t>
+                                                                        <t t-else="">
+                                                                            <td>&#x2022;&#x2022;&#x2022;</td>
+                                                                        </t>                                                        
+
+                                                                        <t t-if="customer['email'] != '' and customer['email'] != None ">
+                                                                            <td t-esc="customer['email']"></td>
+                                                                        </t>
+                                                                        <t t-else="">
+                                                                            <td>&#x2022;&#x2022;&#x2022;</td>
+                                                                        </t>
+
+
+                                                                        <t t-if="customer['account_no'] != '' and customer['account_no'] != None ">
+                                                                            <td t-esc="self.ParseFloat(customer['account_no']) or ' '"></td>
+                                                                        </t>
+                                                                        <t t-else="">
+                                                                            <td>&#x2022;&#x2022;&#x2022;</td>
+                                                                        </t>
+
+                                                                        <t t-if="customer['city'] != '' and customer['city'] != None ">
+                                                                            <td t-esc="customer['city']"></td>
+                                                                        </t>
+                                                                        <t t-else="">
+                                                                            <td>&#x2022;&#x2022;&#x2022;</td>
+                                                                        </t>
+                                                                        <!-- <td><span t-esc="customer['state_id"/></td> -->
+                                                                        <t t-if="customer.get('biz_hub') != '' and customer.get('biz_hub') != None ">
+                                                                            <td t-esc="customer.get('biz_hub')"></td>
+                                                                        </t>
+                                                                        <t t-else="">
+                                                                            <td>&#x2022;&#x2022;&#x2022;</td>
+                                                                        </t>
+                                                                        <!-- <td>Apata hub</td> -->
+
+                                                                        <t t-if="customer['applicationdate'] != '' and customer['applicationdate'] != None ">
+                                                                            <td t-esc="customer.get('applicationdate')"></td>
+                                                                        </t>
+                                                                        <t t-else="">
+                                                                            <td>&#x2022;&#x2022;&#x2022;</td>
+                                                                        </t>
+
+
+                                                                        <t t-if="customer['statuscode'] != '' and customer['statuscode'] != None ">
+                                                                            <td t-esc="customer.get('statuscode')"></td>
+                                                                        </t>
+                                                                        <t t-else="">
+                                                                            <td>&#x2022;&#x2022;&#x2022;</td>
+                                                                        </t>
+
                                                                         <td>&#x2022;&#x2022;&#x2022;</td>
                                                                     </tr>
                                                                 </t>  
@@ -201,7 +250,7 @@
                                 <!-- Customer's Kanban view template -->
                                 <template id="tmpl">
                                     <div class="gridbg" style="width:100%;max-height: 700px; overflow-y: auto;">
-                                        <div id="customers_grid" style="width:100%;" class="flex-row-wrap">
+                                        <div  id="customers_grid" style="padding-left:30px;width:100%;" class="flex-row-wrap">
                                             <t t-foreach="customers" t-as="customer">
                                                 <div class="contact-card zoom shadow">
                                                     <div style="width:100%" class="flex-col ">
@@ -210,11 +259,11 @@
                                                                 <div class="flex-col-justify-center">
                                                                     <div class="card-text-center">
                                                                         <div style="display:flex;flex-direction:column;align-items:center;justify-content:center; color:white;" class="contact-abrv-grid">
-                                                                            <span style=" font-size:17px;color:white;" t-esc="customer.abbreviateName(customer.name)"/>
+                                                                            <span style=" font-size:17px;color:white;" t-esc="self.abbreviateName(customer['name'])"/>
                                                                         </div>
                                                                     </div>
                                                                     <div class="card-text-center">
-                                                                        <div><span t-esc="customer.name"/></div>
+                                                                        <div><span t-esc="customer['name']"/></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -228,13 +277,13 @@
                                                                     </div>
                                                                     <div class="flex-row-space">
                                                                         <div class="panel-start" >Account No</div>
-                                                                        <div class="panel-end"><span t-esc="customer.account_no"/></div>
+                                                                        <div class="panel-end"><span t-esc="customer['account_no']"/></div>
                                                                     </div>
                                                                     <div class="flex-row-space">
                                                                         <div class="panel-start" >Account type</div>
-                                                                        <div class="panel-end"><span t-esc="customer.account_type"/></div>
+                                                                        <div class="panel-end"><span t-esc="customer['account_type']"/></div>
                                                                     </div>
-                                                                    <button t-att-value="[{'name':customer.name,'mobile':customer.mobile,'email':customer.email,'city':customer.city,'account_no':customer.account_no,'account_type':account_type,'meter_no':customer.meter_number,'outstanding_amnt':customer.bal_cash}]" onclick="navigateToCustomerDetailsTemplate(this)" class="btn btn-primary">
+                                                                    <button t-att-value="[customer['query_url'],component['url']]" onclick="navigateToCustomerDetailsTemplate(this)" class="btn btn-primary">
                                                                         View details
                                                                     </button>
                                                                 </div> 

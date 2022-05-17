@@ -20,6 +20,26 @@ country = config[1]
 class DataImporter(models.Model):
       _inherit = 'res.partner'
       
+      
+      
+      
+        
+      def importGis_distribution_substation_all(self):
+        with open(my_path+'/demo-assets-11.csv') as f:
+                reader = csv.DictReader(f, delimiter=',')
+                for row in reader:
+                        print(row['Assetid'])  # Access by column header instead of column number
+                        try:
+                                # query = """select id from res_partner where dss_id='%s';"""%(row['Assetid'])
+                                # self._cr.execute(query)
+                                # result=self._cr.fetchall()
+                                timestamp = datetime.datetime.now()
+                                # print(f"\n\n\n\n\n\nThe customer primary key id with Assetid {row['Assetid']}",result[0][0])
+                                self._cr.execute("""INSERT INTO gis_distribution_substation_all (assetid,staffid,assettype,latitude,longtitude,dss_11kv_415v_parent,dss_11kv_415v_owner,dss_11kv_415v_name,dss_11kv_415v_address,dss_11kv_415v_rating,dss_11kv_415v_upriser_number,create_uid,create_date,write_uid,write_date)\n
+                                                VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%d','%s','%d','%s')"""%(row['Assetid'],row['StaffID'],row['assettype'],row['latitude'],row['longtitude'],row['DSS_11KV_415V_parent'],row['DSS_11KV_415V_Owner'],row['DSS_11KV_415V_Name'],row['DSS_11KV_415V_Address'],row['DSS_11KV_415V_Rating'],row['DSS_11KV_415V_Upriser_Number'],1,timestamp,1,timestamp))
+                        except Exception as e:
+                                print(e)
+      
       def importdata(self):
         with open(my_path+'/demo-cms-record-billing.csv') as f:
                 reader = csv.DictReader(f, delimiter=',')
@@ -103,17 +123,18 @@ class DataImporter(models.Model):
                                 print(query)
                                 result=self._cr.fetchall()
                                 print(result)
+                                
                                 timestamp = datetime.datetime.now()
-                                print(f"\n\n\n\n\n\nThe customer primary key id with account number {row['meter_number']}",result[0][0])
+                                # print(f"\n\n\n\n\n\nThe customer primary key id with account number {row['meter_number']}",result[0][0])
                                 self._cr.execute("""
                                                  INSERT INTO meter_model (
-                                                                        meter_root_id,req_type,batchid,oldbatchid,meter_number,meter_model,meter_manufacturer,
+                                                                        req_type,batchid,oldbatchid,meter_number,meter_model,meter_manufacturer,
                                                                         manufacture_year,meter_type,meter_rating,v_rating,meter_classification,kct,supplier,
                                                                         meter_category,meter_type_id,ecmi_exported,deployed,addedby,supplierstoreid,supplierstoretype,
                                                                         currentstorelevel,storeowner,owner_type,audit_validated_by,audit_validated_date,billing_validated_by,
                                                                         billing_validated_date,rev_validated_by,rev_validated_date,
                                                                         create_uid,create_date,write_uid,write_date)
-                                                                        VALUES ('%d','%s','%s','%s','%s',
+                                                                        VALUES ('%s','%s','%s','%s',
                                                                                 '%s','%s','%s','%s','%s',
                                                                                 '%s','%s','%s','%s','%s',
                                                                                 '%s','%s','%s','%s','%s',
@@ -121,7 +142,7 @@ class DataImporter(models.Model):
                                                                                 '%s','%s','%s','%s','%s',
                                                                                 '%d','%s','%d','%s'
                                                                                 )
-                                                """%(int(result[0][0]), 
+                                                """%( 
                                                      
                                                      str(row['req_type']),str(row['batchid']),str(row['oldbatchid']),str(row['meter_number']),str(row['meter_model']),
                                                      str(row['meter_manufacturer']),str(row['manufacture_year']),str(row['meter_type']),str(row['meter_rating']),str(row['v_rating']),

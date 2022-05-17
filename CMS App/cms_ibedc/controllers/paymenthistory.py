@@ -1,6 +1,7 @@
 import json
 from odoo import http
 from odoo.http import request, Response
+from ..utilitymethods.utility import Encryption, Serializables, User
 
 class objectview(object):
     def __init__(self, d):
@@ -8,16 +9,6 @@ class objectview(object):
 
 
 class PaymentHistory(http.Controller):
-    
-    
-
-    def jsonSerializer(self,obj):
-        from datetime import date, datetime
-        """JSON serializer for objects not serializable by default json code"""
-
-        if isinstance(obj, (datetime, date)):
-            return obj.isoformat()
-        pass
         
     def getPaymentsHistory(self,queryParam='',limit=0):
         db_name = http.request.session._db
@@ -80,16 +71,21 @@ class PaymentHistory(http.Controller):
                 return {'status':False,'message': f'No record found for {queryParam}'}
     
     @http.route('/cms/payment_history/',website=True,auth='public')
-    def paymentHistory(self,queryParam='',limit='',**kw):
-        this,payment_list = self.getPaymentsHistory()
+    def paymentHistory(self,view,id,user,limit='',**kw):
+        uid = Encryption.decryptMessage(id)
+        login = Encryption.decryptMessage(user)
+        if User.isUserExist(uid,login):
+            this,payment_list = self.getPaymentsHistory()
+            return request.render("cms_ibedc.payment_history",{'this':this,'paymentshistory':payment_list})
+        else:
+            return request.render("cms_ibedc.404notfound",{})   
         
-        return request.render("cms_ibedc.payment_history",{'this':this,'paymentshistory':payment_list})
 
     @http.route('/cms/lazypayment_history/', csrf=False, auth="public")
     def lazyPaymentHistory(self,account_no,**kw):
         response = self.getPaymentsHistory(account_no)
-        print('\n\n\n\nDumper ',json.dumps(response, default=self.jsonSerializer))
-        return Response(json.dumps(response, default=self.jsonSerializer),content_type='text/json;charset=utf-8')
+        print('\n\n\n\nPayments Dumper ',json.dumps(response, default=Serializables.jsonSerializer))
+        return Response(json.dumps(response, default=Serializables.jsonSerializer),content_type='text/json;charset=utf-8')
     
 # WHERE payment_history.payment_root_id=(select id from res_partner where account_no='{queryParam}')
 # class CustomerDetails(http.Controller):

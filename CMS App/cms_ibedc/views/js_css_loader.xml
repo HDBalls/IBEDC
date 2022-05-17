@@ -7,17 +7,15 @@
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
             <link href="https://fonts.googleapis.com/css2?family=Inter" rel="stylesheet"/>
-            <!-- <script>
-                function run(){
-                    var URL = "http://192.168.0.117:8080/" 
-                    window.open(URL, null);
-                    }
-            </script> -->
-            <link rel="stylesheet" type="text/css" href="http://192.168.0.117:8080/dashboard.css" media="screen" />
-            <link rel="stylesheet" type="text/css" href="http://192.168.0.117:8080/nav.css" media="screen" />
+            <link rel="stylesheet" type="text/css" href="http://192.168.206.1:8080/nav.css" media="screen" />
+            <link rel="stylesheet" type="text/css" href="http://192.168.206.1:8080/dashboard.css" media="screen" />
+            <link rel="stylesheet" type="text/css" href="http://192.168.206.1:8080/404.css" media="screen" />
+            
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"/>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
-            <script src="http://192.168.0.117:8080/main.js"></script>
+            <script src="http://192.168.206.1:8080/store.js"></script>
+            <script src="http://192.168.206.1:8080/fernet.js"></script>
+            <script src="http://192.168.206.1:8080/main.js"></script>
             <script src="https://www.amcharts.com/lib/4/core.js"></script>
             <script src="https://www.amcharts.com/lib/4/charts.js"></script>
             <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>

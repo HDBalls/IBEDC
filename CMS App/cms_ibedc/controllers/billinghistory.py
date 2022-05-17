@@ -1,6 +1,7 @@
 import json
 from odoo import http
 from odoo.http import request, Response
+from ..utilitymethods.utility import Encryption, Serializables, User
 
 class BillingHistory(http.Controller):
     
@@ -43,11 +44,17 @@ class BillingHistory(http.Controller):
                 return {'status':False,'message': f'No record found for {queryParam}'}
     
     @http.route('/cms/billing_history/',website=True,auth='public')
-    def billingHistory(self,**kw):
-        billing_list = self.getBillingHistory()
-        return request.render("cms_ibedc.billing_history",{"billinghistory":billing_list})
+    def billingHistory(self,view,id,user,**kw):
+        uid = Encryption.decryptMessage(id)
+        login = Encryption.decryptMessage(user)
+        if User.isUserExist(uid,login):
+            billing_list = self.getBillingHistory()
+            return request.render("cms_ibedc.billing_history",{"billinghistory":billing_list})
+        else:
+            return request.render("cms_ibedc.404notfound",{})
     
     @http.route('/cms/lazybilling_history/', csrf=False, auth="public")
     def lazyBillingHistory(self,account_no,**kw):
         response = self.getBillingHistory(account_no)
+        print('\n\n\n\nBills Dumper ',json.dumps(response, default=Serializables.jsonSerializer))
         return Response(json.dumps(response),content_type='text/json;charset=utf-8',status=200)

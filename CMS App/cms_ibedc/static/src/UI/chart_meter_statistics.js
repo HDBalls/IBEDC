@@ -45,7 +45,7 @@ pieSeries.labels.template.disabled = true;
 pieSeries.hiddenState.properties.opacity = 1;
 pieSeries.hiddenState.properties.endAngle = -90;
 pieSeries.hiddenState.properties.startAngle = -90;
-$('g:has(> g[aria-labelledby="id-66-title"])').hide();
+// $('g:has(> g[aria-labelledby="id-66-title"])').hide();
 
 (function($) { 
   $(function() { 

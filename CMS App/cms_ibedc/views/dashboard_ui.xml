@@ -60,15 +60,15 @@
                             </div>
                             </section>
                         <div class="parent-container">
-                            <div class="navbar-container-main hide-phone">
+                            <div class="navbar-container-main">
                                 <div>
                                     <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://192.168.0.117:8080/ibedc_logo.png"/></div>
                                 </div>
                                 <div class="navbar-container">
-                                    <a onclick="document.location.replace('/cms/dashboard/')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">dashboard</i><div>Dashboard</div></a>
-                                    <a onclick="document.location.replace('/cms/customers/')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">group</i><div>Customers</div></a>
-                                    <a onclick="document.location.replace('/cms/billing_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">credit_card</i><div>Bills</div></a>
-                                    <a onclick="document.location.replace('/cms/payment_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">payments</i><div>Payments</div></a>
+                                    <a onclick="redirect('dashboard')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">dashboard</i><div>Dashboard</div></a>
+                                    <a onclick="redirect('customers')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">group</i><div>Customers</div></a>
+                                    <a onclick="redirect('billing_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">credit_card</i><div>Bills</div></a>
+                                    <a onclick="redirect('payment_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">payments</i><div>Payments</div></a>
                                     <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">devices</i><div class="flex-grow" style="width:120px;">Assets</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
                                     <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">space_dashboard</i><div style="width:120px;">MSMS</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
                                     <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">developer_mode</i><div style="width:120px;">Ops Manager</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
@@ -77,8 +77,8 @@
                                     <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">logout</i><div>Sign Out</div></a>
                                 </div>
                             </div>
-                            <div class="flex-col">
-                                <div class="flex-row top-bar ">
+                            <div class="flex-col center-content">
+                                <div style="width:100%;" class="flex-row top-bar ">
                                     <div class="flex-rownowrap search-div">
                                         <div style="background: transparent;" class="search-icon-div margin-left-30"><i class="material-icons bk-mg">search</i></div>
                                         <input id="search_customer_input" onkeyup="searchCustomer()" class="search" type="text" placeholder="Search a customer"></input>
@@ -91,7 +91,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div id="dash-generate-reports" class="centered">
+                                <div style="width:100%;" id="dash-generate-reports" class="centered">
                                     <div class="flex-row flex-row-end margin-right-30">
                                         <div style="width:170px; height:40px; padding-left:10px;" class="flex-row-gap-5 border-grey bg-white shadow">
                                             <i class="material-icons">date_range</i>
@@ -104,18 +104,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div id="vcr"></div> -->
                                 <div id="template_parent" class="basic-flex-row basic-flex-row-dimensons" style="margin-top: 30px; margin-left: 30px; margin-right: 30px;"></div>
                                 <div class=" margin-left-30 margin-right-30" id="vcr" style="margin-top: 30px; margin-left: 30px; margin-right: 30px;" > </div>
                                 <!-- Dashboard template -->
-                                <template id="dashboard_template">
-                                    <div class="grid-container">
+                                <template  id="dashboard_template">
+                                    <div  class="grid-container">
                                         <div class="top-card zoom shadow">
                                             <div class="flex-col margin-left-20 margin-right-20">
                                                 <h3>Prepaid customers</h3>
                                                 <div class="flex-row-card">
                                                     <h2 class="card-count">568,961</h2>
-                                                    <img class="ibedc-logo" src="http://192.168.0.117:8080/graph.png"/>
+                                                    <img class="ibedc-logo flex-row-end" src="http://192.168.0.117:8080/graph.png"/>
                                                 </div>
                                                 <div class="flex-row-gap-5">
                                                     <b><i style="color:rgb(109, 243, 109); font-size: larger;padding-top: 7px;" class="material-icons">trending_up</i></b>
@@ -129,7 +128,7 @@
                                                 <h3>Postpaid customers</h3>
                                                 <div class="flex-row-card">
                                                     <h2 class="card-count">3,521,961</h2>
-                                                    <img class="ibedc-logo" src="http://192.168.0.117:8080/graph_red.png"/>
+                                                    <img class="ibedc-logo flex-row-end" src="http://192.168.0.117:8080/graph_red.png"/>
                                                 </div>
                                                 <div class="flex-row-gap-5">
                                                     <b><i style="color:rgb(244, 59, 59); font-size: larger;padding-top: 7px;" class="material-icons">trending_down</i></b>
@@ -143,7 +142,7 @@
                                                 <h3>Today's Collections</h3>
                                                 <div class="flex-row-card">
                                                     <h2 class="card-count">24,847,366</h2>
-                                                    <img class="ibedc-logo" src="http://192.168.0.117:8080/graph.png"/>
+                                                    <img class="ibedc-logo flex-row-end" src="http://192.168.0.117:8080/graph.png"/>
                                                 </div>
                                                 <div class="flex-row-gap-5">
                                                     <b><i style="color:rgb(109, 243, 109); font-size: larger;padding-top: 7px;" class="material-icons">trending_up</i></b>
@@ -157,7 +156,7 @@
                                                 <h3>Feeders Status</h3>
                                                 <div class="flex-row-card">
                                                     <h2 class="card-count">173</h2>
-                                                    <img class="ibedc-logo" src="http://192.168.0.117:8080/graph.png"/>
+                                                    <img class="ibedc-logo flex-row-end" src="http://192.168.0.117:8080/graph.png"/>
                                                 </div>
                                                 <div class="flex-row-gap-5">
                                                     <b><i style="color:rgb(109, 243, 109); font-size: larger;padding-top: 7px;" class="material-icons">trending_up</i></b>
@@ -170,7 +169,7 @@
                                                 <h3>Collection Statistics</h3>
                                                 <div style="padding-top:40px;">
                                                     <div class="flex-row-grow" >
-                                                        <div id="chartdiv-line"></div>
+                                                        <div style="color:black;" id="chartdiv-line"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -197,7 +196,6 @@
                                                         <div>New Requests</div>
                                                     </div>
                                                 </div>
-                                                
                                             </div>
                                         </div>
                                         <div class="lower-card zoom shadow">
@@ -290,16 +288,11 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                
                                             </div>
-                                            
                                         </div>
                                     </div>
-                                    <script src="https://www.amcharts.com/lib/4/core.js"></script>
-                                    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
-                                    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-                                    <script src="http://192.168.0.117:8080/chart_collections_statistics.js"></script>
-                                    <script src="http://192.168.0.117:8080/chart_meter_statistics.js"></script>
+                                    <script src="http://192.168.206.1:8080/chart_collections_statistics.js"></script>
+                                    <script src="http://192.168.206.1:8080/chart_meter_statistics.js"></script>
                                 </template>
                                 <footer style="width:100%;">
                                     @2022 IBEDC

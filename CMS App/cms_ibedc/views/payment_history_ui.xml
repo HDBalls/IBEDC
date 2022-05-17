@@ -65,10 +65,10 @@
                                     <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://192.168.0.117:8080/ibedc_logo.png"/></div>
                                 </div>
                                 <div class="navbar-container">
-                                    <a onclick="document.location.replace('/cms/dashboard/')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">dashboard</i><div>Dashboard</div></a>
-                                    <a onclick="document.location.replace('/cms/customers/')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">group</i><div>Customers</div></a>
-                                    <a onclick="document.location.replace('/cms/billing_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">credit_card</i><div>Bills</div></a>
-                                    <a onclick="document.location.replace('/cms/payment_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">payments</i><div>Payments</div></a>
+                                    <a onclick="redirect('dashboard')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">dashboard</i><div>Dashboard</div></a>
+                                    <a onclick="redirect('customers')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">group</i><div>Customers</div></a>
+                                    <a onclick="redirect('billing_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">credit_card</i><div>Bills</div></a>
+                                    <a onclick="redirect('payment_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">payments</i><div>Payments</div></a>
                                     <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">devices</i><div class="flex-grow" style="width:120px;">Assets</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
                                     <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">space_dashboard</i><div style="width:120px;">MSMS</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
                                     <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">developer_mode</i><div style="width:120px;">Ops Manager</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
@@ -91,8 +91,8 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div id="template_parent" class="flex-row-gap-30 margin-left-30 margin-right-30"></div>
-                                <div id="vcr" class="flex-row-gap-30 margin-left-30 margin-right-30">
+                                <div style="width:97%; height:100%;" id="template_parent" class="flex-row-gap-30 margin-left-30 margin-right-30"></div>
+                                <div style="width:100%; height:100%;" id="vcr" class="flex-row-gap-30 margin-left-30 margin-right-30">
                                     
                                 </div>
 
@@ -144,36 +144,38 @@
                                                         
                                                     </div>
                                                 </div>
-                                                <table id="payment_table" class="table">
-                                                    <thead>
-                                                        <th>Payment ID</th>
-                                                        <th>Transaction ID</th>
-                                                        <th>Timestamp</th>
-                                                        <th>Initiation Date</th>
-                                                        <th>Confirmation Date</th>
-                                                        <th>Transaction Ref</th>
-                                                        <th>Units Consumed</th>
-                                                        <th>Status Message</th>
-                                                        <th>Gross Amount</th>
-                                                        <th>Net Amount</th>
-                                                    </thead>
-                                                    <tbody>
-                                                        <t t-foreach="paymentshistory" t-as="paymentshistory">
-                                                            <tr>
-                                                                <td><span t-esc="paymentshistory['payment_id']"/></td>
-                                                                <td><span t-esc="paymentshistory['transaction_id']"/></td>
-                                                                <td><span t-esc="paymentshistory['timestamp']"/></td>
-                                                                <td><span t-esc="paymentshistory['initiation_date']"/></td>
-                                                                <td><span t-esc="paymentshistory['confirmation_date']"/></td>
-                                                                <td><span t-esc="this.ParseFloat(paymentshistory['transaction_refr'])"/></td>
-                                                                <td><span t-esc="paymentshistory['units_consumed']"/></td>
-                                                                <td><span t-esc="paymentshistory['trans_status']"/></td>
-                                                                <td><span t-esc="paymentshistory['gross_amount']"/></td>
-                                                                <td><span t-esc="paymentshistory['net_amount']"/></td>
-                                                            </tr>
-                                                        </t>
-                                                    </tbody>
-                                                </table>
+                                                <div style="width:100%;max-height: 600px; overflow-y: auto;">
+                                                    <table id="payment_table" class="table">
+                                                        <thead>
+                                                            <th>Payment ID</th>
+                                                            <th>Transaction ID</th>
+                                                            <th>Timestamp</th>
+                                                            <th>Initiation Date</th>
+                                                            <th>Confirmation Date</th>
+                                                            <th>Transaction Ref</th>
+                                                            <th>Units Consumed</th>
+                                                            <th>Status Message</th>
+                                                            <th>Gross Amount</th>
+                                                            <th>Net Amount</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <t t-foreach="paymentshistory" t-as="paymentshistory">
+                                                                <tr>
+                                                                    <td><span t-esc="paymentshistory['payment_id']"/></td>
+                                                                    <td><span t-esc="paymentshistory['transaction_id']"/></td>
+                                                                    <td><span t-esc="paymentshistory['timestamp']"/></td>
+                                                                    <td><span t-esc="paymentshistory['initiation_date']"/></td>
+                                                                    <td><span t-esc="paymentshistory['confirmation_date']"/></td>
+                                                                    <td><span t-esc="this.ParseFloat(paymentshistory['transaction_refr'])"/></td>
+                                                                    <td><span t-esc="paymentshistory['units_consumed']"/></td>
+                                                                    <td><span t-esc="paymentshistory['trans_status']"/></td>
+                                                                    <td><span t-esc="paymentshistory['gross_amount']"/></td>
+                                                                    <td><span t-esc="paymentshistory['net_amount']"/></td>
+                                                                </tr>
+                                                            </t>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                                 <div class="table-paginator">
                                                     <button class="btn">Prev</button>
                                                     <button class="btn">1</button>
@@ -183,6 +185,7 @@
                                                     <button class="btn">7</button>
                                                     <button class="btn">Next</button>
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                     </template>

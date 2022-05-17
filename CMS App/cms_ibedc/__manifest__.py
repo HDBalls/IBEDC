@@ -17,6 +17,8 @@
             ],
     'data': [
         #     'security/ir.model.access.csv',
+            # 'data/database_selector.xml',
+            
             'data/add_states.xml',
             'views/contact_views.xml',
             'views/billing_history.xml',
@@ -32,7 +34,9 @@
             'views/customers_ui.xml',
             'views/customer_details_ui.xml',
             'views/billing_history_ui.xml',
-            'views/payment_history_ui.xml'
+            'views/payment_history_ui.xml',
+            'views/404notfound_ui.xml',
+            # 'views/footer.xml'
             ],
     'application': True,
 }

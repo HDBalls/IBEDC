@@ -58,10 +58,12 @@ class PaymentHistory(models.Model):
     def asDict(self,value):
         print("\n\n\n\n\n\nValue : ",value)
         return {'status':self.value}
-            
+      
     def ParseFloat(self,value):
-        print(int(value))
-        return int(value)
+        try:
+            return int(float(value))
+        except Exception as e:
+            return value
     
     
 
