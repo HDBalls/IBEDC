@@ -11,7 +11,7 @@
 
 .four_zero_four_bg{
  
- background-image: url(http://192.168.0.117:8080/dribbble_1.gif);
+ background-image: url(http://127.0.0.1:8080/src/UI/dribbble_1.gif);
     height: 400px;
     background-position: center;
  }

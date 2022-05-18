@@ -20,6 +20,7 @@
             # 'data/database_selector.xml',
             
             'data/add_states.xml',
+            'views/js_css_loader.xml',
             'views/contact_views.xml',
             'views/billing_history.xml',
             'views/complaints_history.xml',
@@ -29,7 +30,6 @@
             'views/customer_assets.xml',
             'views/geolocation.xml',
             'security/security.xml',
-            'views/js_css_loader.xml',
             'views/dashboard_ui.xml',
             'views/customers_ui.xml',
             'views/customer_details_ui.xml',

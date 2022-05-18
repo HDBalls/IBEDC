@@ -3,7 +3,7 @@
 
     <template id="assets_frontend" inherit_id="web.assets_frontend">
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/cms_ibedc/static/src/js/hidesettings.js"></script>
+            <script type="text/javascript" src="http://127.0.0.1:8080/src/js/hidesettings.js"></script>
         </xpath>
     </template>
 

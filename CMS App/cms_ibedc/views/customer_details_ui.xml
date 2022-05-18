@@ -9,7 +9,7 @@
                             <div class="nav-container">
                                 <div class="brand">
                                     <div>
-                                        <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://192.168.0.117:8080/ibedc_logo.png"/></div>
+                                        <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://127.0.0.1:8080/src/UI/ibedc_logo.png"/></div>
                                     </div>
                                 </div>
                                 <nav>
@@ -62,7 +62,7 @@
                         <div class="parent-container">
                             <div class="navbar-container-main">
                                 <div>
-                                    <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://192.168.0.117:8080/ibedc_logo.png"/></div>
+                                    <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://127.0.0.1:8080/src/UI/ibedc_logo.png"/></div>
                                 </div>
                                 <div class="navbar-container">
                                     <a onclick="redirect('dashboard')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">dashboard</i><div>Dashboard</div></a>
@@ -595,8 +595,8 @@
                         <!-- <script src="https://www.amcharts.com/lib/4/core.js"></script>
                         <script src="https://www.amcharts.com/lib/4/charts.js"></script>
                         <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-                        <script src="C:/Users/hp/Documents/Workspace/odoo-14.0/odoo-14.0/addons/cms_ibedc/static/src/js/chart_collections_statistics.js"></script>
-                        <script src="C:/Users/hp/Documents/Workspace/odoo-14.0/odoo-14.0/addons/cms_ibedc/static/src/js/chart_meter_statistics.js"></script> -->
+                        <script src="C:/Users/hp/Documents/Workspace/odoo-14.0/odoo-14.0/addonshttp://127.0.0.1:8080/src/js/chart_collections_statistics.js"></script>
+                        <script src="C:/Users/hp/Documents/Workspace/odoo-14.0/odoo-14.0/addonshttp://127.0.0.1:8080/src/js/chart_meter_statistics.js"></script> -->
                     </body>
                 </t>
             </t>

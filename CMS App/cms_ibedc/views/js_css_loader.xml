@@ -7,17 +7,17 @@
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
             <link href="https://fonts.googleapis.com/css2?family=Inter" rel="stylesheet"/>
-            <link rel="stylesheet" type="text/css" href="http://192.168.206.1:8080/nav.css" media="screen" />
-            <link rel="stylesheet" type="text/css" href="http://192.168.206.1:8080/dashboard.css" media="screen" />
-            <link rel="stylesheet" type="text/css" href="http://192.168.206.1:8080/404.css" media="screen" /> 
+            <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/src/css/nav.css" media="screen" />
+            <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/src/css/dashboard.css" media="screen" />
+            <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/src/css/404.css" media="screen" /> 
             <!-- <link rel="stylesheet" type="text/css" href="cms_ibedc/static/src/UI/nav.css" media="screen" /> -->
 
             
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"/>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
-            <script src="http://192.168.206.1:8080/store.js"></script>
-            <script src="http://192.168.206.1:8080/fernet.js"></script>
-            <script src="http://192.168.206.1:8080/main.js"></script>
+            <script src="http://127.0.0.1:8080/src/js/store.js"></script>
+            <script src="http://127.0.0.1:8080/src/js/fernet.js"></script>
+            <script src="http://127.0.0.1:8080/src/js/main.js"></script>
             <script src="https://www.amcharts.com/lib/4/core.js"></script>
             <script src="https://www.amcharts.com/lib/4/charts.js"></script>
             <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
@@ -26,3 +26,32 @@
         </xpath>
     </template>
 </odoo>
+
+
+
+<!-- <?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="web.assets_frontend">
+        <xpath expr="." position="inside">
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <link rel="stylesheet" href="/cms_ibedc/src/css/nav.css"/>
+            <link rel="stylesheet" href="/cms_ibedc/src/css/dashboard.css"/>
+            <link rel="stylesheet" href="/cms_ibedc/src/css/404.css"/> 
+            <link rel="stylesheet" href="/cms_ibedc/src/css/nav.css"/>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+            <link href="https://fonts.googleapis.com/css2?family=Inter" rel="stylesheet"/>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"/>
+            
+            <script src="/cms_ibedc/src/js/store.js"></script>
+            <script src="/cms_ibedc/src/js/fernet.js"></script>
+            <script src="/cms_ibedc/src/js/main.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
+            <script src="https://www.amcharts.com/lib/4/core.js"></script>
+            <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+            <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+            <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
+        </xpath>
+    </template>
+</odoo> -->

@@ -9,7 +9,7 @@
                             <div class="nav-container">
                                 <div class="brand">
                                     <div>
-                                        <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://192.168.0.117:8080/ibedc_logo.png"/></div>
+                                        <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://127.0.0.1:8080/src/UI/ibedc_logo.png"/></div>
                                     </div>
                                 </div>
                                 <nav>
@@ -62,7 +62,7 @@
                         <div class="parent-container">
                             <div  class="navbar-container-main">
                                 <div>
-                                    <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://192.168.0.117:8080/ibedc_logo.png"/></div>
+                                    <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://127.0.0.1:8080/src/UI/ibedc_logo.png"/></div>
                                 </div>
                                 <div class="navbar-container">
                                     <a onclick="redirect('dashboard')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">dashboard</i><div>Dashboard</div></a>
