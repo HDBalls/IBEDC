@@ -72,7 +72,7 @@
                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">devices</i><div class="flex-grow" style="width:120px;">Assets</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
                                     <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">space_dashboard</i><div style="width:120px;">MSMS</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
                                     <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">developer_mode</i><div style="width:120px;">Ops Manager</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
-                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">feedback</i><div>Customer complaints</div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">feedback</i><div>Customer Complaints</div></a>
                                     <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">electric_meter</i><div style="width:117px;">Advanced Metering</div><i class="material-icons">chevron_right</i></a>
                                     <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">logout</i><div>Sign Out</div></a>
                                 </div>
