@@ -21,7 +21,8 @@ class Customers(http.Controller):
             #             JOIN meter_model ON res_partner.meter_number = meter_model.meter_number
             #             order by name
             #             ;"""
-                        
+            total_customers = http.request.env['res.partner'].search_count([])  
+            print("\n\n\nTotal customers ",total_customers) 
             query = f"""SELECT 
                                 {QuerySelectors.queryselectors_cust} 
                         FROM
@@ -64,7 +65,7 @@ class Customers(http.Controller):
                     # print("\n\n\n\nMegalist ", megalist)
                     Customers += http.request.env['res.partner'].browse(single_dict['id'])
 
-            return Customers,megalist
+            return Customers,megalist,total_customers
         else:
             customers_list = Customers.search([])
             return 'with_param' ,customers_list
@@ -74,11 +75,11 @@ class Customers(http.Controller):
         uid = Encryption.decryptMessage(id)
         login = Encryption.decryptMessage(user)
         if User.isUserExist(uid,login):
-            this,customers_list = Customers.getCustomers()
+            this,customers_list,total_customers = Customers.getCustomers()
             if this == 'with_param':
                 return request.render("cms_ibedc.customers",{"customers":customers_list})
             # print("\n\n\n\nReturned ",{"self":this,"customers":customers_list})
-            return request.render("cms_ibedc.customers",{"self":this,"customers":customers_list,"component":{'url':'personal_info'}})
+            return request.render("cms_ibedc.customers",{"self":this,"customers":customers_list,"component":{'url':'personal_info'},"total_customers":total_customers})
         else:
             return request.render("cms_ibedc.404notfound",{})
         

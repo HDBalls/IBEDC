@@ -85,8 +85,8 @@
                                     </div>
                                     <div class="flex-row flex-row-end margin-right-30" style="width:20%">
                                         <div class="user-logo"><img src=""/></div>
-                                        <select class="shadow">
-                                            <option><span><b>Fortune Odesanya</b></span></option>
+                                        <select style="width:200px; height:30px; text-align:center;" id="currentuser" class="shadow">
+                                            <option><span><b></b></span></option>
                                             <option>Log out</option>
                                         </select>
                                     </div>
@@ -102,7 +102,7 @@
                                             <div class="top-header">
                                                 <div class="header-start">
                                                     <h1>Billing history</h1>
-                                                    <p>You have total 2,595,009 records</p>
+                                                    <p>You have a total of <span t-esc="total_bills"/> billing records</p> 
                                                 </div>
                                                 <div class="header-end">
                                                     <button onclick="exportTableToExcel('bill_table','excel_billing_history')" class="exportbtn zoom shadow flex-row">

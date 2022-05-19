@@ -15,6 +15,7 @@ class PaymentHistory(http.Controller):
         if queryParam == '':
             Paymenthistory = http.request.env['payment.history']
             payment_list_search = Paymenthistory.search([])
+            total_payments = http.request.env['payment.history'].search_count([])
             query = f"""SELECT 
                             payment_history.id,
                             payment_history.payment_root_id,
@@ -51,7 +52,7 @@ class PaymentHistory(http.Controller):
                     megalist.append(single_dict)
                     Paymenthistory += http.request.env['payment.history'].browse(single_dict['id'])
             print("pay ",payment_list_search,Paymenthistory[0].trans_status,(payment_list_search==Paymenthistory))
-            return Paymenthistory,megalist
+            return Paymenthistory,megalist,total_payments
         
         else:
             filter_domain=[('account_no', '=', queryParam)]
@@ -75,8 +76,8 @@ class PaymentHistory(http.Controller):
         uid = Encryption.decryptMessage(id)
         login = Encryption.decryptMessage(user)
         if User.isUserExist(uid,login):
-            this,payment_list = self.getPaymentsHistory()
-            return request.render("cms_ibedc.payment_history",{'this':this,'paymentshistory':payment_list})
+            this,payment_list,total_payments = self.getPaymentsHistory()
+            return request.render("cms_ibedc.payment_history",{'this':this,'paymentshistory':payment_list,"total_payments":total_payments})
         else:
             return request.render("cms_ibedc.404notfound",{})   
         

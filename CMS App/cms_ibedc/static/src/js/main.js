@@ -10,12 +10,22 @@ async function clearVcrContainer(){
         for (let garbage of garbages){
             var e = $(`${garbage}`);
             // $(e).remove();
-        }   
+        }  
+        
     }
     catch(err){
         console.log(err)
     }
     
+}
+
+function setUsername(){
+    var user = decryptString(StateManagement.prototype.pullState('cms.curr.user').params.user)
+    var display_user = titleCase(user) 
+    console.log("Logged in User ",user)
+    var userbar = document.getElementById("currentuser")
+    userbar.options[0] = new Option(display_user, display_user);
+    userbar.value = display_user;
 }
 
 function ChangeUrl(pagedata,title,url) {
@@ -108,16 +118,22 @@ function templateRenderer(data,mode){
     }
 }
 
+function titleCase(str) {
+    return str.toLowerCase().split(' ').map(function(word) {
+      return word.replace(word[0], word[0].toUpperCase());
+    }).join(' ');
+  }
+
 function loadDashboardTemplate(template_id){
     clearVcrContainer().then(()=>{
         var user_url_params = OnInit(template_id)
         StateManagement.prototype.pushState('cms.curr.user',user_url_params)
+        setUsername()
         let elem = document.getElementById('template_parent');
         let grock = document.getElementById('vcr');
         elem.append(dashboard_template.content.cloneNode(true));
         console.log("current user ", user_url_params)
-        window.localStorage.setItem('current_url_id',template_id)
-        
+        window.localStorage.setItem('current_url_id',template_id)      
     })
     
 }
@@ -127,6 +143,7 @@ function loadCustomerTemplate(template_id,loadType=false){
         const queryString = window.location.search;
         // console.log("\n\nData from odoo server ",queryString);
         var fetchedState = StateManagement.prototype.pullState('cms.curr.user')
+        setUsername()
         console.log("\n\nUser state from Store ", fetchedState)
         clearVcrContainer().then(()=>{
             OnInit(template_id)
@@ -144,6 +161,7 @@ function loadCustomerTemplate(template_id,loadType=false){
         const queryString = window.location.search;
         // console.log("\n\nData from odoo server ",queryString);
         var fetchedState = StateManagement.prototype.pullState('cms.curr.user')
+        setUsername()
         console.log("\n\nUser state from Store ", fetchedState)
         OnInit(template_id)
         let elem = document.getElementById('template_parent');
@@ -160,6 +178,7 @@ function loadCustomerTemplate(template_id,loadType=false){
 function loadBillingHistoryTemplate(template_id){
     clearVcrContainer().then(()=>{
         OnInit(template_id)
+        setUsername()
         let elem = document.getElementById('template_parent');
         let grock = document.getElementById('vcr');
         elem.append(billinghistory_template.content.cloneNode(true));
@@ -172,6 +191,7 @@ function loadBillingHistoryTemplate(template_id){
 function loadPaymentsHistoryTemplate(template_id){
     clearVcrContainer().then(()=>{
         OnInit(template_id)
+        setUsername()
         let elem = document.getElementById('template_parent');
         let grock = document.getElementById('vcr');
         elem.append(paymentshistory_template.content.cloneNode(true));
@@ -226,6 +246,7 @@ function loadCustomerDetailsTemplate(template_id,url){
     current_cmp = urlparameters.component
     clearVcrContainer().then(()=>{
         OnInit(template_id)
+        setUsername()
         let elem = document.getElementById('template_parent');
         let grock = document.getElementById('vcr');
         elem.append(customer_details_template.content.cloneNode(true));
@@ -357,6 +378,7 @@ async function LoadSingleCustomerPayment(account_no){
 function loadBillingInfoTemplate(template_id,account_no){
     clearInfoVcrContainer('info-vcr').then(()=>{
         OnInit(template_id)
+        setUsername()
         LoadSingleCustomerBilling(account_no).then((data)=>{
             console.log("Response ", data)
             let elem = document.getElementById('info-vcr');
@@ -377,6 +399,7 @@ function loadBillingInfoTemplate(template_id,account_no){
 function loadPaymentInfoTemplate(template_id,account_no){
     clearInfoVcrContainer('info-vcr').then(()=>{
         OnInit(template_id)
+        setUsername()
         LoadSingleCustomerPayment(account_no).then((data)=>{
             console.log("Response ", data)
             let elem = document.getElementById('info-vcr');

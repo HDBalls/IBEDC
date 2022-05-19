@@ -13,8 +13,9 @@ class BillingHistory(http.Controller):
         db_name = http.request.session._db
         if queryParam == '':
             BillingHistory = http.request.env['billing.history']
+            total_bills = http.request.env['billing.history'].search_count([])  
             billing_list = BillingHistory.search([])
-            return billing_list
+            return billing_list, total_bills
         else:
             filter_domain=[('account_no', '=', queryParam)]
             BillingHistory = http.request.env['billing.history']
@@ -48,8 +49,8 @@ class BillingHistory(http.Controller):
         uid = Encryption.decryptMessage(id)
         login = Encryption.decryptMessage(user)
         if User.isUserExist(uid,login):
-            billing_list = self.getBillingHistory()
-            return request.render("cms_ibedc.billing_history",{"billinghistory":billing_list})
+            billing_list,total_bills = self.getBillingHistory()
+            return request.render("cms_ibedc.billing_history",{"billinghistory":billing_list,"total_bills":total_bills})
         else:
             return request.render("cms_ibedc.404notfound",{})
     
