@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>  
+  <template id = "404notfound" >
+        <t name="Notfound" t-name="website.404notfound">
+            <t t-call="website.layout">
+                <t t-set="pageName" t-value="'404notfound'"/>
+                    <body style="position:absolute;top:0px,left:0;">
+                        <section class="page_404">
+                        <div class="container">
+                            <div class="row">	
+                            <div class="col-sm-12 ">
+                            <div class="col-sm-10 col-sm-offset-1  text-center">
+                            <div class="four_zero_four_bg">
+                                <h1 class="text-center ">404 ERR NOT FOUND</h1>
+                            </div>
+                            <div class="contant_box_404">
+                            <h3 class="h2">Not again!!, Look's like you're lost</h3>
+                            <p>This page you are looking for not available!</p>
+                            <a href="http://127.0.0.1:8069/cms/dashboard" class="link_404">Go to Dashboard</a>
+                        </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                    </section>
+                    </body>
+                </t>
+            </t>
+    </template>
+</odoo> 

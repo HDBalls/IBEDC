@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>  
+  <template id = "dashboard" >
+        <t name="Dashboard" t-name="website.dashboard">
+            <t t-call="website.layout">
+                <t t-set="pageName" t-value="'dashboard'"/>
+                    <body onload="loadDashboardTemplate('dashboard_template')">
+                        <section class="top-navbar-container navigation">
+                            <div class="nav-container">
+                                <div class="brand">
+                                    <div>
+                                        <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://127.0.0.1:8080/src/UI/ibedc_logo.png"/></div>
+                                    </div>
+                                </div>
+                                <nav>
+                                    <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
+                                    <ul class="nav-list">
+                                        <li>
+                                        <a href="#!">Home</a>
+                                        </li>
+                                        <li>
+                                        <a href="#!">About</a>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Services</a>
+                                        <ul class="navbar-dropdown">
+                                            <li>
+                                            <a href="#!">Sass</a>
+                                            </li>
+                                            <li>
+                                            <a href="#!">Less</a>
+                                            </li>
+                                            <li>
+                                            <a href="#!">Stylus</a>
+                                            </li>
+                                        </ul>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Portfolio</a>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Category</a>
+                                        <ul class="navbar-dropdown">
+                                            <li>
+                                            <a href="#!">Sass</a>
+                                            </li>
+                                            <li>
+                                            <a href="#!">Less</a>
+                                            </li>
+                                            <li>
+                                            <a href="#!">Stylus</a>
+                                            </li>
+                                        </ul>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Contact</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            </section>
+                        <div class="parent-container">
+                            <div class="navbar-container-main">
+                                <div>
+                                    <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://127.0.0.1:8080/src/UI/ibedc_logo.png"/></div>
+                                </div>
+                                <div class="navbar-container">
+                                    <a onclick="redirect('dashboard')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">dashboard</i><div>Dashboard</div></a>
+                                    <a onclick="redirect('customers')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">group</i><div>Customers</div></a>
+                                    <a onclick="redirect('billing_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">credit_card</i><div>Bills</div></a>
+                                    <a onclick="redirect('payment_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">payments</i><div>Payments</div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">devices</i><div class="flex-grow" style="width:120px;">Assets</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">space_dashboard</i><div style="width:120px;">MSMS</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">developer_mode</i><div style="width:120px;">Ops Manager</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">feedback</i><div>Customer Complaints</div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">electric_meter</i><div style="width:117px;">Advanced Metering</div><i class="material-icons">chevron_right</i></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">logout</i><div>Sign Out</div></a>
+                                </div>
+                            </div>
+                            <div class="flex-col center-content">
+                                <div style="width:100%;" class="flex-row top-bar ">
+                                    <div class="flex-rownowrap search-div">
+                                        <div style="background: transparent;" class="search-icon-div margin-left-30"><i class="material-icons bk-mg">search</i></div>
+                                        <input id="search_customer_input" onkeyup="searchCustomer()" class="search" type="text" placeholder="Search a customer"></input>
+                                    </div>
+                                    <div class="flex-row flex-row-end margin-right-30" style="width:20%">
+                                        <div class="user-logo"><img src=""/></div>
+                                        <select style="width:200px; height:30px; text-align:center;" id="currentuser" class="shadow">
+                                            <option><span><b></b></span></option>
+                                            <option>Log out</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div style="width:100%;" id="dash-generate-reports" class="centered">
+                                    <div class="flex-row flex-row-end margin-right-30">
+                                        <div style="width:170px; height:40px; padding-left:10px;" class="flex-row-gap-5 border-grey bg-white shadow">
+                                            <i class="material-icons">date_range</i>
+                                            <div>Last 30 days</div>
+                                            <i class="material-icons">chevron_right</i>
+                                        </div>
+                                        <div style="background:rgb(98, 63, 180);width:170px; height:40px;border-radius: 7px; padding-left:10px;" class="flex-row-gap-5">
+                                            <i style="color:white;" class="material-icons">note_alt</i>
+                                            <div class="color-white">Generate report</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="template_parent" class="basic-flex-row basic-flex-row-dimensons" style="margin-top: 30px; margin-left: 30px; margin-right: 30px;"></div>
+                                <div class=" margin-left-30 margin-right-30" id="vcr" style="margin-top: 30px; margin-left: 30px; margin-right: 30px;" > </div>
+                                <!-- Dashboard template -->
+                                <template  id="dashboard_template">
+                                    <div  class="grid-container">
+                                        <div class="top-card zoom shadow">
+                                            <div class="flex-col margin-left-20 margin-right-20">
+                                                <h3>Prepaid Customers</h3>
+                                                <div class="flex-row-card">
+                                                    <h2 style="max-width:200px; font-size:30px;" class="card-count">568,961</h2>
+                                                    <img class="ibedc-logo flex-row-end" src="http://127.0.0.1:8080/src/UI/graph.png"/>
+                                                </div>
+                                                <div class="flex-row-gap-5">
+                                                    <b><i style="color:rgb(109, 243, 109); font-size: larger;padding-top: 7px;" class="material-icons">trending_up</i></b>
+                                                    <div style="color:rgb(109, 243, 109);font-size: large;">1.43%</div>
+                                                    <div>vs Last week</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="top-card zoom shadow">
+                                            <div class="flex-col margin-left-20 margin-right-20">
+                                                <h3>Postpaid Customers</h3>
+                                                <div class="flex-row-card">
+                                                    <h2 style="max-width:200px; font-size:30px;" class="card-count">3,521,961</h2>
+                                                    <img class="ibedc-logo flex-row-end" src="http://127.0.0.1:8080/src/UI/graph_red.png"/>
+                                                </div>
+                                                <div class="flex-row-gap-5">
+                                                    <b><i style="color:rgb(244, 59, 59); font-size: larger;padding-top: 7px;" class="material-icons">trending_down</i></b>
+                                                    <div style="color:rgb(244, 59, 59);font-size: large;">1.43%</div>
+                                                    <div>vs Last week</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="top-card zoom shadow">
+                                            <div class="flex-col margin-left-20 margin-right-20">
+                                                <h3>Today's Collections</h3>
+                                                <div class="flex-row-card">
+                                                    <h2 style="max-width:200px; font-size:30px;" class="card-count"><span>&#x20A6;467,847,366  </span></h2>
+                                                    <img class="ibedc-logo flex-row-end" src="http://127.0.0.1:8080/src/UI/graph.png"/>
+                                                </div>
+                                                <div class="flex-row-gap-5">
+                                                    <b><i style="color:rgb(109, 243, 109); font-size: larger;padding-top: 7px;" class="material-icons">trending_up</i></b>
+                                                    <div style="color:rgb(109, 243, 109);font-size: large;">4.63%</div>
+                                                    <div>vs yesterday</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="top-card zoom shadow">
+                                            <div class="flex-col margin-left-20 margin-right-20">
+                                                <h3>Online Feeders</h3>
+                                                <div class="flex-row-card">
+                                                    <h2 style="max-width:200px; font-size:30px;" class="card-count">173</h2>
+                                                    <img class="ibedc-logo flex-row-end" src="http://127.0.0.1:8080/src/UI/graph.png"/>
+                                                </div>
+                                                <div class="flex-row-gap-5">
+                                                    <b><i style="color:rgb(109, 243, 109); font-size: larger;padding-top: 7px;" class="material-icons">trending_up</i></b>
+                                                    <div>Active</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="longest longer-card zoom shadow">
+                                            <div class="flex-col margin-left-20 margin-right-20 margin-top-30">
+                                                <h3>Collection Statistics</h3>
+                                                <div style="padding-top:40px;">
+                                                    <div class="flex-row-grow" >
+                                                        <div style="color:black;" id="chartdiv-line"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lower-card zoom shadow flex-col-center">
+                                            <div class="flex-col margin-left-20 margin-right-20">
+                                                <h3 style="padding-top: 30px; padding-left: 0px;">Metering Statistics</h3>
+                                                <div style="padding-top:40px;height:220px" class="flex-row-center">
+                                                    <div class="flex-row-card-x">
+                                                        <div id="chartdiv"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-self-center">
+                                                    <div class="flex-row-gap-5">
+                                                        <div class="legend-box" style="background:#6771dc;"></div>
+                                                        <div>Meters Installed</div>
+                                                    </div>
+                                                    <div class="flex-row-gap-5">
+                                                        <div class="legend-box" style="background:#67b7dc;"></div>
+                                                        <div>Pending Installations</div>
+                                                    </div>
+                                                    <div class="flex-row-gap-5">
+                                                        <div class="legend-box" style="background:#dc67ce;"></div>
+                                                        <div>New Requests</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="lower-card zoom shadow">
+                                            <div class="flex-col margin-left-10 margin-right-20 margin-top-30">
+                                                <div class="flex-rownowrap-gap-5">
+                                                    <h3>Operation Statistics</h3>
+                                                    <select >
+                                                        <option>Past Week </option>
+                                                        <option>Past Month </option>
+                                                        <option>Past Year </option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <div class="flex-row-card-ops">
+                                                    <div class="flex-col">
+                                                        <div>Bills Distributed</div>
+                                                        <h2 >1,795</h2>
+                                                    </div>
+                                                    <div class="flex-row-center ops-icons" style="background:rgb(230, 226, 232) ;">
+                                                        <i style="margin:10px; color:rgb(133, 87, 165); font-size: 25px;padding-top: 7px;" class="material-icons">local_mall</i>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-row-card-ops">
+                                                    <div class="flex-col">
+                                                        <div>Meter Readings</div>
+                                                        <h2 >2,327</h2>
+                                                    </div>
+                                                    <div class="flex-row-center ops-icons" style="background:rgb(228, 234, 224) ;">
+                                                        <i style="margin:10px; color:rgb(58, 182, 126); font-size: 25px;padding-top: 7px;" class="material-icons">gas_meter</i>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-row-card-ops">
+                                                    <div class="flex-col">
+                                                        <div>Evaluated Customers</div>
+                                                        <h2 >647</h2>
+                                                    </div>
+                                                    <div class="flex-row-center ops-icons" style="background:rgb(234, 223, 223) ;">
+                                                        <i style="margin:10px; color:rgb(181, 18, 18); font-size: 25px;padding-top: 7px;" class="material-icons">perm_identity</i>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-row-card-ops">
+                                                    <div class="flex-col">
+                                                        <div>Enumerated Customers</div>
+                                                        <h2 >68</h2>
+                                                    </div>
+                                                    <div class="flex-row-center ops-icons" style="background:rgb(230, 225, 233) ;">
+                                                        <i style="margin:10px; color:rgb(133, 87, 165); font-size: 25px;padding-top: 7px;" class="material-icons">person_add</i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="table-in-grid" style="width:100%;">
+                                            <div class="table-card shadow ">
+                                                <h3 style="padding:20px;height:60px;">Recent Payments</h3>
+                                                <table class="table">
+                                                    <thead>
+                                                        <th>Order No</th>
+                                                        <th>Customer</th>
+                                                        <th>Date</th>
+                                                        <th>Amount</th>
+                                                        <th>Status</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="font-size:17px; color:rgb(203, 60, 203)">#95954</td>
+                                                            <td>Cassandra Hogan</td>
+                                                            <td style="font-size:17px; color:rgb(194, 189, 194)">02/01/2020</td>
+                                                            <td>8190.99</td>
+                                                            <td style="font-size: larger; color:rgb(94, 236, 188)">&#x2022; Success</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-size:17px; color:rgb(203, 60, 203)">#95954</td>
+                                                            <td>Desiree Edwards</td>
+                                                            <td style="font-size:17px; color:rgb(194, 189, 194)">02/01/2020</td>
+                                                            <td>8190.99</td>
+                                                            <td style="font-size: larger; color:rgb(240, 64, 64)">&#x2022; Failed</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-size:17px; color:rgb(203, 60, 203)">#95954</td>
+                                                            <td>Cassandra Hogan</td>
+                                                            <td style="font-size:17px; color:rgb(194, 189, 194)">02/01/2020</td>
+                                                            <td>8190.99</td>
+                                                            <td style="font-size: larger; color:rgb(94, 236, 188)">&#x2022; Success</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-size:17px; color:rgb(203, 60, 203)">#95954</td>
+                                                            <td>Cassandra Hogan</td>
+                                                            <td style="font-size:17px; color:rgb(194, 189, 194)">02/01/2020</td>
+                                                            <td>8190.99</td>
+                                                            <td style="font-size: larger; color:rgb(94, 236, 188)">&#x2022; Success</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-size:17px; color:rgb(203, 60, 203)">#95954</td>
+                                                            <td>Cassandra Hogan</td>
+                                                            <td style="font-size:17px; color:rgb(194, 189, 194)">02/01/2020</td>
+                                                            <td>8190.99</td>
+                                                            <td style="font-size: larger; color:rgb(218, 204, 19)">&#x2022; Reversed</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script src="http://127.0.0.1:8080/src/js/chart_collections_statistics.js"></script>
+                                    <script src="http://127.0.0.1:8080/src/js/chart_meter_statistics.js"></script>
+                                </template>
+                                
+                            </div>
+                        </div>
+                    </body>
+                    <footer  style="color:red;width:100%;">
+                        <div id="footer" class="oe_structure oe_structure_solo" t-ignore="true" t-if="not no_footer">
+                        <section class="s_text_block pt40 pb16" data-snippet="s_text_block" data-name="Text">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-2 pt24 pb24">
+                                        <h5 class="mb-3">Useful Links</h5>
+                                        <ul class="list-unstyled">
+                                            <li><a href="/">Home</a></li>
+                                            <li><a href="#">About us</a></li>
+                                            <li><a href="#">Products</a></li>
+                                            <li><a href="#">Services</a></li>
+                                            <li><a href="#">Legal</a></li>
+                                            <li><a href="/contactus">Contact us</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-5 pt24 pb24">
+                                        <h5 class="mb-3">About us</h5>
+                                        <p>We are a team of passionate people whose goal is to improve everyone's life through disruptive products. We build great products to solve your business problems.
+                                        <br/><br/>Our products are designed for small to medium size companies willing to optimize their performance.</p>
+                                    </div>
+                                    <div id="connect" class="col-lg-4 offset-lg-1 pt24 pb24">
+                                        <h5 class="mb-3">Connect with us</h5>
+                                        <ul class="list-unstyled">
+                                            <li><i class="fa fa-comment fa-fw mr-2"/><span><a href="/contactus">Contact us</a></span></li>
+                                            <li><i class="fa fa-envelope fa-fw mr-2"/><span><a href="mailto:cmsuserstaff@ibedc.com">cmsuserstaff@ibedc.com</a></span></li>
+                                            <li><i class="fa fa-phone fa-fw mr-2"/><span class="o_force_ltr"><a href="tel:+1 (650) 691-3277">+1 (650) 691-3277</a></span></li>
+                                        </ul>
+                                        <div class="s_share text-left" data-name="Social Media">
+                                            <h5 class="s_share_title d-none">Follow us</h5>
+                                            <a href="/website/social/facebook" class="s_share_facebook" target="_blank">
+                                                <i class="fa fa-facebook rounded-circle shadow-sm"/>
+                                            </a>
+                                            <a href="/website/social/twitter" class="s_share_twitter" target="_blank">
+                                                <i class="fa fa-twitter rounded-circle shadow-sm"/>
+                                            </a>
+                                            <a href="/website/social/linkedin" class="s_share_linkedin" target="_blank">
+                                                <i class="fa fa-linkedin rounded-circle shadow-sm"/>
+                                            </a>
+                                            <a href="/" class="text-800 float-right">
+                                                <i class="fa fa-home rounded-circle shadow-sm"/>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    </footer>
+                </t>
+            </t>
+    </template>
+</odoo> 

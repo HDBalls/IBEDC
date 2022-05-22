@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>  
+  <template id = "payment_history" >
+        <t name="PaymentHistory" t-name="website.payment_history">
+            <t t-call="website.layout">
+                <t t-set="pageName" t-value="'payment_history'"/>
+                   <body onload="loadPaymentsHistoryTemplate('paymentshistory_template')">
+                        <section class="top-navbar-container navigation">
+                            <div class="nav-container">
+                                <div class="brand">
+                                    <div>
+                                        <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://127.0.0.1:8080/src/UI/ibedc_logo.png"/></div>
+                                    </div>
+                                </div>
+                                <nav>
+                                <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
+                                <ul class="nav-list">
+                                    <li>
+                                    <a href="#!">Home</a>
+                                    </li>
+                                    <li>
+                                    <a href="#!">About</a>
+                                    </li>
+                                    <li>
+                                    <a href="#!">Services</a>
+                                    <ul class="navbar-dropdown">
+                                        <li>
+                                        <a href="#!">Sass</a>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Less</a>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Stylus</a>
+                                        </li>
+                                    </ul>
+                                    </li>
+                                    <li>
+                                    <a href="#!">Portfolio</a>
+                                    </li>
+                                    <li>
+                                    <a href="#!">Category</a>
+                                    <ul class="navbar-dropdown">
+                                        <li>
+                                        <a href="#!">Sass</a>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Less</a>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Stylus</a>
+                                        </li>
+                                    </ul>
+                                    </li>
+                                    <li>
+                                    <a href="#!">Contact</a>
+                                    </li>
+                                </ul>
+                                </nav>
+                            </div>
+                            </section>
+                        <div class="parent-container">
+                            <div class="navbar-container-main hide-phone">
+                                <div>
+                                    <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://127.0.0.1:8080/src/UI/ibedc_logo.png"/></div>
+                                </div>
+                                <div class="navbar-container">
+                                    <a onclick="redirect('dashboard')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">dashboard</i><div>Dashboard</div></a>
+                                    <a onclick="redirect('customers')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">group</i><div>Customers</div></a>
+                                    <a onclick="redirect('billing_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">credit_card</i><div>Bills</div></a>
+                                    <a onclick="redirect('payment_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">payments</i><div>Payments</div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">devices</i><div class="flex-grow" style="width:120px;">Assets</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">space_dashboard</i><div style="width:120px;">MSMS</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">developer_mode</i><div style="width:120px;">Ops Manager</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">feedback</i><div>Customer Complaints</div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">electric_meter</i><div style="width:117px;">Advanced Metering</div><i class="material-icons">chevron_right</i></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">logout</i><div>Sign Out</div></a>
+                                </div>
+                            </div>
+                            <div class="flex-col">
+                                <div class="flex-row top-bar ">
+                                    <div class="flex-rownowrap search-div">
+                                        <div style="background: transparent;" class="search-icon-div margin-left-30"><i class="material-icons bk-mg">search</i></div>
+                                        <input style="width:500px;height:40px;outline:none;" id="search_payment_input" onkeyup="searchPaymentHistory()" class="search" type="text" placeholder="Search payment by payment id,transaction id or transaction Ref,"></input>
+                                    </div>
+                                    <div class="flex-row flex-row-end margin-right-30" style="width:20%">
+                                        <div class="user-logo"><img src=""/></div>
+                                        <select style="width:200px; height:30px; text-align:center;" id="currentuser" class="shadow">
+                                            <option><span><b></b></span></option>
+                                            <option>Log out</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div style="width:97%; height:100%;" id="template_parent" class="flex-row-gap-30 margin-left-30 margin-right-30"></div>
+                                <div style="width:100%; height:100%;" id="vcr" class="flex-row-gap-30 margin-left-30 margin-right-30">
+                                    
+                                </div>
+
+                                <!-- Payment history template -->
+                                    <template id="paymentshistory_template">
+                                        <div style="width:100%; height:100%;">
+                                            <div class="top-header">
+                                                <div class="header-start">
+                                                    <h1>Payments History</h1>
+                                                    <p>You have a total of <span t-esc="total_payments"/> Payment records</p> 
+                                                </div>
+                                                <div class="header-end">
+                                                    <button onclick="exportTableToExcel('payment_table','excel_payments_history')" class="exportbtn zoom shadow flex-row">
+                                                        <i class="material-icons">cloud_download</i>
+                                                        &amp;nbsp
+                                                        <div>Export</div>
+                                                    </button>
+                                                    <button class="export-addbtn">
+                                                        <i style="color:white; padding-top:5px;" class="material-icons">add</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="table-card shadow" style="width:100%;" >
+                                                <div style="width:100%; height:100%; " >
+
+                                                    
+                                                    <div class="top-panel">
+                                                        <div class="panel-start flex-row">
+                                                            <select>
+                                                                <option>Bulk Action</option>
+                                                            </select>
+                            
+                                                            <div class="panel-btn">
+                                                                Apply
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-end flex-row">
+                                                            <!-- <input type="text" hidden/> -->
+                                                            <span>
+                                                                <i class="material-icons">search</i>
+                                                            </span>
+                                                            <span>
+                                                                <i class="material-icons">menu</i>
+                                                            </span>
+                                                            <span>
+                                                                <i class="material-icons">settings</i>
+                                                            </span>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div style="width:100%;max-height: 600px; overflow-y: auto;">
+                                                    <table id="payment_table" class="table">
+                                                        <thead style="background:white;position:sticky;top:0;">
+                                                            <th>Payment ID</th>
+                                                            <th>Transaction ID</th>
+                                                            <th>Timestamp</th>
+                                                            <th>Initiation Date</th>
+                                                            <th>Confirmation Date</th>
+                                                            <th>Transaction Ref</th>
+                                                            <th>Units Consumed</th>
+                                                            <th>Status Message</th>
+                                                            <th>Gross Amount</th>
+                                                            <th>Net Amount</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <t t-foreach="paymentshistory" t-as="paymentshistory">
+                                                                <tr>
+                                                                    <td><span t-esc="paymentshistory['payment_id']"/></td>
+                                                                    <td><span t-esc="paymentshistory['transaction_id']"/></td>
+                                                                    <td><span t-esc="paymentshistory['timestamp']"/></td>
+                                                                    <td><span t-esc="paymentshistory['initiation_date']"/></td>
+                                                                    <td><span t-esc="paymentshistory['confirmation_date']"/></td>
+                                                                    <td><span t-esc="this.ParseFloat(paymentshistory['transaction_refr'])"/></td>
+                                                                    <td><span t-esc="paymentshistory['units_consumed']"/></td>
+                                                                    <td><span t-esc="paymentshistory['trans_status']"/></td>
+                                                                    <td><span t-esc="paymentshistory['gross_amount']"/></td>
+                                                                    <td><span t-esc="paymentshistory['net_amount']"/></td>
+                                                                </tr>
+                                                            </t>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="products_pager form-inline justify-content-right mt-3">
+                                                    <t t-call="website.pager">
+                                                        <t t-set="_classes">mt-2 ml-md-2</t>
+                                                    </t>
+                                                </div>
+                                                <br/>
+                                                <br/>
+                                                
+                                            </div>
+                                        </div>
+                                    </template>
+                                <footer style="width:100%;">
+                                    @2022 IBEDC
+                                </footer>
+                            </div>
+                        </div>
+                    </body>
+                </t>
+            </t>
+    </template>
+</odoo> 

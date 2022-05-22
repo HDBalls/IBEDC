@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>  
+  <template id = "billing_history" >
+        <t name="BillingHistory" t-name="website.billing_history">
+            <t t-call="website.layout">
+                <t t-set="pageName" t-value="'billing_history'"/>
+                   <body onload="loadBillingHistoryTemplate('billinghistory_template')">
+                        <section class="top-navbar-container navigation">
+                            <div class="nav-container">
+                                <div class="brand">
+                                    <div>
+                                        <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://127.0.0.1:8080/src/UI/ibedc_logo.png"/></div>
+                                    </div>
+                                </div>
+                                <nav>
+                                <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
+                                <ul class="nav-list">
+                                    <li>
+                                    <a href="#!">Home</a>
+                                    </li>
+                                    <li>
+                                    <a href="#!">About</a>
+                                    </li>
+                                    <li>
+                                    <a href="#!">Services</a>
+                                    <ul class="navbar-dropdown">
+                                        <li>
+                                        <a href="#!">Sass</a>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Less</a>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Stylus</a>
+                                        </li>
+                                    </ul>
+                                    </li>
+                                    <li>
+                                    <a href="#!">Portfolio</a>
+                                    </li>
+                                    <li>
+                                    <a href="#!">Category</a>
+                                    <ul class="navbar-dropdown">
+                                        <li>
+                                        <a href="#!">Sass</a>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Less</a>
+                                        </li>
+                                        <li>
+                                        <a href="#!">Stylus</a>
+                                        </li>
+                                    </ul>
+                                    </li>
+                                    <li>
+                                    <a href="#!">Contact</a>
+                                    </li>
+                                </ul>
+                                </nav>
+                            </div>
+                            </section>
+                        <div class="parent-container">
+                            <div  class="navbar-container-main">
+                                <div>
+                                    <div class="ibedc-logo-parent"><img class="ibedc-logo" src="http://127.0.0.1:8080/src/UI/ibedc_logo.png"/></div>
+                                </div>
+                                <div class="navbar-container">
+                                    <a onclick="redirect('dashboard')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">dashboard</i><div>Dashboard</div></a>
+                                    <a onclick="redirect('customers')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">group</i><div>Customers</div></a>
+                                    <a onclick="redirect('billing_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">credit_card</i><div>Bills</div></a>
+                                    <a onclick="redirect('payment_history')" style="text-decoration: none;" class="navbar-items"><i class="material-icons">payments</i><div>Payments</div></a>
+                                   <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">devices</i><div class="flex-grow" style="width:120px;">Assets</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">space_dashboard</i><div style="width:120px;">MSMS</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">developer_mode</i><div style="width:120px;">Ops Manager</div><div class="carousel"><i class="material-icons">chevron_right</i></div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">feedback</i><div>Customer Complaints</div></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">electric_meter</i><div style="width:117px;">Advanced Metering</div><i class="material-icons">chevron_right</i></a>
+                                    <a href="" style="text-decoration: none;" class="navbar-items"><i class="material-icons">logout</i><div>Sign Out</div></a>
+                                </div>
+                            </div>
+                            <div class="flex-col">
+                                <div class="flex-row top-bar ">
+                                    <div class="flex-rownowrap search-div">
+                                        <div style="background: transparent;" class="search-icon-div margin-left-30"><i class="material-icons bk-mg">search</i></div>
+                                        <input id="search_bill_input" class="search" onkeyup="searchBillHistory()" type="text" placeholder="Search a bill by ID"></input>
+                                    </div>
+                                    <div class="flex-row flex-row-end margin-right-30" style="width:20%">
+                                        <div class="user-logo"><img src=""/></div>
+                                        <select style="width:200px; height:30px; text-align:center;" id="currentuser" class="shadow">
+                                            <option><span><b></b></span></option>
+                                            <option>Log out</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div style="width:97%; height:100%;" id="template_parent" class="flex-row-gap-30 margin-left-30 margin-right-30"></div>
+                                <div style="width:100%; height:100%;" id="vcr" class="flex-row-gap-30 margin-left-30 margin-right-30">
+                                    
+                                </div>
+
+                                <!-- Billing history template -->
+                                <template id="billinghistory_template">
+                                    <div style="width:100%; height:100%;">
+                                        <div class="top-header">
+                                            <div class="header-start">
+                                                <h1>Billing History</h1>
+                                                <p>You have a total of <span t-esc="total_bills"/> billing records</p> 
+                                            </div>
+                                            <div class="header-end">
+                                                <button onclick="exportTableToExcel('bill_table','excel_billing_history')" class="exportbtn zoom shadow flex-row">
+                                                    <i class="material-icons">cloud_download</i>
+                                                    &amp;nbsp
+                                                    <div>Export</div>
+                                                </button>
+                                                <button class="export-addbtn">
+                                                    <i style="color:white; padding-top:5px;" class="material-icons">add</i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="table-card shadow" style="width:100%;" >
+                                            <div style="width:100%; height:100%; " >
+                
+                                                
+                                                <div class="top-panel">
+                                                    <div class="panel-start flex-row">
+                                                        <select>
+                                                            <option>Bulk Action</option>
+                                                        </select>
+                        
+                                                        <div class="panel-btn">
+                                                            Apply
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-end flex-row">
+                                                        <!-- <input type="text" hidden/> -->
+                                                        <span>
+                                                            <i class="material-icons">search</i>
+                                                        </span>
+                                                        <span>
+                                                            <i class="material-icons">menu</i>
+                                                        </span>
+                                                        <span>
+                                                            <i class="material-icons">settings</i>
+                                                        </span>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div style="width:100%;max-height: 600px; overflow-y: auto;">
+                                                <table id="bill_table" class="table">
+                                                    <thead style="background:white;position:sticky;top:0;">
+                                                        <th style="position:sticky;top:0;">Bill ID</th>
+                                                        <th style="position:sticky;top:0;">Tarrif Name</th>
+                                                        <th style="position:sticky;top:0;">Billing Date</th>
+                                                        <th style="position:sticky;top:0;">Total Amount</th>
+                                                        <th style="position:sticky;top:0;">Total Usage</th>
+                                                        <th style="position:sticky;top:0;">Billing Purpose</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="billinghistory" t-as="billinghistory">
+                                                            <tr>
+                                                                <td><span t-esc="billinghistory.bill_id"/></td>
+                                                                <td><span t-esc="billinghistory.tarrif_name"/></td>
+                                                                <td><span t-esc="billinghistory.period"/></td>
+                                                                <td><span t-esc="billinghistory.total_amount"/></td>
+                                                                <td><span t-esc="billinghistory.total_usage"/></td>
+                                                                <td>&#x2022;&#x2022;&#x2022;</td>
+                                                            </tr>
+                                                        </t>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="products_pager form-inline justify-content-right mt-3">
+                                                <t t-call="website.pager">
+                                                    <t t-set="_classes">mt-2 ml-md-2</t>
+                                                </t>
+                                            </div>
+                                            <br/>
+                                            <br/>
+                                        </div>
+                                        <br/>
+                                            <br/>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </body>
+                </t>
+            </t>
+    </template>
+</odoo> 
