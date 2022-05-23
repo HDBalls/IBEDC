@@ -10,12 +10,11 @@ class objectview(object):
 
 class PaymentHistory(http.Controller):
         
-    def getPaymentsHistory(self,queryParam='',limit=0):
+    def getPaymentsHistory(self,queryParam=None,limit=0):
         db_name = http.request.session._db
-        if queryParam == '':
+        print("Account Number ",queryParam)
+        if queryParam == None:
             Paymenthistory = http.request.env['payment.history']
-            payment_list_search = Paymenthistory.search([])
-            total_payments = http.request.env['payment.history'].search_count([])
             query = f"""SELECT 
                             payment_history.id,
                             payment_history.payment_root_id,
@@ -48,16 +47,13 @@ class PaymentHistory(http.Controller):
                     single_dict['trans_status'] = str(single_dict['trans_status'])
                     if single_dict['trans_status'] == 'None':
                         single_dict['trans_status'] = ''
-                    print("\n\n\n\nsingle_dict ",single_dict)
                     megalist.append(single_dict)
                     Paymenthistory += http.request.env['payment.history'].browse(single_dict['id'])
-            print("pay ",payment_list_search,Paymenthistory[0].trans_status,(payment_list_search==Paymenthistory))
-            return Paymenthistory,megalist,total_payments
+            return Paymenthistory,megalist,len(payment_list)
         
         else:
-            filter_domain=[('account_no', '=', queryParam)]
-            Payment_history = http.request.env['payment.history']
-            # billing_list = Payment_history.sudo().search(filter_domain)
+
+            print("Account Number ",queryParam)
             query = f""" 
                         SELECT * FROM payment_history, emspayment_trans 
                         WHERE payment_history.transaction_id = emspayment_trans.transaction_id 
@@ -69,29 +65,39 @@ class PaymentHistory(http.Controller):
             if payment_list:
                 return {'status':True,'data':payment_list ,'message': f'Payment history for {queryParam} fetched succesfully'}
             else:
-                return {'status':False,'message': f'No record found for {queryParam}'}
-    
-    @http.route('/cms/payment_history/',website=True,auth='public')
-    def paymentHistory(self,view,id,user,limit='',**kw):
-        uid = Encryption.decryptMessage(id)
-        login = Encryption.decryptMessage(user)
-        if User.isUserExist(uid,login):
-            this,payment_list,total_payments = self.getPaymentsHistory()
-            return request.render("cms_ibedc.payment_history",{'this':this,'paymentshistory':payment_list,"total_payments":total_payments})
-        else:
-            return request.render("cms_ibedc.404notfound",{})   
+                if queryParam == '':
+                    return {'status':False,'message': f'This customer does not have an Account Number'}
+                else:
+                    return {'status':False,'message': f'No record found for {queryParam}'}
+                
+    @http.route('/cms/payment_history/page/<int:page>',website=True,auth='public')
+    def paymentHistory(self,view,id,user,page,limit='',**kw):
+        try:
+            uid = Encryption.decryptMessage(id)
+            login = Encryption.decryptMessage(user)
+            if User.isUserExist(uid,login):
+                this,payment_list,total_payments = self.getPaymentsHistory()
+                pager = request.website.pager( 
+                                        url=f'/cms/payment_history',
+                                        total=total_payments,
+                                        page=page,
+                                        step=10,
+                                        url_args= {'view':view, 'id':id, 'user':user}
+                                        )
+                offset = (page - 1) * 10
+                payment_list = payment_list[offset: offset + 10]
+                return request.render("cms_ibedc.payment_history",{'this':this,'paymentshistory':payment_list,"total_payments":total_payments,"pager":pager})
+            else:
+                return request.render("cms_ibedc.404notfound",{})   
+        except Exception as e:
+            print("An error occured ",e)
         
 
     @http.route('/cms/lazypayment_history/', csrf=False, auth="public")
     def lazyPaymentHistory(self,account_no,**kw):
-        response = self.getPaymentsHistory(account_no)
-        print('\n\n\n\nPayments Dumper ',json.dumps(response, default=Serializables.jsonSerializer))
-        return Response(json.dumps(response, default=Serializables.jsonSerializer),content_type='text/json;charset=utf-8')
-    
-# WHERE payment_history.payment_root_id=(select id from res_partner where account_no='{queryParam}')
-# class CustomerDetails(http.Controller):
-    
-#     @http.route('/cms/customer_details',website=True,auth='public') 
-#     def customers_details(self,**kw):
-#         return request.render("cms_ibedc.customer_details",{})
+        try:
+            response = self.getPaymentsHistory(account_no)
+            return Response(json.dumps(response),content_type='text/json;charset=utf-8')
+        except Exception as e:
+            print("An error occured ",e)
     

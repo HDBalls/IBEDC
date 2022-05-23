@@ -330,17 +330,7 @@
         ].join(' ');
       }
     };
-    
-    // At present only the three keys mentioned above are used and
-    // understood by the spec. Implementations or sub modules can pass
-    // other keys to the AssertionError's constructor - they will be
-    // ignored.
-    
-    // 3. All of the following functions must throw an AssertionError
-    // when a corresponding condition is not met, with a message that
-    // may be undefined if not provided.  All assertion methods provide
-    // both the actual and expected values to the assertion error for
-    // display purposes.
+
     
     function fail(actual, expected, message, operator, stackStartFunction) {
       throw new assert.AssertionError({

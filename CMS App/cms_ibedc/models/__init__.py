@@ -9,4 +9,4 @@ from . import custom_initializer
 # from . import ems_payment_trans
 from . import payment_history
 from . import demo_assets
-
+from . import user_preferences_model

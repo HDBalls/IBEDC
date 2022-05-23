@@ -81,7 +81,7 @@
                                 <div class="flex-row top-bar ">
                                     <div class="flex-rownowrap search-div">
                                         <div style="background: transparent;" class="search-icon-div margin-left-30"><i class="material-icons bk-mg">search</i></div>
-                                        <input id="search_payment_input" onkeyup="searchPaymentHistory()" class="search" type="text" placeholder="Search payment by PID,TID,TransRef,"></input>
+                                        <input style="width:500px;height:40px;outline:none;" id="search_payment_input" onkeyup="searchPaymentHistory()" class="search" type="text" placeholder="Search payment by payment id,transaction id or transaction Ref,"></input>
                                     </div>
                                     <div class="flex-row flex-row-end margin-right-30" style="width:20%">
                                         <div class="user-logo"><img src=""/></div>
@@ -101,7 +101,7 @@
                                         <div style="width:100%; height:100%;">
                                             <div class="top-header">
                                                 <div class="header-start">
-                                                    <h1>Payments history</h1>
+                                                    <h1>Payments History</h1>
                                                     <p>You have a total of <span t-esc="total_payments"/> Payment records</p> 
                                                 </div>
                                                 <div class="header-end">
@@ -146,7 +146,7 @@
                                                 </div>
                                                 <div style="width:100%;max-height: 600px; overflow-y: auto;">
                                                     <table id="payment_table" class="table">
-                                                        <thead>
+                                                        <thead style="background:white;position:sticky;top:0;">
                                                             <th>Payment ID</th>
                                                             <th>Transaction ID</th>
                                                             <th>Timestamp</th>
@@ -176,15 +176,13 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="table-paginator">
-                                                    <button class="btn">Prev</button>
-                                                    <button class="btn">1</button>
-                                                    <button class="btn">2</button>
-                                                    <button class="btn">...</button>
-                                                    <button class="btn">6</button>
-                                                    <button class="btn">7</button>
-                                                    <button class="btn">Next</button>
+                                                <div class="products_pager form-inline justify-content-right mt-3">
+                                                    <t t-call="website.pager">
+                                                        <t t-set="_classes">mt-2 ml-md-2</t>
+                                                    </t>
                                                 </div>
+                                                <br/>
+                                                <br/>
                                                 
                                             </div>
                                         </div>

@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 # This model Inherits from the Users Model
+from .event_model import EventsTable
 from odoo import api, models, modules,fields, models, tools
+import time, json, datetime
+
 titles = ['.','Mr', 'Mrs', 'Miss', 'Ms', 'Dr', '&', 'Admiral', 'Air', 'Comm', 'Ambassador', 'Baron', 'Baroness', 'Brig', 'Mrs', 'Brig', 'Gen', 'Brigadier', 'Brother', 'Canon', 'Capt', 'Chief', 'Cllr', 'Col', 'Commander', 'Commander', 'Mrs', 'Consul', 'Consul', 'General', 'Count', 'Countess', 'Countess', 'of', 'Cpl', 'Dame', 'Deputy', 'Dr', 'Mrs', 'Drs', 'Duchess', 'Duke', 'Earl', 'Father', 'General', 'Gräfin', 'HE', 'HMA', 'Her', 'Grace', 'His', 'Excellency', 'Ing', 'Judge', 'Justice', 'Lady', 'Lic', 'Llc', 'Lord', 'Lord', 'Lady', 'Lt', 'Lt', 'Col', 'Lt', 'Cpl', 'M', 'Madam', 'Madame', 'Major', 'Major', 'General', 'Marchioness', 'Marquis', 'Minister', 'Mme', 'Mr', 'Dr', 'Mr', 'Mrs', 'Mr', 'Ms', 'Prince', 'Princess', 'Professor', 'Prof', 'Prof', 'Dr', 'Prof', 'Mrs', 'Prof', 'Rev', 'Prof', 'Dame', 'Prof', 'Dr', 'Pvt', 'Rabbi', 'Rear', 'Admiral', 'Rev', 'Rev', 'Mrs', 'Rev', 'Canon', 'Rev', 'Dr', 'Senator', 'Sgt', 'Sir', 'Sir', 'Lady', 'Sister', 'Sqr.', 'Leader', 'The', 'Earl', 'of', 'The', 'Hon', 'The', 'Hon', 'Dr', 'The', 'Hon', 'Lady', 'The', 'Hon', 'Lord', 'The', 'Hon', 'Mrs', 'The', 'Hon', 'Sir', 'The', 'Honourable', 'The', 'Rt', 'Hon', 'The', 'Rt', 'Hon', 'Dr', 'The', 'Rt', 'Hon', 'Lord', 'The', 'Rt', 'Hon', 'Sir', 'The', 'Rt', 'Hon', 'Visc', 'Viscount']
 
 class BaseDeclarative(models.Model):
@@ -130,6 +133,46 @@ class BaseDeclarative(models.Model):
     rev_validated_by = fields.Char(string='Rev validated by')	
     rev_validated_date = fields.Char(string='Rev validated date')
     
+    @api.onchange('name')
+    def onchange_name(self):
+        print("Onchange name ",self.name,self.mobile)
+        
+    # @api.multi
+    def write(self, values):
+        for record in self:
+            res = super(BaseDeclarative, self).write(values)
+            data = {"id": record.id}
+            record.env.cr.commit()
+        print("\n\n\n\nSave method was called ")
+        self.addNewEvent(self.name,self.account_no,values)
+        return res
+    
+    def addNewEvent(self,name,account_no,editedData):
+        
+        print("Data to save in events table ", name,account_no,editedData)
+        timestamp = datetime.datetime.now()
+        self._cr.execute(f"""select * from respartner_event where account_no = '{account_no}';""")
+        data = self._cr.fetchall()
+        if len(data) > 0:
+            keys = editedData.keys()
+            data = json.loads(data[0][3])
+            print("Old data ",data)
+            for key in keys:
+                data[key] = editedData[key]
+            print("New data ", data)
+            editedData = json.dumps(editedData)
+            updatequery = f"""update respartner_event set fields_changed = '{editedData}' where account_no = '{account_no}';"""
+            print(updatequery)
+            self._cr.execute(updatequery)
+            
+        
+        else:
+            editedData = json.dumps(editedData)
+            self._cr.execute("""INSERT INTO respartner_event 
+                                                (account_no,name,fields_changed,timestamp,create_uid,create_date,write_uid,write_date)\n
+                                VALUES ('%s','%s','%s','%s','%d','%s','%d','%s')\n
+                                """%(account_no,name,editedData,timestamp,1,timestamp,1,timestamp))
+            
     def function_name(self):
         cr = self._cr
         try:
@@ -205,6 +248,9 @@ class BaseDeclarative(models.Model):
     
     # ECMI
     
+    def titleCase(self,name):
+        return str(name).title()
+    
     def abbreviateName(self,fullname):
         abbr = []
         charsSymbol = ['#']
@@ -213,12 +259,15 @@ class BaseDeclarative(models.Model):
         titles = ['.','Alj','Alhaji','Alhaja','Mr', 'Mrs', 'Miss', 'Ms', 'Dr', '&', 'Admiral', 'Air', 'Comm', 'Ambassador', 'Baron', 'Baroness', 'Brig', 'Mrs', 'Brig', 'Gen', 'Brigadier', 'Brother', 'Canon', 'Capt', 'Chief', 'Cllr', 'Col', 'Commander', 'Commander', 'Mrs', 'Consul', 'Consul', 'General', 'Count', 'Countess', 'Countess', 'of', 'Cpl', 'Dame', 'Deputy', 'Dr', 'Mrs', 'Drs', 'Duchess', 'Duke', 'Earl', 'Father', 'General', 'Gräfin', 'HE', 'HMA', 'Her', 'Grace', 'His', 'Excellency', 'Ing', 'Judge', 'Justice', 'Lady', 'Lic', 'Llc', 'Lord', 'Lord', 'Lady', 'Lt', 'Lt', 'Col', 'Lt', 'Cpl', 'M', 'Madam', 'Madame', 'Major', 'Major', 'General', 'Marchioness', 'Marquis', 'Minister', 'Mme', 'Mr', 'Dr', 'Mr', 'Mrs', 'Mr', 'Ms', 'Prince', 'Princess', 'Professor', 'Prof', 'Prof', 'Dr', 'Prof', 'Mrs', 'Prof', 'Rev', 'Prof', 'Dame', 'Prof', 'Dr', 'Pvt', 'Rabbi', 'Rear', 'Admiral', 'Rev', 'Rev', 'Mrs', 'Rev', 'Canon', 'Rev', 'Dr', 'Senator', 'Sgt', 'Sir', 'Sir', 'Lady', 'Sister', 'Sqr.', 'Leader', 'The', 'Earl', 'of', 'The', 'Hon', 'The', 'Hon', 'Dr', 'The', 'Hon', 'Lady', 'The', 'Hon', 'Lord', 'The', 'Hon', 'Mrs', 'The', 'Hon', 'Sir', 'The', 'Honourable', 'The', 'Rt', 'Hon', 'The', 'Rt', 'Hon', 'Dr', 'The', 'Rt', 'Hon', 'Lord', 'The', 'Rt', 'Hon', 'Sir', 'The', 'Rt', 'Hon', 'Visc', 'Viscount']
         a = (map(lambda x: x.lower(), titles))
         p_titles = list(a)
-        splittednames = fullname.split(' ')
-        for name in splittednames:
-            if name.lower() not in p_titles:
-                if len(abbr) < 2:
-                    if name[0] in charsUpper or name[0] in charsLower or name[0] in charsSymbol:
-                        abbr.append(name)
+        try:
+            splittednames = fullname.split(' ')
+            for name in splittednames:
+                if name.lower() not in p_titles:
+                    if len(abbr) < 2:
+                        if name[0] in charsUpper or name[0] in charsLower or name[0] in charsSymbol:
+                            abbr.append(name)
+        except:
+            pass
                 
         try:
             if len(abbr) == 0:

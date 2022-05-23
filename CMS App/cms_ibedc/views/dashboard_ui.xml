@@ -113,7 +113,7 @@
                                             <div class="flex-col margin-left-20 margin-right-20">
                                                 <h3>Prepaid Customers</h3>
                                                 <div class="flex-row-card">
-                                                    <h2 class="card-count">568,961</h2>
+                                                    <h2 style="max-width:200px; font-size:30px;" class="card-count">568,961</h2>
                                                     <img class="ibedc-logo flex-row-end" src="http://127.0.0.1:8080/src/UI/graph.png"/>
                                                 </div>
                                                 <div class="flex-row-gap-5">
@@ -127,7 +127,7 @@
                                             <div class="flex-col margin-left-20 margin-right-20">
                                                 <h3>Postpaid Customers</h3>
                                                 <div class="flex-row-card">
-                                                    <h2 class="card-count">3,521,961</h2>
+                                                    <h2 style="max-width:200px; font-size:30px;" class="card-count">3,521,961</h2>
                                                     <img class="ibedc-logo flex-row-end" src="http://127.0.0.1:8080/src/UI/graph_red.png"/>
                                                 </div>
                                                 <div class="flex-row-gap-5">
@@ -141,7 +141,7 @@
                                             <div class="flex-col margin-left-20 margin-right-20">
                                                 <h3>Today's Collections</h3>
                                                 <div class="flex-row-card">
-                                                    <h2 class="card-count"><span> <b>&#x20A6;4,847,366</b>  </span></h2>
+                                                    <h2 style="max-width:200px; font-size:30px;" class="card-count"><span>&#x20A6;467,847,366  </span></h2>
                                                     <img class="ibedc-logo flex-row-end" src="http://127.0.0.1:8080/src/UI/graph.png"/>
                                                 </div>
                                                 <div class="flex-row-gap-5">
@@ -155,7 +155,7 @@
                                             <div class="flex-col margin-left-20 margin-right-20">
                                                 <h3>Online Feeders</h3>
                                                 <div class="flex-row-card">
-                                                    <h2 class="card-count">173</h2>
+                                                    <h2 style="max-width:200px; font-size:30px;" class="card-count">173</h2>
                                                     <img class="ibedc-logo flex-row-end" src="http://127.0.0.1:8080/src/UI/graph.png"/>
                                                 </div>
                                                 <div class="flex-row-gap-5">
@@ -306,55 +306,55 @@
                             </div>
                         </div>
                     </body>
-                    <footer style="color:red;width:100%;">
-                                    <div id="footer" class="oe_structure oe_structure_solo" t-ignore="true" t-if="not no_footer">
-                                    <section class="s_text_block pt40 pb16" data-snippet="s_text_block" data-name="Text">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-lg-2 pt24 pb24">
-                                                    <h5 class="mb-3">Useful Links</h5>
-                                                    <ul class="list-unstyled">
-                                                        <li><a href="/">Home</a></li>
-                                                        <li><a href="#">About us</a></li>
-                                                        <li><a href="#">Products</a></li>
-                                                        <li><a href="#">Services</a></li>
-                                                        <li><a href="#">Legal</a></li>
-                                                        <li><a href="/contactus">Contact us</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-lg-5 pt24 pb24">
-                                                    <h5 class="mb-3">About us</h5>
-                                                    <p>We are a team of passionate people whose goal is to improve everyone's life through disruptive products. We build great products to solve your business problems.
-                                                    <br/><br/>Our products are designed for small to medium size companies willing to optimize their performance.</p>
-                                                </div>
-                                                <div id="connect" class="col-lg-4 offset-lg-1 pt24 pb24">
-                                                    <h5 class="mb-3">Connect with us</h5>
-                                                    <ul class="list-unstyled">
-                                                        <li><i class="fa fa-comment fa-fw mr-2"/><span><a href="/contactus">Contact us</a></span></li>
-                                                        <li><i class="fa fa-envelope fa-fw mr-2"/><span><a href="mailto:developers@plexada.com">developers@plexada.com</a></span></li>
-                                                        <li><i class="fa fa-phone fa-fw mr-2"/><span class="o_force_ltr"><a href="tel:+1 (650) 691-3277">+1 (650) 691-3277</a></span></li>
-                                                    </ul>
-                                                    <div class="s_share text-left" data-name="Social Media">
-                                                        <h5 class="s_share_title d-none">Follow us</h5>
-                                                        <a href="/website/social/facebook" class="s_share_facebook" target="_blank">
-                                                            <i class="fa fa-facebook rounded-circle shadow-sm"/>
-                                                        </a>
-                                                        <a href="/website/social/twitter" class="s_share_twitter" target="_blank">
-                                                            <i class="fa fa-twitter rounded-circle shadow-sm"/>
-                                                        </a>
-                                                        <a href="/website/social/linkedin" class="s_share_linkedin" target="_blank">
-                                                            <i class="fa fa-linkedin rounded-circle shadow-sm"/>
-                                                        </a>
-                                                        <a href="/" class="text-800 float-right">
-                                                            <i class="fa fa-home rounded-circle shadow-sm"/>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                    <footer  style="color:red;width:100%;">
+                        <div id="footer" class="oe_structure oe_structure_solo" t-ignore="true" t-if="not no_footer">
+                        <section class="s_text_block pt40 pb16" data-snippet="s_text_block" data-name="Text">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-2 pt24 pb24">
+                                        <h5 class="mb-3">Useful Links</h5>
+                                        <ul class="list-unstyled">
+                                            <li><a href="/">Home</a></li>
+                                            <li><a href="#">About us</a></li>
+                                            <li><a href="#">Products</a></li>
+                                            <li><a href="#">Services</a></li>
+                                            <li><a href="#">Legal</a></li>
+                                            <li><a href="/contactus">Contact us</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-5 pt24 pb24">
+                                        <h5 class="mb-3">About us</h5>
+                                        <p>We are a team of passionate people whose goal is to improve everyone's life through disruptive products. We build great products to solve your business problems.
+                                        <br/><br/>Our products are designed for small to medium size companies willing to optimize their performance.</p>
+                                    </div>
+                                    <div id="connect" class="col-lg-4 offset-lg-1 pt24 pb24">
+                                        <h5 class="mb-3">Connect with us</h5>
+                                        <ul class="list-unstyled">
+                                            <li><i class="fa fa-comment fa-fw mr-2"/><span><a href="/contactus">Contact us</a></span></li>
+                                            <li><i class="fa fa-envelope fa-fw mr-2"/><span><a href="mailto:cmsuserstaff@ibedc.com">cmsuserstaff@ibedc.com</a></span></li>
+                                            <li><i class="fa fa-phone fa-fw mr-2"/><span class="o_force_ltr"><a href="tel:+1 (650) 691-3277">+1 (650) 691-3277</a></span></li>
+                                        </ul>
+                                        <div class="s_share text-left" data-name="Social Media">
+                                            <h5 class="s_share_title d-none">Follow us</h5>
+                                            <a href="/website/social/facebook" class="s_share_facebook" target="_blank">
+                                                <i class="fa fa-facebook rounded-circle shadow-sm"/>
+                                            </a>
+                                            <a href="/website/social/twitter" class="s_share_twitter" target="_blank">
+                                                <i class="fa fa-twitter rounded-circle shadow-sm"/>
+                                            </a>
+                                            <a href="/website/social/linkedin" class="s_share_linkedin" target="_blank">
+                                                <i class="fa fa-linkedin rounded-circle shadow-sm"/>
+                                            </a>
+                                            <a href="/" class="text-800 float-right">
+                                                <i class="fa fa-home rounded-circle shadow-sm"/>
+                                            </a>
                                         </div>
-                                    </section>
+                                    </div>
                                 </div>
-                                </footer>
+                            </div>
+                        </section>
+                    </div>
+                    </footer>
                 </t>
             </t>
     </template>

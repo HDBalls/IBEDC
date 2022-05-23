@@ -31,6 +31,7 @@
             'views/geolocation.xml',
             'security/security.xml',
             'views/dashboard_ui.xml',
+            'views/deepsearch_table_template.xml',
             'views/customers_ui.xml',
             'views/customer_details_ui.xml',
             'views/billing_history_ui.xml',

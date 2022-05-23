@@ -6,6 +6,7 @@ from odoo import http
 from odoo.http import request
 key = "5CWvxbkxPI2e0W2KRc1l4ZXMXRn7WJzdGP9NZhbbVgA="
 
+
 class User:
     
     def isUserExist(uid,login):
@@ -43,7 +44,7 @@ class Encryption(object):
             fernet = Fernet(bytekey)
             message = message.replace("@",'=')
             message = message.encode('utf-8')
-            print("===============================================================",message, type(message))
+            # print("===============================================================",message, type(message))
             decMessage = fernet.decrypt(message)
             decMessage = decMessage.decode('utf-8')
             # print("----------------------",decMessage)
@@ -62,6 +63,44 @@ class Serializables(object):
         if isinstance(obj, (datetime, date)):
             return obj.isoformat()
         pass
+    
+class TransientFields(object):
+    #THESE FIELDS ARE THE FIELDS TO APPEAR IN TRANSIENTS DROPDOWN
+    def loadUserTransientFields(view):
+        http.request.env['res.users']
+        current_user = request.env['res.users'].browse(request.session.uid)
+        # http.request.env['user.preferences']
+        print(f"\n\n\nGetting current user preferences from DB ",current_user.name, current_user.id)
+        try:    
+            http.request._cr.execute(f"""select {view} from user_preferences where user_id = '{current_user.id}';""")
+            data =  http.request._cr.fetchone()
+            if data is not None:
+                print("User preferences from Database",data)
+                preferences = json.loads(data[0])
+                return [k for k,v in preferences.items() if v ==True]
+            
+        except Exception as e:
+            print(e)
+
+    transient_fields = ['Name', 'Mobile', 'Email', 'Address 1', 'City', 'Account No', 'Account Type', 
+                        'Outstanding Amount', 'Address 2', 'Meter Model', 'Meter Type', 'Meter Number', 
+                        'Meter Manufacturer', 'Manufacture Year', 'Meter Rating', 'Application Date', 
+                        'Giscoordinate', 'Guarantor Name', 'Guarantor Address', 'V Rating', 'Meter Class', 
+                        'Meter Category', 'State', 'Meter Type_Id', 'Status Code'
+                        ] 
+
+    defaults =           ['Name', 'Mobile', 'Email', 'Address 1', 'Account No', 'Account Type', 
+                        'Outstanding Amount', 'Meter Number', 'State','Status Code'
+                        ] 
+    
+    field_names =       {'Mobile': 'mobile', 'Email': 'email', 'Address 1': 'address1', 'City': 'city', 
+                         'Account No': 'account_no', 'Account Type': 'account_type', 'Outstanding Amount': 'bal_cash', 
+                         'Address 2': 'address2', 'Meter Model': 'meter_model', 'Meter Type': 'meter_type', 'Meter Number': 'meter_number',
+                         'Meter Manufacturer': 'meter_manufacturer', 'Manufacture Year': 'manufacture_year', 'Meter Rating': 'meter_rating', 
+                         'Application Date': 'applicationdate', 'Giscoordinate': 'giscoordinate', 'Guarantor Name': 'guarantorname', 'Guarantor Address': 'guarantoraddress',
+                         'V Rating': 'v_rating', 'Meter Class': 'meter_classification', 'Meter Category': 'meter_category', 'State': 'state', 'Meter Type_Id': 'meter_type_id', 
+                         'Status Code': 'statuscode'
+                         }
     
     
 class QuerySelectors(object):

@@ -10,7 +10,7 @@ odoo.define('js_hide_settings', function (require) {
         console.log("Result from javascript ", result)
         if (result){
             let selection = document.getElementById('o_field_input_735')
-            selection.style.display === "none";
+            selection.style.display == "none";
         }
 
     })

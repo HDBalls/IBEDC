@@ -1,7 +1,7 @@
 from odoo import api, models, modules,fields, models
 
-class IBEDC11KVFeeder(models.Model):
-    _name = 'ibedc_11kv_feeder.model'
+class IBEDC_11_33KVFeeder(models.Model):
+    _name = 'ibedc_11_33kv_feeder.model'
     f11kv_feeder_parent = fields.Many2one('res.partner',ondelete='cascade')
     
     assetid	= fields.Char(string='Asset id')
@@ -32,27 +32,7 @@ class IBEDC11KVFeeder(models.Model):
     f11kvfeeder_CB_Type = fields.Char(string='F11kv CB_Type')
     # F11kv Aluminium Conductor F11kv Aluminium Conductor
     
-
-class IBEDC132KVTransmissionSubstation(models.Model):
-    _name = 'ibedc_32kvtransmission_substation.model'
-    # f11kv_feeder_parent = fields.Many2one('res.partner',ondelete='cascade')
-    
-    assetid	= fields.Char(string='Asset id')
-    latitude = fields.Float(string='Latitude')
-    longitude = fields.Float(string='Longitude')
-    naccode = fields.Char(string='Naccode')
-    ts_132kv_name = fields.Float(string='TS 132KV Name')
-    ts_132kv_rating = fields.Char(string='TS 132KV Rating')
-    
-
-class IBEDC33KVFeeder(models.Model):
-    _name = 'ibedc_33kv_feeder.model'
     f33kv_feeder_parent = fields.Many2one('res.partner',ondelete='cascade')
-    
-    assetid	= fields.Char(string='Asset id')
-    latitude = fields.Float(string='Latitude')
-    longitude = fields.Float(string='Longitude')
-    naccode = fields.Char(string='Naccode')
     f33kv_regional_name = fields.Char(string='F33kv Regional Name')
     f33kv_business_hub_name = fields.Char(string='Business Hub Name')
     f33kv_feeder_name = fields.Char(string='F33kv Feeder Name')
@@ -66,7 +46,19 @@ class IBEDC33KVFeeder(models.Model):
     f33kv_conductor_size = fields.Char(string='F33kv Conductor Size')
     f33kv_aluminium_conductor = fields.Char(string='F33kv Aluminium Conductor')
     f33kv_commisioning = fields.integer(string='F33kv Commisioning')
+    
 
+class IBEDC132KVTransmissionSubstation(models.Model):
+    _name = 'ibedc_32kvtransmission_substation.model'
+    # f11kv_feeder_parent = fields.Many2one('res.partner',ondelete='cascade')
+    
+    assetid	= fields.Char(string='Asset id')
+    latitude = fields.Float(string='Latitude')
+    longitude = fields.Float(string='Longitude')
+    naccode = fields.Char(string='Naccode')
+    ts_132kv_name = fields.Float(string='TS 132KV Name')
+    ts_132kv_rating = fields.Char(string='TS 132KV Rating')
+    
 
 class Aindex(models.Model):
     _name = 'ibedc_33kv_feeder.model'
@@ -213,9 +205,9 @@ class Customers(models.Model):
     cust_sub_class_of_business = fields.Char(string='Business Sub-Class')
     
     
-class DistributionSubstation11kv_415v(models.Model):
+class DistributionSubstation_11_33kv_415v(models.Model):
     
-    _name = 'distribution_substation_11kv_415.model'
+    _name = 'distribution_substation_11_33kv_415.model'
     dss_11kv_415v_parent = fields.Many2one('res.partner',ondelete='cascade')
     
     assetid	= fields.Char(string='Asset id')
@@ -270,16 +262,7 @@ class DistributionSubstation11kv_415v(models.Model):
     dss_11kv_415v_trenches_with_granite  = fields.Char(string='Trenches With Granite') 
     dss_11kv_415v_fence_type  = fields.Char(string='Fence Type') 
     
-
-class DistributionSubstation33kv_415v(models.Model):
-    
-    _name = 'distribution_substation_33kv_415.model'
     dss_33kv_415v_parent = fields.Many2one('res.partner',ondelete='cascade')
-    
-    assetid	= fields.Char(string='Asset id')
-    latitude = fields.Float(string='Latitude')
-    longitude = fields.Float(string='Longitude')
-    naccode = fields.Char(string='Naccode') 
     dss_33kv_415v_owner  = fields.Char(string='Dss 33kv_415v Owner') 
     dss_33kv_415v_name  = fields.Char(string='Dss 33kv_415v Name') 
     dss_33kv_415v_address  = fields.Char(string='Dss 33kv_415v Address') 
@@ -329,8 +312,8 @@ class DistributionSubstation33kv_415v(models.Model):
     dss_33kv_415v_fence_type  = fields.Char(string='Fence Type') 
     
     
-class HighTensionPole11KV(models.Model):
-    _name = 'high_tension_pole_11kv.model'
+class HighTensionPole_11_33KV(models.Model):
+    _name = 'high_tension_pole_11_33kv.model'
     ht_11kv_parent = fields.Many2one('res.partner',ondelete='cascade')
     
     assetid	= fields.Char(string='Asset id')
@@ -384,17 +367,7 @@ class HighTensionPole11KV(models.Model):
     ht_11kv_remark = fields.Char(string='Remark')
     ht_11kv_right_of_way_compromised = fields.Char(string='Right of way compromised') 
 
-
-
-class HighTensionPole33KV(models.Model):
-    
-    _name = 'high_tension_pole_33kv.model'
     ht_33kv_parent = fields.Many2one('res.partner',ondelete='cascade')
-     
-    assetid	= fields.Char(string='Asset id')
-    latitude = fields.Float(string='Latitude')
-    longitude = fields.Float(string='Longitude')
-    naccode = fields.Char(string='Naccode') 
     ht_33kv_pole_status = fields.Char(string='Pole Status')
     ht_33kv_pole_type = fields.Char(string='Pole Type') 
     ht_33kv_pole_material = fields.Char(string='Pole Material')

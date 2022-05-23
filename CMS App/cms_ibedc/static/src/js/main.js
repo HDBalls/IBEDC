@@ -38,7 +38,6 @@ function ChangeUrl(pagedata,title,url) {
 
 function templateRenderer(data,mode){
     console.log("Found from db ",data, data.status)
-   
 
     if ('content' in document.createElement('template')) {
 
@@ -52,9 +51,7 @@ function templateRenderer(data,mode){
             var h1 = document.getElementById("notfoundh1");
             console.log("H1 ",h1)
             h1.style.display = 'flex';
-            // h1.style.flexDirection = 'row'
             h1.innerHTML = data.message;
-            // notfound_table.appendChild(clone);
             notfound_table.innerHTML = data.message ;
             notfound_table.style.display = 'block';
             return null
@@ -64,7 +61,6 @@ function templateRenderer(data,mode){
         if (mode == 'billing'){
             var tbody = document.querySelector("tbody");
             var template = document.querySelector('#billingrow');
-        
             // Clone the new row and insert it into the table
             var td = null
             var clone = null
@@ -78,8 +74,6 @@ function templateRenderer(data,mode){
                 td[3].textContent = data[i][3];
                 td[4].textContent = data[i][4];
                 td[5].textContent = data[i][5];
-                
-            
                 tbody.appendChild(clone);
             }
         }
@@ -88,7 +82,6 @@ function templateRenderer(data,mode){
             console.log("Payment history ", data)
             var tbody = document.querySelector("tbody");
             var template = document.querySelector('#paymentrow');
-        
             // Clone the new row and insert it into the table
             var td = null
             var clone = null
@@ -105,17 +98,12 @@ function templateRenderer(data,mode){
                 td[6].textContent = data[i].trans_status;
                 td[7].textContent = data[i].gross_amount;
                 td[8].textContent = data[i].net_amount;
-            
                 tbody.appendChild(clone);
             }
         }
-        
-
-    
-    } else {
-      // Find another way to add the rows to the table because
-      // the HTML template element is not supported.
-    }
+            
+    } 
+    else {}
 }
 
 function titleCase(str) {
@@ -123,6 +111,20 @@ function titleCase(str) {
       return word.replace(word[0], word[0].toUpperCase());
     }).join(' ');
   }
+
+function setNavBorder(i){
+    var active = StateManagement.prototype.pullState("active-nav")
+        try{
+            var links = document.getElementsByClassName("navbar-items")
+           links[i].style.color = "orange"
+            links[i].style.borderBottom = "2px solid #3aadaa"; 
+            links[i].style.borderRadius="3px" 
+            
+        }
+        catch(err){
+            alert(err)
+        }   
+}
 
 function loadDashboardTemplate(template_id){
     clearVcrContainer().then(()=>{
@@ -133,44 +135,65 @@ function loadDashboardTemplate(template_id){
         let grock = document.getElementById('vcr');
         elem.append(dashboard_template.content.cloneNode(true));
         console.log("current user ", user_url_params)
-        window.localStorage.setItem('current_url_id',template_id)      
+        window.localStorage.setItem('current_url_id',template_id)  
+        setNavBorder(0) 
+        
     })
     
 }
 
 function loadCustomerTemplate(template_id,loadType=false){
-    if (loadType != "bodyload"){
-        const queryString = window.location.search;
-        // console.log("\n\nData from odoo server ",queryString);
-        var fetchedState = StateManagement.prototype.pullState('cms.curr.user')
-        setUsername()
-        console.log("\n\nUser state from Store ", fetchedState)
-        clearVcrContainer().then(()=>{
-            OnInit(template_id)
-            let elem = document.getElementById('template_parent');
-            console.log("b4 ",elem)
-            let grock = document.getElementById('vcr');
-            elem.append(customers_list_view.content.cloneNode(true));
-            window.localStorage.setItem('cust_view_mode','list')
-            // grock.append(elem);
-            window.localStorage.setItem('current_url_id',template_id)
-        })
+    var input = document.getElementById("search_customer_input");
+    input.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        deepSearch(input.value)
     }
+    });
 
-    if (loadType== 'bodyload'){
-        const queryString = window.location.search;
-        // console.log("\n\nData from odoo server ",queryString);
-        var fetchedState = StateManagement.prototype.pullState('cms.curr.user')
-        setUsername()
-        console.log("\n\nUser state from Store ", fetchedState)
-        OnInit(template_id)
-        let elem = document.getElementById('template_parent');
-        console.log("after ",elem)
-        let grock = document.getElementById('vcr');
-        elem.append(customers_list_view.content.cloneNode(true));
-        window.localStorage.setItem('cust_view_mode','list')
+    try{
 
-        window.localStorage.setItem('current_url_id',template_id)
+        if (window.localStorage.getItem('cust_view_mode')=='list'){
+            if (loadType != "bodyload"){
+                const queryString = window.location.search;
+                var fetchedState = StateManagement.prototype.pullState('cms.curr.user')
+                setUsername()
+                console.log("\n\nUser state from Store ", fetchedState)
+                clearVcrContainer().then(()=>{
+                    OnInit(template_id)
+                    let elem = document.getElementById('template_parent');
+                    console.log("b4 ",elem)
+                    let grock = document.getElementById('vcr');
+                    elem.append(customers_list_view.content.cloneNode(true));
+                    window.localStorage.setItem('cust_view_mode','list')
+                    // grock.append(elem);
+                    window.localStorage.setItem('current_url_id',template_id)
+                    setNavBorder(1)
+                })
+            }
+        
+            if (loadType== 'bodyload'){
+                const queryString = window.location.search;
+                var fetchedState = StateManagement.prototype.pullState('cms.curr.user')
+                setUsername()
+                console.log("\n\nUser state from Store ", fetchedState)
+                OnInit(template_id)
+                let elem = document.getElementById('template_parent');
+                console.log("after ",elem)
+                let grock = document.getElementById('vcr');
+                elem.append(customers_list_view.content.cloneNode(true));
+                window.localStorage.setItem('cust_view_mode','list')
+                setNavBorder(1)
+                window.localStorage.setItem('current_url_id',template_id)
+            }
+    
+        }
+        
+        else{OnInit('');setUsername();gridmode()}
+
+    }
+    catch(err){
+        console.log("ERROR OCCURED ",err)
     }
     
 }
@@ -184,6 +207,7 @@ function loadBillingHistoryTemplate(template_id){
         elem.append(billinghistory_template.content.cloneNode(true));
         grock.append(elem);
         window.localStorage.setItem('current_url_id',template_id)
+        setNavBorder(2)
     })
     
 }
@@ -197,9 +221,9 @@ function loadPaymentsHistoryTemplate(template_id){
         elem.append(paymentshistory_template.content.cloneNode(true));
         grock.append(elem);
         window.localStorage.setItem('current_url_id',template_id)
+        setNavBorder(3)
     })
     
-
 }
 
 function parameters() {
@@ -225,15 +249,6 @@ function parameters() {
       console.log(buffer.charAt(buffer.length-1))
       appendable = "="
       params[values[0]] = values[1];
-    //   if (buffer.charAt(buffer.length-1) == "="){
-    //     appendable = "="
-    //     params[values[0]] = values[1]+appendable;
-    //   }
-    //     else{
-    //         params[values[0]] = values[1];
-    //     }
-
-      
     }
     return {"base": paramString[1], "params": params};
   }
@@ -242,7 +257,6 @@ function loadCustomerDetailsTemplate(template_id,url){
     
     url_params = parameters()
     urlparameters = url_params.params
-    console.log(urlparameters)
     current_cmp = urlparameters.component
     clearVcrContainer().then(()=>{
         OnInit(template_id)
@@ -253,29 +267,25 @@ function loadCustomerDetailsTemplate(template_id,url){
         window.localStorage.setItem('current_url_id',template_id)
         if (current_cmp == "personal_info"){
             loadPersonalInfoTemplate('personal_info_template')
-        }
-            
+        }   
         if (current_cmp == "meter_info")
             loadMeteringInfoTemplate('meter_info_template')
         if (current_cmp == "assets_info")
             loadAssetsInfoTemplate('assets_info_template')
     })
-    
-    return null
-    
+    connectToEventServer()
+    return null  
 
 }
 
 function hasChildElement(elm) {
     var child, rv;
     if (elm.children) {
-        // Supports `children`
         rv = elm.children.length !== 0;
     } else {
-        // The hard way...
         rv = false;
         for (child = element.firstChild; !rv && child; child = child.nextSibling) {
-            if (child.nodeType == 1) { // 1 == Element
+            if (child.nodeType == 1) {
                 rv = true;
             }
         }
@@ -288,17 +298,9 @@ async function clearInfoVcrContainer(id){
     if (hasChildElement(a)) {
         a.innerHTML=''
     }
-
 }
 
 function loadPersonalInfoTemplate(template_id){
-    // clearInfoVcrContainer('info-vcr').then(()=>{
-    //     OnInit(template_id)
-    //     let elem = document.getElementById('info-vcr');
-    //     elem.append(personal_info_template.content.cloneNode(true));
-    //     window.localStorage.setItem('current_url_id',template_id)
-    // })
-
     current_cmp = 'personal_info'
     OnComponentInit('personal_info').then(()=>{
         console.log("Loading Personal info template 1 ", template_id)
@@ -315,21 +317,58 @@ function loadPersonalInfoTemplate(template_id){
 
 } 
 
+async function deepSearch(value){
+    // return new Promise(function(resolve, reject) {
+    //     // var account_no = "11/12/64/0035-01"
+    //     var url = `http://127.0.0.1:8069/cms/customers/search?searchparam=${value}` /cms/customers/search/page/<int:page></int:page>
+    //     fetch(url).then((response)=> {
+    //         console.log("Response ",response)
+    //         // console.log("Response from odoo backend ", JSON.stringify(response),response)
+    //         return response.json();
+    //         }).then((data)=> {
+    //             console.log(data)
+                
+    //         if (data.status==true){
+    //             console.log(data.data)
+    //             resolve(data.data)
+    //             return data.data
+    //             //   alert(data.message) //reserve room for user
+    //         }
+    //         else{
+    //             resolve(data)
+    //             return data
+                
+    //         }
+            
+    //         }).catch(function(err) {
+    //         console.log("Caught an error server ",err);
+    //         });
+        
+    // })
+    var view_mode = window.localStorage.getItem('cust_view_mode')
+    var fetchedState = StateManagement.prototype.pullState('cms.curr.user').params
+    document.location.replace(`/cms/customers/search/page/1?view=${'customers'}&id=${fetchedState.id}&user=${fetchedState.user}&searchparam=${value}`).then(()=>{
+        document.getElementById("search_customer_input").innerHTML = value
+        document.getElementById("searchparam").innerHTML = value
+
+    })
+    
+    // document.location.replace(`/cms/customers/?view=${'customers'}&id=${fetchedState.id}&user=${fetchedState.user}/page/${i}}`)
+
+}
+
 async function LoadSingleCustomerBilling(account_no){
 
     return new Promise(function(resolve, reject) {
-        // var account_no = "11/12/64/0035-01"
         var url = `http://127.0.0.1:8069/cms/lazybilling_history/?account_no=${account_no}`
         fetch(url).then((response)=> {
-            // console.log("Response from odoo backend ", JSON.stringify(response),response)
             return response.json();
             }).then((data)=> {
                 
             if (data.status==true){
                 console.log(data.data)
                 resolve(data.data)
-                return data.data
-                //   alert(data.message) //reserve room for user
+                return data.datar
             }
             else{
                 resolve(data)
@@ -338,7 +377,7 @@ async function LoadSingleCustomerBilling(account_no){
             }
             
             }).catch(function(err) {
-            console.log("Caught an error server ",err);
+                console.log("Caught an error server ",err);
             });
         
     })
@@ -348,29 +387,24 @@ async function LoadSingleCustomerBilling(account_no){
 async function LoadSingleCustomerPayment(account_no){
 
     return new Promise(function(resolve, reject) {
-        // var account_no = "11/12/64/0035-01"
         var url = `http://127.0.0.1:8069/cms/lazypayment_history/?account_no=${account_no}`
         fetch(url).then((response)=> {
-            // console.log("Response from odoo backend ", JSON.stringify(response),response)
             return response.json();
             }).then((data)=> {
-                
                 if (data.status==true){
                     console.log(data.data)
                     resolve(data.data)
                     return data.data
-                    //   alert(data.message) //reserve room for user
                 }
                 else{
                     resolve(data)
                     return data
-                    
                 }
             
             }).catch(function(err) {
             console.log("Caught an error server ",err);
             });
-        
+
     })
     
 }
@@ -380,7 +414,6 @@ function loadBillingInfoTemplate(template_id,account_no){
         OnInit(template_id)
         setUsername()
         LoadSingleCustomerBilling(account_no).then((data)=>{
-            console.log("Response ", data)
             let elem = document.getElementById('info-vcr');
             var p =  new Promise(function(resolve, reject) {
                 resolve(elem.append(billing_history_info_template.content.cloneNode(true)))
@@ -434,7 +467,6 @@ async function OnComponentInit(current_cmp){
 function loadMeteringInfoTemplate(template_id){
     current_cmp = 'meter_info'
     OnComponentInit('meter_info').then(()=>{
-        console.log("Loading Meter info template 1 ", template_id)
         clearInfoVcrContainer('info-vcr').then(()=>{
             OnInit(template_id)
             let elem = document.getElementById('info-vcr');
@@ -445,14 +477,12 @@ function loadMeteringInfoTemplate(template_id){
             ChangeUrl({state:'meter_info',data:urlparameters.queryParam},'Meter Information',newUrl);
         })
     })
-    
-    
+
 } 
 
 function loadAssetsInfoTemplate(template_id){
     current_cmp = 'assets_info'
     OnComponentInit('assets_info').then(()=>{
-        console.log("Loading assets info template 1 ", template_id)
         clearInfoVcrContainer('info-vcr').then(()=>{
             OnInit(template_id)
             let elem = document.getElementById('info-vcr');
@@ -463,11 +493,8 @@ function loadAssetsInfoTemplate(template_id){
             ChangeUrl({state:'assets_info',data:urlparameters.queryParam},'Assets Information',newUrl);
         })
     })
-    
-    
+       
 } 
-
-
 
 // for (var a=[],i=0;i<40;++i) a[i]=i; for older browsers
 
@@ -492,7 +519,7 @@ function randomArray(length, max) {
 function encryptString(value){
     var secret = new fernet.Secret("5CWvxbkxPI2e0W2KRc1l4ZXMXRn7WJzdGP9NZhbbVgA=");
     var arr = randomArray(15,1000)
-    console.log("\n\nencryption array ",arr)
+    console.log("\n\nEncryption array ",arr)
     return new fernet.Token({
         secret: secret,
         time: Date.parse(1),
@@ -502,7 +529,7 @@ function encryptString(value){
 
 function decryptString(value){
     value = value.replace(/@/g,"=")
-    console.log("REplaceing ", value)
+    console.log("Replacing ", value)
     var secret = new fernet.Secret("5CWvxbkxPI2e0W2KRc1l4ZXMXRn7WJzdGP9NZhbbVgA=");
     return new fernet.Token({
         secret:secret,
@@ -517,19 +544,16 @@ function navigateToCustomerDetailsTemplate(domObj,component){
     var queryParam = vals[1].split("'")[0]
     var component = vals[3].split("'")[0]
     var token = decryptString(queryParam)
-    console.log("Decoded token ",token)
     document.location.replace(`/cms/customer_details?component=${component}&queryParam=${queryParam}`)
 }
 
 function listmode(){
     window.localStorage.setItem('cust_view_mode','list')
-
     clearInfoVcrContainer('template_parent').then(()=>{
         let elem = document.getElementById('template_parent');
         let grock = document.getElementById('vcr');
         elem.append(customers_list_view.content.cloneNode(true));
         var isVal = document.getElementById("search_customer_input").value
-        console.log("When empty ",isVal)
         if (isVal){
             console.log('search Has val')
             searchCustomer()
@@ -542,34 +566,34 @@ function listmode(){
 
 function gridmode(){
     window.localStorage.setItem('cust_view_mode','grid')
-    // clearVcrContainer().then(()=>{
+    clearVcrContainer('template_parent').then(()=>{
         try{
             var a = $('#list-card');
             $(a).remove();
         }
         catch(err){
-            console.log(err)
+            console.log('Error occured ',err)
         }
         let elem = document.getElementById('template_parent');
+        elem.innerHTML = ''
         let grock = document.getElementById('vcr');
+        grock.innerHTML = ''
         elem.append(tmpl.content.cloneNode(true));
         grock.append(elem);
         var isVal = document.getElementById("search_customer_input").value
         console.log("When empty ",isVal)
         if (isVal){
-            console.log('search Has val')
             searchCustomer()
         }
         else{
             console.log("search empty")
         }
-        // searchCustomer()
-    // })
-    
+    }) 
 
 }
 
 function OnInit(template_id){
+
     try{
         var a = $('#oe_main_menu_navbar');
         $(a).remove();
@@ -614,32 +638,27 @@ function searchCustomer() {
     }
 
     if (view_mode == "grid"){
-
         var input, filter, grid, div, td, i, txtValue,name;
         input = document.getElementById("search_customer_input");
         filter = input.value.toUpperCase();
         grid = document.getElementById("customers_grid");
         for (i = 0; i < grid.childElementCount; i++) {
-        div = grid.children[i]
-        divt = div.getElementsByTagName("div")[7];
-        // console.log("chosen div ", divt)
-        // console.log('Div I',div)
-        name = div.getElementsByTagName("span")[1];
-        // console.log('Name ',name)
-        if (name) {
-            txtValue = name.textContent || name.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            div.style.display = "";
-            } else {
-            div.style.display = "none";
-            }
-        }       
+            div = grid.children[i]
+            divt = div.getElementsByTagName("div")[7];
+            name = div.getElementsByTagName("span")[1];
+            if (name) {
+                txtValue = name.textContent || name.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                div.style.display = "";
+                } else {
+                div.style.display = "none";
+                }
+            }       
 
-    }   
+        }   
     }
     
-  }
-
+}
 
 function searchPaymentHistory() {
     var input, filter, table, tr, td, i, txtValue;
@@ -685,13 +704,8 @@ function searchPaymentHistory() {
     var dataType = 'application/vnd.ms-excel';
     var tableSelect = document.getElementById(tableID);
     var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-    
-    // Specify file name
     filename = filename?filename+'.xls':'excel_data.xls';
-    
-    // Create download link element
     downloadLink = document.createElement("a");
-    
     document.body.appendChild(downloadLink);
     
     if(navigator.msSaveOrOpenBlob){
@@ -699,18 +713,13 @@ function searchPaymentHistory() {
             type: dataType
         });
         navigator.msSaveOrOpenBlob( blob, filename);
-    }else{
-        // Create a link to the file
+    }
+    else{
         downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-    
-        // Setting the file name
         downloadLink.download = filename;
-        
-        //triggering the function
         downloadLink.click();
     }
 }
-
 
 function exportTableToExcel(tableID, filename = '', fn, dl,type='xlsx') {
     var elt = document.getElementById(tableID);
@@ -720,26 +729,94 @@ function exportTableToExcel(tableID, filename = '', fn, dl,type='xlsx') {
       XLSX.writeFile(wb, fn || (filename));
  }
 
+
 function redirect(view){
+
+    StateManagement.prototype.pushState('active-nav',view)
     if (view == "dashboard"){
         var fetchedState = StateManagement.prototype.pullState('cms.curr.user').params
         console.log("decrypted id ",fetchedState.id,decryptString(fetchedState.id))
         document.location.replace(`/cms/dashboard/?view=${'dashboard'}&id=${fetchedState.id}&user=${fetchedState.user}`)
+        
     }
     if (view == "customers"){
+        var view_mode = window.localStorage.getItem('cust_view_mode')
         var fetchedState = StateManagement.prototype.pullState('cms.curr.user').params
-        document.location.replace(`/cms/customers/?view=${'customers'}&id=${fetchedState.id}&user=${fetchedState.user}`)
+        document.location.replace(`/cms/customers/page/1?view=${'customers'}&id=${fetchedState.id}&user=${fetchedState.user}`)
+        // document.location.replace(`/cms/customers/?view=${'customers'}&id=${fetchedState.id}&user=${fetchedState.user}/page/${i}}`)
     }
     if (view == "billing_history"){
         var fetchedState = StateManagement.prototype.pullState('cms.curr.user').params
         console.log("decrypted id ",fetchedState.id,decryptString(fetchedState.id))
-        document.location.replace(`/cms/billing_history/?view=${'billing_history'}&id=${fetchedState.id}&user=${fetchedState.user}`)
+        document.location.replace(`/cms/billing_history/page/1?view=${'billing_history'}&id=${fetchedState.id}&user=${fetchedState.user}`)
     }
     if (view == "payment_history"){
         var fetchedState = StateManagement.prototype.pullState('cms.curr.user').params
-        document.location.replace(`/cms/payment_history/?view=${'payment_history'}&id=${fetchedState.id}&user=${fetchedState.user}`)
+        document.location.replace(`/cms/payment_history/page/1?view=${'payment_history'}&id=${fetchedState.id}&user=${fetchedState.user}`)
     }
 }
+
+function removeTableCol(self)
+
+{
+    var col_name = self.value
+    var tble = document.getElementById('customers_table');
+    var row = tble.rows; // Getting the rows
+
+    if (self.checked ==false){
+        for (var i = 0; i < row[0].cells.length; i++) {
+
+            // Getting the text of columnName
+            var str = row[0].cells[i].innerHTML;
+    
+            // If 'Geek_id' matches with the columnName
+            if (str.search(col_name) != -1) {
+               
+                for (var j = 0; j < row.length; j++) {
+    
+                    // Deleting the ith cell of each row
+                    try{
+                        row[j].getElementsByTagName('td')[i].style.display="none"
+                        // row[j][i].style.display="none";
+                    }
+                    catch(err){
+                        row[j].getElementsByTagName('th')[i].style.display="none"
+                    }
+                }
+            }
+        }
+    }
+    else{
+        for (var i = 0; i < row[0].cells.length; i++) {
+
+            // Getting the text of columnName
+            var str = row[0].cells[i].innerHTML;
+    
+            // If 'Geek_id' matches with the columnName
+            if (str.search(col_name) != -1) {
+               
+                for (var j = 0; j < row.length; j++) {
+    
+                    // Deleting the ith cell of each row
+                    try{
+                        row[j].getElementsByTagName('td')[i].style.display="table-cell"
+                        row[j].getElementsByTagName('td')[i].removeAttribute("hidden");
+                        // row[j].getElementsByTagName('th')[i].removeAttribute("hidden"); 
+                        // row[j][i].style.display="table-cell";
+                    }
+                    catch(err){
+                        row[j].getElementsByTagName('th')[i].style.display="table-cell"
+                        row[j].getElementsByTagName('th')[i].removeAttribute("hidden"); 
+                    }
+                }
+            }
+        }
+
+    }
+   
+
+}
+
 
 
 // [2022-05-14T01:12:15.350Z]  "GET /chart_meter_statistics.js" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36 Edg/101.0.1210.39"       

@@ -97,92 +97,89 @@
                                 </div>
 
                                 <!-- Billing history template -->
-                                    <template id="billinghistory_template">
-                                        <div style="width:100%; height:100%;">
-                                            <div class="top-header">
-                                                <div class="header-start">
-                                                    <h1>Billing history</h1>
-                                                    <p>You have a total of <span t-esc="total_bills"/> billing records</p> 
-                                                </div>
-                                                <div class="header-end">
-                                                    <button onclick="exportTableToExcel('bill_table','excel_billing_history')" class="exportbtn zoom shadow flex-row">
-                                                        <i class="material-icons">cloud_download</i>
-                                                        &amp;nbsp
-                                                        <div>Export</div>
-                                                    </button>
-                                                    <button class="export-addbtn">
-                                                        <i style="color:white; padding-top:5px;" class="material-icons">add</i>
-                                                    </button>
-                                                </div>
+                                <template id="billinghistory_template">
+                                    <div style="width:100%; height:100%;">
+                                        <div class="top-header">
+                                            <div class="header-start">
+                                                <h1>Billing History</h1>
+                                                <p>You have a total of <span t-esc="total_bills"/> billing records</p> 
                                             </div>
-                                            <div class="table-card shadow" style="width:100%;" >
-                                                <div style="width:100%; height:100%; " >
-                    
-                                                    
-                                                    <div class="top-panel">
-                                                        <div class="panel-start flex-row">
-                                                            <select>
-                                                                <option>Bulk Action</option>
-                                                            </select>
-                            
-                                                            <div class="panel-btn">
-                                                                Apply
-                                                            </div>
-                                                        </div>
-                                                        <div class="panel-end flex-row">
-                                                            <!-- <input type="text" hidden/> -->
-                                                            <span>
-                                                                <i class="material-icons">search</i>
-                                                            </span>
-                                                            <span>
-                                                                <i class="material-icons">menu</i>
-                                                            </span>
-                                                            <span>
-                                                                <i class="material-icons">settings</i>
-                                                            </span>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div style="width:100%;max-height: 600px; overflow-y: auto;">
-                                                    <table id="bill_table" class="table">
-                                                        <thead style="position:sticky;top:0;" class="thead-dark">
-                                                            <th style="position:sticky;top:0;">Bill ID</th>
-                                                            <th style="position:sticky;top:0;">Tarrif Name</th>
-                                                            <th style="position:sticky;top:0;">Billing Date</th>
-                                                            <th style="position:sticky;top:0;">Total Amount</th>
-                                                            <th style="position:sticky;top:0;">Total Usage</th>
-                                                            <th style="position:sticky;top:0;">Billing Purpose</th>
-                                                        </thead>
-                                                        <tbody>
-                                                            <t t-foreach="billinghistory" t-as="billinghistory">
-                                                                <tr>
-                                                                    <td><span t-esc="billinghistory.bill_id"/></td>
-                                                                    <td><span t-esc="billinghistory.tarrif_name"/></td>
-                                                                    <td><span t-esc="billinghistory.period"/></td>
-                                                                    <td><span t-esc="billinghistory.total_amount"/></td>
-                                                                    <td><span t-esc="billinghistory.total_usage"/></td>
-                                                                    <td>&#x2022;&#x2022;&#x2022;</td>
-                                                                </tr>
-                                                            </t>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="table-paginator">
-                                                    <button class="btn">Prev</button>
-                                                    <button class="btn">1</button>
-                                                    <button class="btn">2</button>
-                                                    <button class="btn">...</button>
-                                                    <button class="btn">6</button>
-                                                    <button class="btn">7</button>
-                                                    <button class="btn">Next</button>
-                                                </div>
+                                            <div class="header-end">
+                                                <button onclick="exportTableToExcel('bill_table','excel_billing_history')" class="exportbtn zoom shadow flex-row">
+                                                    <i class="material-icons">cloud_download</i>
+                                                    &amp;nbsp
+                                                    <div>Export</div>
+                                                </button>
+                                                <button class="export-addbtn">
+                                                    <i style="color:white; padding-top:5px;" class="material-icons">add</i>
+                                                </button>
                                             </div>
                                         </div>
-                                    </template>
-                                <footer style="width:100%;">
-                                    @2022 IBEDC
-                                </footer>
+                                        <div class="table-card shadow" style="width:100%;" >
+                                            <div style="width:100%; height:100%; " >
+                
+                                                
+                                                <div class="top-panel">
+                                                    <div class="panel-start flex-row">
+                                                        <select>
+                                                            <option>Bulk Action</option>
+                                                        </select>
+                        
+                                                        <div class="panel-btn">
+                                                            Apply
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-end flex-row">
+                                                        <!-- <input type="text" hidden/> -->
+                                                        <span>
+                                                            <i class="material-icons">search</i>
+                                                        </span>
+                                                        <span>
+                                                            <i class="material-icons">menu</i>
+                                                        </span>
+                                                        <span>
+                                                            <i class="material-icons">settings</i>
+                                                        </span>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div style="width:100%;max-height: 600px; overflow-y: auto;">
+                                                <table id="bill_table" class="table">
+                                                    <thead style="background:white;position:sticky;top:0;">
+                                                        <th style="position:sticky;top:0;">Bill ID</th>
+                                                        <th style="position:sticky;top:0;">Tarrif Name</th>
+                                                        <th style="position:sticky;top:0;">Billing Date</th>
+                                                        <th style="position:sticky;top:0;">Total Amount</th>
+                                                        <th style="position:sticky;top:0;">Total Usage</th>
+                                                        <th style="position:sticky;top:0;">Billing Purpose</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-foreach="billinghistory" t-as="billinghistory">
+                                                            <tr>
+                                                                <td><span t-esc="billinghistory.bill_id"/></td>
+                                                                <td><span t-esc="billinghistory.tarrif_name"/></td>
+                                                                <td><span t-esc="billinghistory.period"/></td>
+                                                                <td><span t-esc="billinghistory.total_amount"/></td>
+                                                                <td><span t-esc="billinghistory.total_usage"/></td>
+                                                                <td>&#x2022;&#x2022;&#x2022;</td>
+                                                            </tr>
+                                                        </t>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="products_pager form-inline justify-content-right mt-3">
+                                                <t t-call="website.pager">
+                                                    <t t-set="_classes">mt-2 ml-md-2</t>
+                                                </t>
+                                            </div>
+                                            <br/>
+                                            <br/>
+                                        </div>
+                                        <br/>
+                                            <br/>
+                                    </div>
+                                </template>
                             </div>
                         </div>
                     </body>
